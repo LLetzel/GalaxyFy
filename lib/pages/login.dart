@@ -13,11 +13,13 @@ class Login_GalaxyFy extends StatefulWidget {
 class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
   final _formKey = GlobalKey<FormState>();
   bool _showPassword = false;
+  bool _rememberMe = false; // Estado do switch
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   void _submit() {
     if (_formKey.currentState?.validate() == true) {
+      // Aqui você pode usar o valor de _rememberMe conforme necessário
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -34,7 +36,7 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'img/fundo.png',
+              'assets/img/fundo.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -45,10 +47,12 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
+                      SizedBox(
+                          height: 50), // Aumente o valor para mais distância
                       Container(
                         margin: EdgeInsets.only(top: 20),
                         child: Image.asset(
-                          'img/astronauta.png',
+                          'assets/img/astronauta.png',
                           height: 180,
                           width: 180,
                           fit: BoxFit.cover,
@@ -72,11 +76,12 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                                 decoration: InputDecoration(
                                   fillColor: Color(0xFF1E1E1E),
                                   labelText: 'Email',
-                                  prefixIcon: Icon(Icons.mail),
-                                  iconColor: Colors.purple,
+                                  prefixIcon:
+                                      Icon(Icons.mail, color: Colors.purple),
                                   hintText: "Informe o email",
                                 ),
-                                style: TextStyle(color: Colors.white), // Texto em branco
+                                style: TextStyle(
+                                    color: Colors.white), // Texto em branco
                                 validator: (String? email) {
                                   if (email == null || email.isEmpty) {
                                     return "O e-mail não pode ser vazio";
@@ -95,12 +100,14 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                                 obscureText: !_showPassword,
                                 decoration: InputDecoration(
                                   labelText: 'Senha',
-                                  prefixIcon: Icon(Icons.lock),
+                                  prefixIcon:
+                                      Icon(Icons.lock, color: Colors.purple),
                                   suffixIcon: GestureDetector(
                                     child: Icon(
                                       _showPassword
                                           ? Icons.visibility
                                           : Icons.visibility_off,
+                                      color: Colors.purple,
                                     ),
                                     onTap: () {
                                       setState(() {
@@ -108,10 +115,10 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                                       });
                                     },
                                   ),
-                                  iconColor: Colors.purple,
                                   hintText: "Digite sua senha",
                                 ),
-                                style: TextStyle(color: Colors.white), // Texto em branco
+                                style: TextStyle(
+                                    color: Colors.white), // Texto em branco
                                 validator: (String? password) {
                                   if (password == null || password.isEmpty) {
                                     return "A senha não pode ser vazia";
@@ -119,6 +126,29 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                                   return null;
                                 },
                               ),
+                              SizedBox(height: 15),
+
+                              // Switch de "Lembrar de mim"
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "Lembrar de mim",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                  Switch(
+                                    value: _rememberMe,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _rememberMe = value;
+                                      });
+                                    },
+                                    activeColor: Colors.purple,
+                                  ),
+                                ],
+                              ),
+
                               SizedBox(height: 15),
                               Center(
                                 child: ElevatedButton(
@@ -135,18 +165,94 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                                 ),
                               ),
                               SizedBox(height: 15),
-                              Divider(color: Colors.black),
+                              const Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Divider(
+                          color: Colors.white,
+                          indent: 5,
+                          endIndent: 5,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 30),
+                        child: Text('ou',
+                            style: TextStyle(fontSize: 20, color: Colors.white)),
+                      ),
+                      Expanded(
+                        child: Divider(
+                          color: Colors.white,
+                          indent: 5,
+                          endIndent: 5,
+                        ),
+                      ),
+                    ],
+                  ),
+                              SizedBox(height: 15),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  // Ícone do Google
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF8D8585), // Cor de fundo
+                                      shape: BoxShape.circle, // Forma redonda
+                                    ),
+                                    child: IconButton(
+                                      icon: Image.asset('assets/img/google.png',
+                                          height: 25),
+                                      onPressed: () {
+                                        // Ação para login com Google
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(width: 40),
+                                  // Ícone do Facebook
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF8D8585), // Cor de fundo
+                                      shape: BoxShape.circle, // Forma redonda
+                                    ),
+                                    child: IconButton(
+                                      icon: Image.asset('assets/img/facebook.png',
+                                          height: 25),
+                                      onPressed: () {
+                                        // Ação para login com Facebook
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(width: 40),
+                                  // Ícone da Apple
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF8D8585), // Cor de fundo
+                                      shape: BoxShape.circle, // Forma redonda
+                                    ),
+                                    child: IconButton(
+                                      icon: Image.asset('assets/img/apple.png',
+                                          height: 25),
+                                      onPressed: () {
+                                        // Ação para login com Apple ID
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 30),
                               Center(
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
                                       "Não tem uma conta?  ",
-                                      style: TextStyle(color: Colors.white), // Texto em branco
+                                      style: TextStyle(
+                                          color:
+                                              Colors.white), // Texto em branco
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        Navigator.pushNamed(context, "/cadastro");
+                                        Navigator.pushNamed(
+                                            context, "/cadastro");
                                       },
                                       child: Text(
                                         "Inscreva-se",

@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/pages/cadastro.dart';
+import 'package:galaxyfy_application/pages/home.dart';
 import 'package:galaxyfy_application/pages/login.dart';
 
 void main() {
@@ -15,14 +16,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-    title: 'Galaxyfy',
-    initialRoute: "/",
-     routes: {
-      '/': (context) => const Login_GalaxyFy(),
-      '/cadastro': (context) => const Cadastro_GalaxyFy(),
-      // '/home': (context) => const Home(),
-
-     },
+      title: 'Galaxyfy',
+      initialRoute: "/",
+      routes: {
+        "/": (context) => const HomePage(),
+        // '/': (context) => const Login_GalaxyFy(),
+        '/cadastro': (context) => const Cadastro_GalaxyFy(),
+        // '/home': (context) => const Home(),
+      },
     );
   }
 }

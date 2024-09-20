@@ -36,7 +36,7 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
         children: [
           Positioned.fill(
             child: Image.asset(
-              'img/fundo.png',
+              'assets/img/fundo.png',
               fit: BoxFit.cover,
             ),
           ),
@@ -47,7 +47,7 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                   child: Column(
                     children: [
                       Image.asset(
-                        'img/astronauta.png',
+                        'assets/img/astronauta.png',
                         height: 180,
                         width: 180,
                         fit: BoxFit.cover,
@@ -145,6 +145,7 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                                       _showPassword
                                           ? Icons.visibility
                                           : Icons.visibility_off,
+                                          color: Colors.purple,
                                     ),
                                     onTap: () {
                                       setState(() {
@@ -180,6 +181,7 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                                       _showConfirmPassword
                                           ? Icons.visibility
                                           : Icons.visibility_off,
+                                          color: Colors.purple,
                                     ),
                                     onTap: () {
                                       setState(() {
