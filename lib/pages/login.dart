@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/pages/cadastro.dart';
+import 'package:galaxyfy_application/shared/style.dart';
 
 class Login_GalaxyFy extends StatefulWidget {
   const Login_GalaxyFy({super.key});
@@ -33,6 +34,12 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
   Widget build(BuildContext context) {
     var scaffold = Scaffold(
       body: Stack(
+
+        // stops: [
+        //     0.2,
+        //     0.5,
+        //     0.8,
+        //   ],
         children: [
           Positioned.fill(
             child: Image.asset(
@@ -63,7 +70,18 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                         padding: const EdgeInsets.all(15.0),
                         margin: const EdgeInsets.all(25),
                         decoration: BoxDecoration(
-                          color: Color(0xFF1E1E1E), // Cor de fundo
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              MyColors.roxoEscuro, // Cor roxa escura no topo
+                              // MyColors.escuro, // Preto na parte de baixo
+                              MyColors.roxoEscuro
+                            ],
+                            // stops: [0.5, 5, 0.5], // Controla o ponto de transição do gradiente
+                          ),
+                          // color: Color(0xFF1E1E1E), // Cor de fundo
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Form(
@@ -166,28 +184,30 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                               ),
                               SizedBox(height: 15),
                               const Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Divider(
-                          color: Colors.white,
-                          indent: 5,
-                          endIndent: 5,
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 30),
-                        child: Text('ou',
-                            style: TextStyle(fontSize: 20, color: Colors.white)),
-                      ),
-                      Expanded(
-                        child: Divider(
-                          color: Colors.white,
-                          indent: 5,
-                          endIndent: 5,
-                        ),
-                      ),
-                    ],
-                  ),
+                                children: <Widget>[
+                                  Expanded(
+                                    child: Divider(
+                                      color: Colors.white,
+                                      indent: 5,
+                                      endIndent: 5,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 30),
+                                    child: Text('ou',
+                                        style: TextStyle(
+                                            fontSize: 20, color: Colors.white)),
+                                  ),
+                                  Expanded(
+                                    child: Divider(
+                                      color: Colors.white,
+                                      indent: 5,
+                                      endIndent: 5,
+                                    ),
+                                  ),
+                                ],
+                              ),
                               SizedBox(height: 15),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -214,7 +234,8 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                                       shape: BoxShape.circle, // Forma redonda
                                     ),
                                     child: IconButton(
-                                      icon: Image.asset('assets/img/facebook.png',
+                                      icon: Image.asset(
+                                          'assets/img/facebook.png',
                                           height: 25),
                                       onPressed: () {
                                         // Ação para login com Facebook

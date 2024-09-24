@@ -1,7 +1,6 @@
-// home_page.dart
-
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/pages/components/navegacao.dart'; // Importa o arquivo de navegação
+import 'package:galaxyfy_application/shared/style.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -25,11 +24,10 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         clipBehavior: Clip.none, // Permite que itens extrapolem os limites
         children: [
-          // Conteúdo principal da página
+          // Substitua a imagem de fundo pelo gradiente
           Positioned.fill(
-            child: Image.asset(
-              'assets/img/fundo.png', // Caminho para a imagem de fundo
-              fit: BoxFit.cover,
+            child: Container(
+              decoration: MyColors.backgroundGradient(), // Aplica o gradiente de fundo
             ),
           ),
           const Center(
@@ -42,7 +40,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          // Certificando-se de que o menu navegação fique na frente
+          // Certificando-se de que o menu de navegação fique na frente
           Positioned(
             bottom: 0,
             left: 0,

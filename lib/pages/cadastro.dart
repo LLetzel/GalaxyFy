@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, camel_case_types, sort_child_properties_last
 
 import 'package:flutter/material.dart';
+import 'package:galaxyfy_application/shared/style.dart';
 
 class Cadastro_GalaxyFy extends StatefulWidget {
   const Cadastro_GalaxyFy({super.key});
@@ -56,8 +57,19 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                       Container(
                         padding: const EdgeInsets.all(15.0),
                         margin: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Color(0xFF1E1E1E), // Cor de fundo
+                       decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+
+                            end: Alignment.bottomCenter,
+                            colors: [
+                              MyColors.roxoEscuro, // Cor roxa escura no topo
+                              // MyColors.escuro, // Preto na parte de baixo
+                              MyColors.roxoEscuro
+                            ],
+                            // stops: [0.5, 5, 0.5], // Controla o ponto de transição do gradiente
+                          ),
+                          // color: Color(0xFF1E1E1E), // Cor de fundo
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Form(

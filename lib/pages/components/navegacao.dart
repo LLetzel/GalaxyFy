@@ -1,8 +1,5 @@
-// navegacao.dart
-
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
+import 'package:galaxyfy_application/shared/style.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   final int currentIndex;
@@ -28,12 +25,6 @@ class CustomBottomNavigationBar extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end, // Coloca o menubar na parte inferior
             children: [
-              // Divider acima do menubar
-              // Divider(
-              //   color: Color(0xFF131417), // Cor solicitada
-              //   height: 10, // Altura do Divider
-              //   thickness: 1, // Espessura do Divider
-              // ),
               BottomNavigationBar(
                 items: const <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
@@ -54,14 +45,16 @@ class CustomBottomNavigationBar extends StatelessWidget {
                   ),
                 ],
                 currentIndex: currentIndex,
-                selectedItemColor: const Color(0xFFF4BDFF), // Cor dos ícones selecionados
-                unselectedItemColor: const Color(0xFF676D75), // Cor dos ícones não selecionados
+                selectedItemColor: MyColors.rosaClaro, // Cor dos ícones selecionados
+                unselectedItemColor: MyColors.cinzaEscuro, // Cor dos ícones não selecionados
                 onTap: onItemTapped,
-                backgroundColor: Color(0xFF1E1E1E), // Transparente para sobrepor o fundo
+                backgroundColor: MyColors.escuro, // Cor de fundo
                 elevation: 0, // Remove sombra do menubar
                 type: BottomNavigationBarType.fixed, // Remove animação de transição
-                
                 iconSize: 30, // Tamanho dos ícones
+                enableFeedback: false, // Remove vibrações/sons
+                selectedIconTheme: IconThemeData(size: 30), // Mantém o tamanho do ícone fixo
+                unselectedIconTheme: IconThemeData(size: 30), // Mantém o tamanho do ícone fixo
               ),
             ],
           ),
