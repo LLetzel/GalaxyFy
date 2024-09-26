@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/pages/cadastro.dart';
 import 'package:galaxyfy_application/pages/home.dart';
 import 'package:galaxyfy_application/pages/login.dart';
+import 'package:galaxyfy_application/pages/selecaoperfil.dart';
 import 'package:galaxyfy_application/shared/style.dart';
 import 'package:galaxyfy_application/pages/splashscreen.dart';
 
@@ -28,7 +29,9 @@ class MyApp extends StatelessWidget {
       title: 'Galaxyfy',
       initialRoute: "/",
       routes: {
+        // '/': (context) => ProfileSelectionPage(),
         '/': (context) => SplashScreen(),
+        '/selection': (context) => ProfileSelectionPage(),
         '/home': (context) => const HomePage(),
         '/login': (context) => const Login_GalaxyFy(),
         '/cadastro': (context) => const Cadastro_GalaxyFy(),

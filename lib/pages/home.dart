@@ -30,6 +30,26 @@ class _HomePageState extends State<HomePage> {
               decoration: MyColors.backgroundGradient(), // Aplica o gradiente de fundo
             ),
           ),
+          // Barra de pesquisa
+          Positioned(
+            top: 50, // Ajusta a posição vertical da barra de pesquisa
+            left: 16,
+            right: 16,
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Pesquisar...',
+                hintStyle: TextStyle(color: Colors.white54),
+                prefixIcon: Icon(Icons.search, color: Colors.white),
+                filled: true,
+                fillColor: Colors.white12,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
           const Center(
             child: Text(
               'Tela do Início', // Mude este texto conforme necessário

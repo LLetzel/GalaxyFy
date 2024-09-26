@@ -2,7 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/pages/cadastro.dart';
+import 'package:galaxyfy_application/pages/home.dart';
 import 'package:galaxyfy_application/shared/style.dart';
+import 'package:galaxyfy_application/pages/selecaoperfil.dart';
 
 class Login_GalaxyFy extends StatefulWidget {
   const Login_GalaxyFy({super.key});
@@ -24,7 +26,7 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const Cadastro_GalaxyFy(),
+          builder: (context) => ProfileSelectionPage(),
         ),
       );
     }

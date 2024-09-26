@@ -24,7 +24,25 @@ class MyColors {
             MyColors.preto,
             // MyColors.roxoEscuro,
           ]),
-      borderRadius: BorderRadius.circular(20), // Arredondar os cantos
+      // borderRadius: BorderRadius.circular(20), // Arredondar os cantos
+    );
+  }
+  static BoxDecoration backgroundpurple() {
+    return BoxDecoration(
+      gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          stops: [
+            0.4,
+          //   0.5,
+            0.9,
+          ],
+          colors: [
+            MyColors.roxoEscuro,
+            MyColors.roxoEscuro,
+            // MyColors.roxoEscuro,
+          ]),
+      // borderRadius: BorderRadius.circular(20), // Arredondar os cantos
     );
   }
 }

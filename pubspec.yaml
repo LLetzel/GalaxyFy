@@ -63,6 +63,8 @@ flutter:
   assets:
     - assets/img/
     - assets/icons/
+    - assets/gif/
+    - assets/perfis/
     # - img/fundo.png
 
 

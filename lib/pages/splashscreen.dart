@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
-import 'dart:async'; // Para simular o delay do splash
+import 'dart:async'; // For simulating the delay of the splash
+
+// Import the gif package (assuming you've added it to your pubspec.yaml)
+// import 'package:flutter_gifview/flutter_gifview.dart';
+
 import 'package:galaxyfy_application/shared/style.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -18,8 +22,7 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
 
     // Configuring the animation
-    _controller =
-        AnimationController(vsync: this, duration: const Duration(seconds: 2));
+    _controller = AnimationController(vsync: this, duration: Duration(seconds: 2));
     _scaleAnimation = Tween<double>(begin: 1, end: 1.2).animate(
       CurvedAnimation(
         parent: _controller,
@@ -27,22 +30,22 @@ class _SplashScreenState extends State<SplashScreen>
       ),
     );
     _offsetAnimation = Tween<Offset>(
-      begin: const Offset(0, 0),
-      end: const Offset(0, -200), // Adjust the value for the desired position
+      begin: Offset(0, 0),
+      end: Offset(0, -200), // Adjust the value for the desired position
     ).animate(_controller);
 
     _controller.forward(); // Start the animation
 
     // Simulating time to exit the splash screen
-    Timer(const Duration(seconds: 2), () {
+    Timer(Duration(seconds: 2), () {
       _controller.reverse();
     });
 
-    Timer(const Duration(seconds: 3), () {
+    Timer(Duration(seconds: 3), () {
       _controller.forward();
     });
 
-    Timer(const Duration(seconds: 4), () {
+    Timer(Duration(seconds: 4), () {
       Navigator.pushReplacementNamed(context, '/login');
     });
   }
@@ -61,7 +64,7 @@ class _SplashScreenState extends State<SplashScreen>
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Astronaut image
+              // Astronaut image with animation
               AnimatedBuilder(
                 animation: _scaleAnimation,
                 builder: (context, child) {
@@ -74,9 +77,10 @@ class _SplashScreenState extends State<SplashScreen>
                   );
                 },
               ),
-              const SizedBox(height: 20), // Space between image and text
 
-              // Text "Galaxy Fy"
+              SizedBox(height: 20), // Space between image and text
+
+              // "GalaxyFy" text
               Text(
                 'GalaxyFy',
                 style: TextStyle(
@@ -86,6 +90,28 @@ class _SplashScreenState extends State<SplashScreen>
                   fontWeight: FontWeight.bold,
                 ),
               ),
+
+              SizedBox(height: 20),
+
+              // "Sua galáxia musical, personalizada para você" text
+              Text(
+                'Sua galáxia musical, personalizada para você',
+                style: TextStyle(
+                  fontFamily: MyFonts.fontPrimary, // Font family
+                  color: Colors.white,
+                ),
+              ),
+
+              SizedBox(height: 20),
+
+              // Added the "sound" GIF from assets/gif
+              // GifView(
+              //   // Replace 'sound.gif' with the actual filename in your assets/gif folder
+              //   gif: AssetImage('assets/gif/sound.gif'),
+              //   height: 50, // Adjust the height as needed
+              //   width: 50, // Adjust the width as needed
+              // ),
+              Image.asset('assets/gif/sound.gif')
             ],
           ),
         ),

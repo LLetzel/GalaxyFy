@@ -1,5 +1,3 @@
-// ignore_for_file: prefer_const_constructors, camel_case_types, sort_child_properties_last
-
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/shared/style.dart';
 
@@ -23,6 +21,9 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Cadastro realizado com sucesso!')),
       );
+
+      // Redireciona para a rota /login
+      Navigator.pushReplacementNamed(context, '/login');
     }
   }
 
@@ -57,19 +58,15 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                       Container(
                         padding: const EdgeInsets.all(15.0),
                         margin: const EdgeInsets.all(10),
-                       decoration: BoxDecoration(
+                        decoration: BoxDecoration(
                           gradient: LinearGradient(
                             begin: Alignment.topCenter,
-
                             end: Alignment.bottomCenter,
                             colors: [
                               MyColors.roxoEscuro, // Cor roxa escura no topo
-                              // MyColors.escuro, // Preto na parte de baixo
                               MyColors.roxoEscuro
                             ],
-                            // stops: [0.5, 5, 0.5], // Controla o ponto de transição do gradiente
                           ),
-                          // color: Color(0xFF1E1E1E), // Cor de fundo
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Form(
@@ -80,12 +77,12 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                             children: [
                               TextFormField(
                                 autofocus: true,
-                                style: TextStyle(color: Colors.white), // Texto em branco
+                                style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
                                   labelText: 'Nome',
                                   prefixIcon: Icon(Icons.person, color: Colors.purple),
                                   hintText: "Digite seu nome",
-                                  hintStyle: TextStyle(color: Colors.white54), // Dica em branco claro
+                                  hintStyle: TextStyle(color: Colors.white54),
                                 ),
                                 validator: (String? value) {
                                   if (value == null || value.isEmpty) {
@@ -96,12 +93,12 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                               ),
                               TextFormField(
                                 autofocus: true,
-                                style: TextStyle(color: Colors.white), // Texto em branco
+                                style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
                                   labelText: 'CPF',
                                   prefixIcon: Icon(Icons.numbers, color: Colors.purple),
                                   hintText: "Digite seu CPF",
-                                  hintStyle: TextStyle(color: Colors.white54), // Dica em branco claro
+                                  hintStyle: TextStyle(color: Colors.white54),
                                 ),
                                 validator: (String? value) {
                                   if (value == null || value.isEmpty) {
@@ -112,12 +109,12 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                               ),
                               TextFormField(
                                 autofocus: true,
-                                style: TextStyle(color: Colors.white), // Texto em branco
+                                style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
                                   labelText: 'Celular',
                                   prefixIcon: Icon(Icons.call, color: Colors.purple),
                                   hintText: "Digite seu número",
-                                  hintStyle: TextStyle(color: Colors.white54), // Dica em branco claro
+                                  hintStyle: TextStyle(color: Colors.white54),
                                 ),
                                 validator: (String? value) {
                                   if (value == null || value.isEmpty) {
@@ -131,12 +128,12 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                               ),
                               TextFormField(
                                 autofocus: true,
-                                style: TextStyle(color: Colors.white), // Texto em branco
+                                style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
                                   labelText: 'Email',
                                   prefixIcon: Icon(Icons.mail, color: Colors.purple),
                                   hintText: "Informe o email",
-                                  hintStyle: TextStyle(color: Colors.white54), // Dica em branco claro
+                                  hintStyle: TextStyle(color: Colors.white54),
                                 ),
                                 validator: (String? email) {
                                   if (email == null || email.isEmpty) {
@@ -148,7 +145,7 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                               TextFormField(
                                 autofocus: true,
                                 obscureText: !_showPassword,
-                                style: TextStyle(color: Colors.white), // Texto em branco
+                                style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
                                   labelText: 'Senha',
                                   prefixIcon: Icon(Icons.lock, color: Colors.purple),
@@ -157,7 +154,7 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                                       _showPassword
                                           ? Icons.visibility
                                           : Icons.visibility_off,
-                                          color: Colors.purple,
+                                      color: Colors.purple,
                                     ),
                                     onTap: () {
                                       setState(() {
@@ -166,7 +163,7 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                                     },
                                   ),
                                   hintText: "Digite sua senha",
-                                  hintStyle: TextStyle(color: Colors.white54), // Dica em branco claro
+                                  hintStyle: TextStyle(color: Colors.white54),
                                 ),
                                 onChanged: (value) {
                                   _senha = value;
@@ -184,7 +181,7 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                               TextFormField(
                                 autofocus: true,
                                 obscureText: !_showConfirmPassword,
-                                style: TextStyle(color: Colors.white), // Texto em branco
+                                style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
                                   labelText: 'Confirmar senha',
                                   prefixIcon: Icon(Icons.lock, color: Colors.purple),
@@ -193,7 +190,7 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                                       _showConfirmPassword
                                           ? Icons.visibility
                                           : Icons.visibility_off,
-                                          color: Colors.purple,
+                                      color: Colors.purple,
                                     ),
                                     onTap: () {
                                       setState(() {
@@ -202,7 +199,7 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                                     },
                                   ),
                                   hintText: "Confirme sua senha",
-                                  hintStyle: TextStyle(color: Colors.white54), // Dica em branco claro
+                                  hintStyle: TextStyle(color: Colors.white54),
                                 ),
                                 onChanged: (value) {
                                   _confirmarSenha = value;
