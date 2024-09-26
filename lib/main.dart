@@ -1,12 +1,12 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:galaxyfy_application/pages/cadastro.dart';
+import 'package:galaxyfy_application/pages/cadastro2.dart';
 import 'package:galaxyfy_application/pages/home.dart';
 import 'package:galaxyfy_application/pages/login.dart';
-import 'package:galaxyfy_application/pages/selecaoperfil.dart';
 import 'package:galaxyfy_application/shared/style.dart';
-import 'package:galaxyfy_application/pages/splashscreen.dart';
+import 'package:galaxyfy_application/pages/splash.dart';
+//import 'package:galaxyfy_application/pages/login.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,21 +22,21 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.system,
       theme: ThemeData(
-        fontFamily: MyFonts.fontPrimary,
-        colorScheme: ColorScheme.fromSeed(seedColor: MyColors.cinzaEscuro),
-        useMaterial3: true,
+      fontFamily: MyFonts.fontPrimary,
+      colorScheme: ColorScheme.fromSeed(seedColor: MyColors.azulEscuro),
+      useMaterial3: true,
       ),
-      title: 'Galaxyfy',
       initialRoute: "/",
       routes: {
-        // '/': (context) => ProfileSelectionPage(),
-        '/': (context) => SplashScreen(),
-        '/selection': (context) => ProfileSelectionPage(),
+        '/' : (context) => const Splash(),
+        '/login' : (context) => const Login_GalaxyFy(),
+        '/cadastro2': (context) => const Cadastro2_GalaxyFy(),
         '/home': (context) => const HomePage(),
-        '/login': (context) => const Login_GalaxyFy(),
-        '/cadastro': (context) => const Cadastro_GalaxyFy(),
-
       },
+      // theme: ThemeData(colorScheme:
+      // data, child: children),
     );
   }
 }
+
+
