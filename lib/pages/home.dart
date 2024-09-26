@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/pages/components/navegacao.dart'; // Importa o arquivo de navegação
 import 'package:galaxyfy_application/shared/style.dart';
+import 'package:galaxyfy_application/pages/components/carrossel.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -59,6 +60,19 @@ class _HomePageState extends State<HomePage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
+          ),
+          // Adiciona o componente de carrossel duas vezes
+          Positioned(
+            top: 100,
+            left: 16,
+            right: 16,
+            child: CarrosselWidget(),
+          ),
+          Positioned(
+            top: 250,
+            left: 16,
+            right: 16,
+            child: CarrosselWidget(),
           ),
           // Certificando-se de que o menu de navegação fique na frente
           Positioned(

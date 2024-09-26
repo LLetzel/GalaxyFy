@@ -37,11 +37,11 @@ class _SplashScreenState extends State<SplashScreen>
     _controller.forward(); // Start the animation
 
     // Simulating time to exit the splash screen
-    Timer(Duration(seconds: 2), () {
+    Timer(Duration(seconds: 3), () {
       _controller.reverse();
     });
 
-    Timer(Duration(seconds: 3), () {
+    Timer(Duration(seconds: 4), () {
       _controller.forward();
     });
 
