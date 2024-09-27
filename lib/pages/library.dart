@@ -3,50 +3,20 @@ import 'package:galaxyfy_application/pages/components/navegacao.dart'; // Import
 import 'package:galaxyfy_application/shared/style.dart';
 import 'package:galaxyfy_application/pages/components/carrossel.dart';
 
-class HomePage extends StatefulWidget {
-  final int
-      initialIndex; // Novo parâmetro para saber qual aba está sendo exibida
-
-  const HomePage({Key? key, this.initialIndex = 0})
-      : super(key: key); // Define a aba padrão
+class LibraryPage extends StatefulWidget {
+  const LibraryPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<LibraryPage> createState() => _LibraryPageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  late int _selectedIndex; // Variável que vai armazenar o índice da aba
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedIndex = widget.initialIndex; // Inicia a tela com o índice passado
-  }
+class _LibraryPageState extends State<LibraryPage> {
+  int _selectedIndex = 0; // Índice da aba selecionada
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index; // Atualiza o índice da aba selecionada
     });
-
-    // Lógica para navegar entre telas ao clicar nos ícones da barra
-    switch (index) {
-      case 0:
-        Navigator.pushReplacementNamed(context, '/home',
-            arguments: 0); // Navega para Início
-        break;
-      case 1:
-        Navigator.pushReplacementNamed(context, '/search',
-            arguments: 1); // Navega para Busca
-        break;
-      case 2:
-        Navigator.pushReplacementNamed(context, '/library',
-            arguments: 2); // Navega para Biblioteca
-        break;
-      case 3:
-        Navigator.pushReplacementNamed(context, '/perfil',
-            arguments: 3); // Navega para Perfil
-        break;
-    }
   }
 
   @override
@@ -55,15 +25,16 @@ class _HomePageState extends State<HomePage> {
       body: Stack(
         clipBehavior: Clip.none, // Permite que itens extrapolem os limites
         children: [
-          // Fundo gradiente
+          // Substitua a imagem de fundo pelo gradiente
           Positioned.fill(
             child: Container(
-              decoration: MyColors.backgroundGradient(), // Gradiente de fundo
+              decoration:
+                  MyColors.backgroundGradient(), // Aplica o gradiente de fundo
             ),
           ),
           // Barra de pesquisa
           Positioned(
-            top: 50,
+            top: 50, // Ajusta a posição vertical da barra de pesquisa
             left: 16,
             right: 16,
             child: TextField(
@@ -81,15 +52,37 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(color: Colors.white),
             ),
           ),
-          // Menu de navegação na parte inferior
+          const Center(
+            child: Text(
+              'Perfil', // Mude este texto conforme necessário
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          // Adiciona o componente de carrossel duas vezes
+          // Positioned(
+          //   top: 100,
+          //   left: 16,
+          //   right: 16,
+          //   child: CarrosselWidget(),
+          // ),
+          // Positioned(
+          //   top: 250,
+          //   left: 16,
+          //   right: 16,
+          //   child: CarrosselWidget(),
+          // ),
+          // Certificando-se de que o menu de navegação fique na frente
           Positioned(
             bottom: 0,
             left: 0,
             right: 0,
             child: CustomBottomNavigationBar(
-              currentIndex: _selectedIndex, // Passa o índice atual
-              onItemTapped:
-                  _onItemTapped, // Chama a função de navegação ao tocar
+              currentIndex: _selectedIndex,
+              onItemTapped: _onItemTapped,
             ),
           ),
         ],

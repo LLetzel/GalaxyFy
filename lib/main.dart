@@ -7,6 +7,9 @@ import 'package:galaxyfy_application/pages/login.dart';
 import 'package:galaxyfy_application/pages/selecaoperfil.dart';
 import 'package:galaxyfy_application/shared/style.dart';
 import 'package:galaxyfy_application/pages/splashscreen.dart';
+import 'package:galaxyfy_application/pages/search.dart';
+import 'package:galaxyfy_application/pages/library.dart';
+import 'package:galaxyfy_application/pages/perfil.dart';
 
 void main() {
   runApp(const MyApp());
@@ -27,7 +30,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       title: 'Galaxyfy',
-      initialRoute: "/",
+      initialRoute: '/',
       routes: {
         // '/': (context) => ProfileSelectionPage(),
         '/': (context) => const HomePage(),
@@ -36,6 +39,10 @@ class MyApp extends StatelessWidget {
         '/home': (context) => const HomePage(),
         '/login': (context) => const Login_GalaxyFy(),
         '/cadastro': (context) => const Cadastro_GalaxyFy(),
+        '/search': (context) => const  SearchPage(),
+        '/library': (context) => const  LibraryPage(),
+        '/perfil': (context) => const PerfilPage(),
+
 
       },
     );
