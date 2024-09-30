@@ -31,20 +31,20 @@ class _HomePageState extends State<HomePage> {
     // Lógica para navegar entre telas ao clicar nos ícones da barra
     switch (index) {
       case 0:
-        Navigator.pushReplacementNamed(context, '/home',
-            arguments: 0); // Navega para Início
+        Navigator.pushNamed(context, '/home',
+            arguments: 0); // Navega para Início sem substituir a tela atual
         break;
       case 1:
-        Navigator.pushReplacementNamed(context, '/search',
-            arguments: 1); // Navega para Busca
+        Navigator.pushNamed(context, '/search',
+            arguments: 1); // Navega para Busca sem substituir a tela atual
         break;
       case 2:
-        Navigator.pushReplacementNamed(context, '/library',
-            arguments: 2); // Navega para Biblioteca
+        Navigator.pushNamed(context, '/library',
+            arguments: 2); // Navega para Biblioteca sem substituir a tela atual
         break;
       case 3:
-        Navigator.pushReplacementNamed(context, '/perfil',
-            arguments: 3); // Navega para Perfil
+        Navigator.pushNamed(context, '/perfil',
+            arguments: 3); // Navega para Perfil sem substituir a tela atual
         break;
     }
   }
