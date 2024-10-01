@@ -11,14 +11,6 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
-  int _selectedIndex = 0; // Índice da aba selecionada
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index; // Atualiza o índice da aba selecionada
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,15 +68,6 @@ class _SearchPageState extends State<SearchPage> {
           //   child: CarrosselWidget(),
           // ),
           // Certificando-se de que o menu de navegação fique na frente
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: CustomBottomNavigationBar(
-              currentIndex: _selectedIndex,
-              onItemTapped: _onItemTapped,
-            ),
-          ),
         ],
       ),
     );

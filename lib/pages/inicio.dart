@@ -3,14 +3,14 @@ import 'package:galaxyfy_application/pages/components/navegacao.dart'; // Import
 import 'package:galaxyfy_application/shared/style.dart';
 import 'package:galaxyfy_application/pages/components/carrossel.dart';
 
-class LibraryPage extends StatefulWidget {
-  const LibraryPage({super.key});
+class inicioPagePage extends StatefulWidget {
+  const inicioPagePage({super.key});
 
   @override
-  State<LibraryPage> createState() => _LibraryPageState();
+  State<inicioPagePage> createState() => _inicioPagePageState();
 }
 
-class _LibraryPageState extends State<LibraryPage> {
+class _inicioPagePageState extends State<inicioPagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

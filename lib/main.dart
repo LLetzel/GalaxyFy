@@ -33,8 +33,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         // '/': (context) => ProfileSelectionPage(),
-        '/': (context) => const HomePage(),
-        // '/': (context) => SplashScreen(),
+        // '/': (context) => const HomePage(),
+        '/': (context) => SplashScreen(),
         '/selection': (context) => ProfileSelectionPage(),
         '/home': (context) => const HomePage(),
         '/login': (context) => const Login_GalaxyFy(),
