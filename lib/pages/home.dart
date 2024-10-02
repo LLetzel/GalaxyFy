@@ -1,52 +1,65 @@
 import 'package:flutter/material.dart';
-import 'package:galaxyfy_application/pages/components/navegacao.dart'; // Importa o arquivo de navegação
-import 'package:galaxyfy_application/pages/library.dart';
-import 'package:galaxyfy_application/pages/perfil.dart';
-import 'package:galaxyfy_application/pages/search.dart';
+// import 'package:galaxyfy_application/pages/components/navegacao.dart'; // Importa o arquivo de navegação
 import 'package:galaxyfy_application/shared/style.dart';
 import 'package:galaxyfy_application/pages/components/carrossel.dart';
 
-class HomePage extends StatefulWidget {
-  final int
-      initialIndex; // Novo parâmetro para saber qual aba está sendo exibida
-
-  const HomePage({Key? key, this.initialIndex = 0})
-      : super(key: key); // Define a aba padrão
+class homePage extends StatefulWidget {
+  const homePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<homePage> createState() => _homePageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  late int _selectedIndex; // Variável que vai armazenar o índice da aba
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedIndex = widget.initialIndex; // Inicia a tela com o índice passado
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index; // Atualiza o índice da aba selecionada
-    });
-  }
-
+class _homePageState extends State<homePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _selectedIndex,
+      body: Stack(
+        clipBehavior: Clip.none, // Permite que itens extrapolem os limites
         children: [
-          SearchPage(),
-          SearchPage(),
-          LibraryPage(),
-          PerfilPage(),
+          // Substitua a imagem de fundo pelo gradiente
+          Positioned.fill(
+            child: Container(
+              decoration:
+                  MyColors.backgroundGradient(), // Aplica o gradiente de fundo
+            ),
+          ),
+          // Barra de pesquisa
+          Positioned(
+            top: 50, // Ajusta a posição vertical da barra de pesquisa
+            left: 16,
+            right: 16,
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'Pesquisar...',
+                hintStyle: TextStyle(color: Colors.white54),
+                prefixIcon: Icon(Icons.search, color: Colors.white),
+                filled: true,
+                fillColor: Colors.white12,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+
+          // Adiciona o componente de carrossel duas vezes
+          Positioned(
+            top: 100,
+            left: 16,
+            right: 16,
+            child: CarouselExample(),
+          ),
+          Positioned(
+            top: 250,
+            left: 16,
+            right: 16,
+            child: CarouselExample(),
+          ),
+          // Certificando-se de que o menu de navegação fique na frente
         ],
-      ),
-      bottomNavigationBar: CustomBottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onItemTapped: (p0) => _onItemTapped(p0),
       ),
     );
   }

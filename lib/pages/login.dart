@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/pages/cadastro.dart';
-import 'package:galaxyfy_application/pages/home.dart';
+import 'package:galaxyfy_application/pages/Inicio.dart';
 import 'package:galaxyfy_application/shared/style.dart';
 import 'package:galaxyfy_application/pages/selecaoperfil.dart';
 

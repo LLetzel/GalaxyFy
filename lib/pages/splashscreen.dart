@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'dart:async'; // For simulating the delay of the splash
-
-// Import the gif package (assuming you've added it to your pubspec.yaml)
-// import 'package:flutter_gifview/flutter_gifview.dart';
-
+import 'dart:async'; 
 import 'package:galaxyfy_application/shared/style.dart';
 
 class SplashScreen extends StatefulWidget {

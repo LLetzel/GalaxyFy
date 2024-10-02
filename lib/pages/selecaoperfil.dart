@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/shared/style.dart';
+// import 'package:galaxyfy_application/pages/Inicio.dart';
 
 class ProfileSelectionPage extends StatefulWidget {
   @override
@@ -131,7 +132,7 @@ class _ProfileSelectionPageState extends State<ProfileSelectionPage> {
                           name: profile['name'],
                           image: profile['image'],
                           onTap: () {
-                            Navigator.pushNamed(context, '/home');
+                            Navigator.pushNamed(context, '/inicio');
                           },
                           width: screenWidth * 0.4, // 40% da largura da tela
                           height: screenHeight * 0.2, // 20% da altura da tela
