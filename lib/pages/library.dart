@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/pages/components/navegacao.dart'; // Importa o arquivo de navegação
 import 'package:galaxyfy_application/shared/style.dart';
-import 'package:galaxyfy_application/pages/components/carrossel.dart';
 
 class LibraryPage extends StatefulWidget {
   const LibraryPage({super.key});

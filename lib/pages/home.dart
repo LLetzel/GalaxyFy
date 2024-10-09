@@ -1,65 +1,61 @@
 import 'package:flutter/material.dart';
-// import 'package:galaxyfy_application/pages/components/navegacao.dart'; // Importa o arquivo de navegação
 import 'package:galaxyfy_application/shared/style.dart';
-import 'package:galaxyfy_application/pages/components/carrossel.dart';
+import 'components/carousel.dart';
 
-class homePage extends StatefulWidget {
-  const homePage({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<homePage> createState() => _homePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _homePageState extends State<homePage> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        clipBehavior: Clip.none, // Permite que itens extrapolem os limites
-        children: [
-          // Substitua a imagem de fundo pelo gradiente
-          Positioned.fill(
-            child: Container(
-              decoration:
-                  MyColors.backgroundGradient(), // Aplica o gradiente de fundo
-            ),
-          ),
-          // Barra de pesquisa
-          Positioned(
-            top: 50, // Ajusta a posição vertical da barra de pesquisa
-            left: 16,
-            right: 16,
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'Pesquisar...',
-                hintStyle: TextStyle(color: Colors.white54),
-                prefixIcon: Icon(Icons.search, color: Colors.white),
-                filled: true,
-                fillColor: Colors.white12,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide.none,
+      body: Container(
+        decoration:
+            MyColors.backgroundGradient(), // Aplica o gradiente de fundo
+        child: Column(
+          children: [
+            SizedBox(height: 70), // Espaço no topo para a barra de pesquisa
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Pesquisar...',
+                  hintStyle: TextStyle(color: Colors.white54),
+                  prefixIcon: Icon(Icons.search, color: Colors.white),
+                  filled: true,
+                  fillColor: Colors.white12,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(50),
+                    borderSide: BorderSide.none,
+                  ),
                 ),
+                style: TextStyle(color: Colors.white),
               ),
-              style: TextStyle(color: Colors.white),
             ),
-          ),
-
-          // Adiciona o componente de carrossel duas vezes
-          Positioned(
-            top: 100,
-            left: 16,
-            right: 16,
-            child: CarouselExample(),
-          ),
-          Positioned(
-            top: 250,
-            left: 16,
-            right: 16,
-            child: CarouselExample(),
-          ),
-          // Certificando-se de que o menu de navegação fique na frente
-        ],
+            // SizedBox(height: 10), // Espaço entre a barra de pesquisa e o carrossel
+            Text("Artistas mais populares",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontFamily: MyFonts.fontPrimary)),
+            Expanded(
+              child: CustomCarousel(), // Inserindo o componente do carrossel
+            ),
+            SizedBox(height: 20), // Espaço entre os carrosséis
+            Text("Artistas mais populares",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 25,
+                    fontFamily: MyFonts.fontPrimary)),
+            Expanded(
+              child: CustomCarousel(), // Inserindo o componente do carrossel
+            ),
+          ],
+        ),
       ),
     );
   }
