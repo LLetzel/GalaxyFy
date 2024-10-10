@@ -26,9 +26,9 @@ class CustomCarousel extends StatelessWidget {
           builder: (BuildContext context) {
             return Container(
               width: MediaQuery.of(context).size.width *
-                  0.8, // Define a largura do container como 70% da largura da tela
+                  0.5, // Define a largura do container como 70% da largura da tela
               margin: const EdgeInsets.symmetric(
-                  horizontal: 2.0), // Adiciona margem horizontal ao container
+                  horizontal: 0.4), // Adiciona margem horizontal ao container
               decoration: BoxDecoration(
                 color: Colors.amber, // Cor de fundo do container
                 borderRadius: BorderRadius.circular(

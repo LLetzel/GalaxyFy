@@ -18,7 +18,7 @@ class _HomePageState extends State<HomePage> {
             MyColors.backgroundGradient(), // Aplica o gradiente de fundo
         child: Column(
           children: [
-            SizedBox(height: 70), // Espaço no topo para a barra de pesquisa
+            SizedBox(height: 20), // Espaço no topo para a barra de pesquisa
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: TextField(
@@ -36,7 +36,8 @@ class _HomePageState extends State<HomePage> {
                 style: TextStyle(color: Colors.white),
               ),
             ),
-            // SizedBox(height: 10), // Espaço entre a barra de pesquisa e o carrossel
+            SizedBox(
+                height: 30), // Espaço entre a barra de pesquisa e o carrossel
             Text("Artistas mais populares",
                 style: TextStyle(
                     color: Colors.white,
@@ -45,7 +46,7 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: CustomCarousel(), // Inserindo o componente do carrossel
             ),
-            SizedBox(height: 20), // Espaço entre os carrosséis
+            // SizedBox(height: 20), // Espaço entre os carrosséis
             Text("Artistas mais populares",
                 style: TextStyle(
                     color: Colors.white,
