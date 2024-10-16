@@ -32,6 +32,7 @@ dependencies:
   flutter:
     sdk: flutter
   carousel_slider: ^5.0.0 
+  palette_generator: ^0.3.0
   
 
 

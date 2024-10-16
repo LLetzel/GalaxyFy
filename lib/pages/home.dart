@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/shared/style.dart';
-import 'components/carousel.dart'; // Importando o carrossel personalizado
+import 'components/carousel.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,12 +10,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // Definindo listas diferentes de imagens para cada carrossel
   final List<String> popularArtistsImages = [
     'https://pbs.twimg.com/media/GTc1t35XUAAN2qS.jpg',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhNi46C_Q3CFLWrqS2sQlUc4jVeGvo5ueijg&s',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOo0ZYCn8vOrovnLMpatYnpf7PftG8aYy3yw&s',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTs6ONq2oN32Skv2lQuR29UF5x5cwBvnt5XuQ&s'
+  ];
+
+  final List<String> popularArtistsNames = [
+    'Mc Kevin',
+    'Mc IG',
+    'Jorge e Mateus',
+    'Mc Tuto',
   ];
 
   final List<String> newReleasesImages = [
@@ -24,23 +30,24 @@ class _HomePageState extends State<HomePage> {
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiuWxcC4vEMjLOAI2OzsB86fhBBV1Bhp31og&s'
   ];
 
+  final List<String> newReleasesTitles = [
+    'Medley the box',
+    'Poesia Acústica',
+    'Sem topete',
+  ];
+
   @override
   Widget build(BuildContext context) {
-    // Obtendo as dimensões da tela usando MediaQuery
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
       body: Container(
-        decoration:
-            MyColors.backgroundGradient(), // Aplica o gradiente de fundo
+        decoration: MyColors.backgroundGradient(),
         child: SingleChildScrollView(
-          // Adicionado para permitir rolagem
           child: Column(
             children: [
-              SizedBox(
-                  height: screenHeight *
-                      0.05), // Espaço no topo para a barra de pesquisa
+              SizedBox(height: screenHeight * 0.05),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
                 child: TextField(
@@ -58,76 +65,54 @@ class _HomePageState extends State<HomePage> {
                   style: TextStyle(color: Colors.white),
                 ),
               ),
-              SizedBox(
-                  height: screenHeight *
-                      0.03), // Espaço entre a barra de pesquisa e o carrossel
+              SizedBox(height: screenHeight * 0.03),
               Text("Artistas mais populares",
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: screenHeight *
-                          0.03, // Ajustando o tamanho da fonte dinamicamente
+                      fontSize: screenHeight * 0.03,
                       fontFamily: MyFonts.fontPrimary)),
+              SizedBox(height: screenHeight * 0.02),
               SizedBox(
-                  height: screenHeight * 0.02), // Espaço antes do carrossel
-              // Carrossel 1: passando a lista de imagens dos artistas mais populares
-              SizedBox(
-                height: screenHeight *
-                    0.2, // Definindo altura fixa para o carrossel
+                height: screenHeight * 0.2,
                 child: CustomCarousel(imageUrls: popularArtistsImages),
               ),
-              SizedBox(
-                  height: screenHeight * 0.02), // Espaço entre os carrosséis
+              SizedBox(height: screenHeight * 0.02),
               Text("Novos lançamentos",
                   style: TextStyle(
                       color: Colors.white,
-                      fontSize: screenHeight *
-                          0.03, // Ajustando o tamanho da fonte dinamicamente
+                      fontSize: screenHeight * 0.03,
                       fontFamily: MyFonts.fontPrimary)),
+              SizedBox(height: screenHeight * 0.02),
               SizedBox(
-                  height:
-                      screenHeight * 0.02), // Espaço antes do segundo carrossel
-              // Carrossel 2: passando a lista de imagens dos novos lançamentos
-              SizedBox(
-                height: screenHeight *
-                    0.2, // Definindo altura fixa para o segundo carrossel
+                height: screenHeight * 0.2,
                 child: CustomCarousel(imageUrls: newReleasesImages),
               ),
-              SizedBox(height: screenHeight * 0.02), // Espaço final
-
-              // ListView horizontal para exibir as imagens como uma lista de reprodução
+              SizedBox(height: screenHeight * 0.02),
               SizedBox(
-                height: screenHeight *
-                    0.25, // Altura total para a lista de reprodução
+                height: screenHeight * 0.25,
                 child: ListView.builder(
-                  scrollDirection:
-                      Axis.horizontal, // Definindo a rolagem horizontal
-                  itemCount: popularArtistsImages.length +
-                      newReleasesImages.length, // Quantidade total de itens
+                  scrollDirection: Axis.horizontal,
+                  itemCount: popularArtistsImages.length + newReleasesImages.length,
                   itemBuilder: (context, index) {
-                    // Checa se o index está dentro da lista popularArtistsImages
                     String imageUrl;
                     String title;
+
                     if (index < popularArtistsImages.length) {
                       imageUrl = popularArtistsImages[index];
-                      title =
-                          "Artista Popular $index"; // Substitua pelo nome real do artista se necessário
+                      title = popularArtistsNames[index];
                     } else {
-                      // Ajusta o índice para os itens da lista newReleasesImages
-                      imageUrl = newReleasesImages[
-                          index - popularArtistsImages.length];
-                      title =
-                          "Lançamento $index"; // Substitua pelo nome real do lançamento se necessário
+                      imageUrl = newReleasesImages[index - popularArtistsImages.length];
+                      title = newReleasesTitles[index - popularArtistsImages.length];
                     }
 
                     return Padding(
                       padding: EdgeInsets.all(screenWidth * 0.02),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center, // Centraliza o conteúdo
                         children: [
                           Container(
-                            width: screenWidth *
-                                0.3, // Ajustando largura dos itens dinamicamente
-                            height: screenWidth * 0.3, // Proporção quadrada
+                            width: screenWidth * 0.3,
+                            height: screenWidth * 0.3,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               image: DecorationImage(
@@ -139,10 +124,10 @@ class _HomePageState extends State<HomePage> {
                           SizedBox(height: screenHeight * 0.01),
                           Text(
                             title,
+                            textAlign: TextAlign.center, // Centraliza o texto
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: screenHeight *
-                                  0.02, // Ajuste de tamanho de fonte
+                              fontSize: screenHeight * 0.02,
                             ),
                           ),
                         ],
