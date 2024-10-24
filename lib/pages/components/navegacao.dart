@@ -67,16 +67,16 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           ),
         ),
         Positioned(
-          bottom: 35,
+          bottom: 30,
           child: Container(
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
               color: Color(0xFFF4BDFF),
             ),
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(5),
             child: Image.asset(
               'assets/img/astronauta.png',
-              height: 60,
+              height: 50,
             ),
           ),
         ),

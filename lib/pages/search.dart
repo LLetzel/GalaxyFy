@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/pages/components/navegacao.dart'; // Importa o arquivo de navegação
 import 'package:galaxyfy_application/shared/style.dart';
-import 'package:palette_generator/palette_generator.dart';
+import 'package:galaxyfy_application/pages/artista.dart'; // Importa a página do artista
 
 class ArtistItem {
   final String name;
@@ -60,15 +60,17 @@ class _SearchPageState extends State<SearchPage> {
   void initState() {
     super.initState();
     _filteredItems = _items; // Inicializa com todos os itens
-    _searchController.addListener(_filterItems); // Adiciona o listener
+    _searchController
+        .addListener(_filterItems); // Adiciona o listener para filtragem
   }
 
   void _filterItems() {
-    String query = _searchController.text.toLowerCase();
+    String query =
+        _searchController.text.toLowerCase(); // Obtém o texto da busca
     setState(() {
       _filteredItems = _items
           .where((item) => item.name.toLowerCase().contains(query))
-          .toList();
+          .toList(); // Filtra os itens conforme a busca
     });
   }
 
@@ -78,18 +80,13 @@ class _SearchPageState extends State<SearchPage> {
     super.dispose();
   }
 
-  void _navigateToDetail(ArtistItem item) {
-  Navigator.push(
-    context,
-    MaterialPageRoute(
-      builder: (context) => DetailPage(
-        item: item.name, 
-        imageUrl: item.imageUrl, // Certifique-se de passar ambos os parâmetros
-      ),
-    ),
-  );
-}
-
+  void _navigateToArtistPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => ArtistPage()), // Navega para a ArtistPage
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -123,41 +120,39 @@ class _SearchPageState extends State<SearchPage> {
             ),
           ),
           Positioned(
-            top:
-                100, // Ajuste a posição para evitar sobreposição com a barra de pesquisa
+            top: 100,
             left: 16,
             right: 16,
-            bottom: 0, // Adiciona um limite inferior
+            bottom: 0,
             child: ListView.builder(
               itemCount: _filteredItems.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  onTap: () => _navigateToDetail(
-                      _filteredItems[index]), // Navega ao clicar
+                  onTap: () {
+                    // Verifica se o item clicado é "MC Kevin"
+                    if (_filteredItems[index].name == 'Mc Kevin') {
+                      _navigateToArtistPage(); // Navega para a ArtistPage
+                    } else {
+                      // Para outros artistas, você pode implementar outra lógica ou navegação
+                    }
+                  },
                   title: Row(
                     children: [
-                      // Imagem do artista
                       Padding(
                         padding: const EdgeInsets.only(right: 8.0),
                         child: ClipOval(
-                          // Faz a imagem ficar redonda
                           child: Image.network(
-                            _filteredItems[index]
-                                .imageUrl, // Usa a imagem correspondente
+                            _filteredItems[index].imageUrl,
                             width: 40,
                             height: 40,
-                            fit: BoxFit.cover, // Cobre o espaço da imagem
+                            fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) {
-                              return Icon(Icons.error,
-                                  color: Colors
-                                      .red); // Ícone de erro se a imagem não carregar
+                              return Icon(Icons.error, color: Colors.red);
                             },
                           ),
                         ),
                       ),
-                      // Nome do artista
                       Expanded(
-                        // Faz o texto expandir para ocupar o espaço restante
                         child: Text(
                           _filteredItems[index].name,
                           style: TextStyle(color: Colors.white),
@@ -168,122 +163,6 @@ class _SearchPageState extends State<SearchPage> {
                 );
               },
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// Exemplo de uma página de detalhes
-class DetailPage extends StatefulWidget {
-  final String item;
-  final String imageUrl;
-
-  const DetailPage({super.key, required this.item, required this.imageUrl});
-
-  @override
-  _DetailPageState createState() => _DetailPageState();
-}
-
-class _DetailPageState extends State<DetailPage> {
-  double _sliderValue = 0.0; // Controla a posição do slider
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Tocando Música'),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: Stack(
-        children: [
-          // Aplica o fundo com o gradiente padrão
-          Container(
-            decoration: MyColors.backgroundGradient(),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // Imagem do álbum
-              Container(
-                width: 250,
-                height: 250,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image:
-                        NetworkImage(widget.imageUrl), // URL da imagem do item
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black54,
-                      blurRadius: 10,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-              // Nome da música/artista
-              Text(
-                widget.item, // Nome da música/artistas
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 20),
-              // Barra de progresso do Slider
-              Slider(
-                value: _sliderValue, // Valor do slider
-                onChanged: (newValue) {
-                  setState(() {
-                    _sliderValue = newValue; // Atualiza o valor conforme o usuário ajusta
-                  });
-                },
-                activeColor: Colors.white,
-                inactiveColor: Colors.white30,
-                min: 0.0,
-                max: 1.0, // Simulação de 0 a 1
-              ),
-              const SizedBox(height: 20),
-              // Controles de reprodução
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.skip_previous),
-                    color: Colors.white,
-                    iconSize: 40,
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.play_circle_fill),
-                    color: Colors.white,
-                    iconSize: 70,
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.skip_next),
-                    color: Colors.white,
-                    iconSize: 40,
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              // Botão de "favoritar"
-              IconButton(
-                icon: Icon(Icons.favorite_border),
-                color: Colors.white,
-                onPressed: () {},
-              ),
-            ],
           ),
         ],
       ),

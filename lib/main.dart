@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:galaxyfy_application/pages/artista.dart';
 import 'package:galaxyfy_application/pages/cadastro.dart';
 import 'package:galaxyfy_application/pages/Inicio.dart';
 import 'package:galaxyfy_application/pages/login.dart';
@@ -34,8 +35,10 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         // '/': (context) => ProfileSelectionPage(),
-        '/': (context) => const InicioPage(),
+        '/': (context) => InicioPage(),
         // '/': (context) => SplashScreen(),
+        // '/': (context) => const ArtistPage(),
+        '/artist': (context) => const ArtistPage(),
         '/selection': (context) => ProfileSelectionPage(),
         '/inicio': (context) => const InicioPage(),
         '/home': (context) => const HomePage(),
