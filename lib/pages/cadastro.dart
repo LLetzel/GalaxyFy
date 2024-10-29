@@ -1,251 +1,127 @@
 import 'package:flutter/material.dart';
-import 'package:galaxyfy_application/shared/style.dart';
 
-class Cadastro_GalaxyFy extends StatefulWidget {
-  const Cadastro_GalaxyFy({super.key});
-
-  @override
-  State<Cadastro_GalaxyFy> createState() => _Cadastro_GalaxyFyState();
-}
-
-class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
-  final _formKey = GlobalKey<FormState>();
-  bool _showPassword = false;
-  bool _showConfirmPassword = false;
-  String? _senha;
-  String? _confirmarSenha;
-
-  void _submit() {
-    if (_formKey.currentState?.validate() == true) {
-      // Se o formulário for válido, prossiga com o cadastro
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Cadastro realizado com sucesso!')),
-      );
-
-      // Redireciona para a rota /login
-      Navigator.pushReplacementNamed(context, '/login');
-    }
-  }
+class Cadastro extends StatelessWidget {
+  const Cadastro({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.purple.shade400,
-        title: Text('Cadastro GalaxyFy'),
-      ),
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: Image.asset(
-              'assets/img/fundo.png',
-              fit: BoxFit.cover,
-            ),
-          ),
-          Column(
+        backgroundColor: Colors.blue,
+        title: Text("Hello Word"),),
+        // floatingActionButton: FloatingActionButton(onPressed: (){},
+        // child: Icon(Icons.add),),
+      body: Container(
+        padding: const EdgeInsets.all(16.0),
+        margin: const EdgeInsets.all(8.0),
+        decoration: BoxDecoration(
+          color: Colors.blue,
+          borderRadius: BorderRadius.circular(8)
+        ),
+        height:500,
+        child: Form(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Image.asset(
-                        'assets/img/astronauta.png',
-                        height: 180,
-                        width: 180,
-                        fit: BoxFit.cover,
-                      ),
-                      SizedBox(height: 20),
-                      Container(
-                        padding: const EdgeInsets.all(15.0),
-                        margin: const EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [
-                              MyColors.roxoEscuro, // Cor roxa escura no topo
-                              MyColors.roxoEscuro
-                            ],
-                          ),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              TextFormField(
-                                autofocus: true,
-                                style: TextStyle(color: Colors.white),
-                                decoration: InputDecoration(
-                                  labelText: 'Nome',
-                                  prefixIcon: Icon(Icons.person, color: Colors.purple),
-                                  hintText: "Digite seu nome",
-                                  hintStyle: TextStyle(color: Colors.white54),
-                                ),
-                                validator: (String? value) {
-                                  if (value == null || value.isEmpty) {
-                                    return "O nome não pode ser vazio";
-                                  }
-                                  return null;
-                                },
-                              ),
-                              TextFormField(
-                                autofocus: true,
-                                style: TextStyle(color: Colors.white),
-                                decoration: InputDecoration(
-                                  labelText: 'CPF',
-                                  prefixIcon: Icon(Icons.numbers, color: Colors.purple),
-                                  hintText: "Digite seu CPF",
-                                  hintStyle: TextStyle(color: Colors.white54),
-                                ),
-                                validator: (String? value) {
-                                  if (value == null || value.isEmpty) {
-                                    return "O CPF não pode ser vazio";
-                                  }
-                                  return null;
-                                },
-                              ),
-                              TextFormField(
-                                autofocus: true,
-                                style: TextStyle(color: Colors.white),
-                                decoration: InputDecoration(
-                                  labelText: 'Celular',
-                                  prefixIcon: Icon(Icons.call, color: Colors.purple),
-                                  hintText: "Digite seu número",
-                                  hintStyle: TextStyle(color: Colors.white54),
-                                ),
-                                validator: (String? value) {
-                                  if (value == null || value.isEmpty) {
-                                    return "O número não pode ser vazio";
-                                  }
-                                  if (value.length < 10 || value.length > 11) {
-                                    return "O número deve ter entre 10 e 11 dígitos";
-                                  }
-                                  return null;
-                                },
-                              ),
-                              TextFormField(
-                                autofocus: true,
-                                style: TextStyle(color: Colors.white),
-                                decoration: InputDecoration(
-                                  labelText: 'Email',
-                                  prefixIcon: Icon(Icons.mail, color: Colors.purple),
-                                  hintText: "Informe o email",
-                                  hintStyle: TextStyle(color: Colors.white54),
-                                ),
-                                validator: (String? email) {
-                                  if (email == null || email.isEmpty) {
-                                    return "O e-mail não pode ser vazio";
-                                  }
-                                  return null;
-                                },
-                              ),
-                              TextFormField(
-                                autofocus: true,
-                                obscureText: !_showPassword,
-                                style: TextStyle(color: Colors.white),
-                                decoration: InputDecoration(
-                                  labelText: 'Senha',
-                                  prefixIcon: Icon(Icons.lock, color: Colors.purple),
-                                  suffixIcon: GestureDetector(
-                                    child: Icon(
-                                      _showPassword
-                                          ? Icons.visibility
-                                          : Icons.visibility_off,
-                                      color: Colors.purple,
-                                    ),
-                                    onTap: () {
-                                      setState(() {
-                                        _showPassword = !_showPassword;
-                                      });
-                                    },
-                                  ),
-                                  hintText: "Digite sua senha",
-                                  hintStyle: TextStyle(color: Colors.white54),
-                                ),
-                                onChanged: (value) {
-                                  _senha = value;
-                                },
-                                validator: (String? password) {
-                                  if (password == null || password.isEmpty) {
-                                    return "A senha não pode ser vazia";
-                                  }
-                                  if (password.length < 6) {
-                                    return "A senha deve ter pelo menos 6 caracteres";
-                                  }
-                                  return null;
-                                },
-                              ),
-                              TextFormField(
-                                autofocus: true,
-                                obscureText: !_showConfirmPassword,
-                                style: TextStyle(color: Colors.white),
-                                decoration: InputDecoration(
-                                  labelText: 'Confirmar senha',
-                                  prefixIcon: Icon(Icons.lock, color: Colors.purple),
-                                  suffixIcon: GestureDetector(
-                                    child: Icon(
-                                      _showConfirmPassword
-                                          ? Icons.visibility
-                                          : Icons.visibility_off,
-                                      color: Colors.purple,
-                                    ),
-                                    onTap: () {
-                                      setState(() {
-                                        _showConfirmPassword = !_showConfirmPassword;
-                                      });
-                                    },
-                                  ),
-                                  hintText: "Confirme sua senha",
-                                  hintStyle: TextStyle(color: Colors.white54),
-                                ),
-                                onChanged: (value) {
-                                  _confirmarSenha = value;
-                                },
-                                validator: (String? confirmPassword) {
-                                  if (confirmPassword == null || confirmPassword.isEmpty) {
-                                    return "A confirmação de senha não pode ser vazia";
-                                  }
-                                  if (confirmPassword != _senha) {
-                                    return "As senhas não coincidem";
-                                  }
-                                  return null;
-                                },
-                              ),
-                              SizedBox(height: 15),
-                              Center(
-                                child: ElevatedButton(
-                                  onPressed: _submit,
-                                  child: Text("Cadastrar"),
-                                  style: ElevatedButton.styleFrom(
-                                    fixedSize: Size(120, 50),
-                                    backgroundColor: Colors.purple,
-                                    foregroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(height: 15),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
+              TextFormField(
+                autofocus: true,
+                decoration: InputDecoration(
+                  iconColor: Colors.black,
+                  icon: Icon(Icons.person),
+                  hintText: "Informe o nome"
+                ),),
+              TextFormField(
+                autofocus: true,
+                decoration: InputDecoration(
+                  iconColor: Colors.black,
+                  icon: Icon(Icons.mail),
+                  hintText: "Informe o e-mail"
+                ),),
+              TextFormField(
+                autofocus: true,
+                decoration: InputDecoration(
+                  iconColor: Colors.black,
+                  icon: Icon(Icons.lock),
+                  hintText: "Informe a senha"
+                ),),
+              TextFormField(
+                autofocus: true,
+                decoration: InputDecoration(
+                  iconColor: Colors.black,
+                  icon: Icon(Icons.crop_free),
+                  hintText: "Informe o cpf"
+                ),),
+                TextFormField(
+                autofocus: true,
+                decoration: InputDecoration(
+                  iconColor: Colors.black,
+                  icon: Icon(Icons.local_activity),
+                  hintText: "Informe o cep"
+                ),),
+                TextFormField(
+                autofocus: true,
+                decoration: InputDecoration(
+                  iconColor: Colors.black,
+                  icon: Icon(Icons.local_activity),
+                  hintText: "Informe o logradouro"
+                ),),
+                TextFormField(
+                autofocus: true,
+                decoration: InputDecoration(
+                  iconColor: Colors.black,
+                  icon: Icon(Icons.local_activity),
+                  hintText: "Informe o nº"
+                ),),
+                TextFormField(
+                autofocus: true,
+                decoration: InputDecoration(
+                  iconColor: Colors.black,
+                  icon: Icon(Icons.local_activity),
+                  hintText: "Informe o bairro"
+                ),),
+                TextFormField(
+                autofocus: true,
+                decoration: InputDecoration(
+                  iconColor: Colors.black,
+                  icon: Icon(Icons.local_activity),
+                  hintText: "Informe o complemento"
+                ),),
+                TextFormField(
+                autofocus: true,
+                decoration: InputDecoration(
+                  iconColor: Colors.black,
+                  icon: Icon(Icons.local_activity),
+                  hintText: "Informe o cidade"
+                ),),
+                TextFormField(
+                autofocus: true,
+                decoration: InputDecoration(
+                  iconColor: Colors.black,
+                  icon: Icon(Icons.local_activity),
+                  hintText: "Informe o estado"
+                ),),
+              SizedBox(height: 10),
+              Center(
+                child: ElevatedButton(onPressed: (){}, child: Text("Cadastrar"),
+                style: ElevatedButton.styleFrom(
+                  fixedSize: Size(200, 50),
+                  backgroundColor: Colors.yellow,
+                  foregroundColor: Colors.black,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero, // Bordas quadradas
                   ),
-                ),
+                )),
               ),
-              Container(
-                height: 50,
-                color: Colors.transparent,
-              ),
+               SizedBox(height: 15),
+              Divider(color: Colors.black,),
+              const Text("Me cadastrar", 
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+              const Text("Se não tiver cadastro clique no link acima"),
             ],
           ),
-        ],
-      ),
+        ),
+      ),    
     );
   }
 }

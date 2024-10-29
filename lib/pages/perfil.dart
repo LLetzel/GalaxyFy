@@ -1,176 +1,145 @@
 import 'package:flutter/material.dart';
-import 'package:galaxyfy_application/pages/selecaoperfil.dart';
-import 'package:galaxyfy_application/shared/style.dart'; // Suponho que seja onde está o gradiente de fundo
 
-class PerfilPage extends StatefulWidget {
-  const PerfilPage({super.key});
-
+class Perfil extends StatefulWidget {
   @override
-  State<PerfilPage> createState() => _PerfilPageState();
+  _PerfilState createState() => _PerfilState();
 }
 
-class _PerfilPageState extends State<PerfilPage> {
+class _PerfilState extends State<Perfil> {
+  int _selectedIndex = 3; // Perfil está selecionado inicialmente
+
+  // Lista de rotas para navegação
+  final List<String> _routes = [
+    '/home',
+    '/busca',      // Adicione essa rota ao seu main.dart se ainda não existir
+    '/biblioteca', // Adicione essa rota ao seu main.dart se ainda não existir
+    '/perfil',
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    // Navegar para a rota específica ao selecionar o item
+    Navigator.pushNamed(context, _routes[index]);
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Utilizando MediaQuery para capturar as dimensões da tela
-    final screenWidth = MediaQuery.of(context).size.width;
-    final screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
-      body: Container(
-        width: screenWidth,
-        height: screenHeight,
-        decoration:
-            MyColors.backgroundGradient(), // Aplica o gradiente de fundo
-        child: SafeArea(
-          child: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(
-              horizontal: screenWidth * 0.05,
-              vertical: screenHeight * 0.05,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Busca'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.library_music), label: 'Biblioteca'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.purple,
+        unselectedItemColor: Colors.grey,
+        onTap: _onItemTapped,
+      ),
+      body: ProfileGrid(), // Mostrando a página inicial da grade de perfis
+      backgroundColor: Colors.purple[900],
+    );
+  }
+}
+
+class ProfileGrid extends StatelessWidget {
+  final List<Map<String, String>> profiles = [
+    {'name': 'L. Letzel', 'image': 'assets/img/letzel.png'},
+    {'name': 'Felipe L.', 'image': 'assets/img/lipinho.png'},
+    {'name': 'Pedro L.', 'image': 'assets/img/pedrao.png'},
+    {'name': 'Gabriel', 'image': 'assets/img/pires.png'},
+    {'name': 'Kauan', 'image': 'assets/img/kauan.png'},
+    {'name': '', 'image': 'assets/img/mais.png'},
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.purple[900],
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        title: Text(
+          'Quem está ouvindo?',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
+        child: GridView.builder(
+          itemCount: profiles.length,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 16.0,
+            mainAxisSpacing: 16.0,
+            childAspectRatio: 1,
+          ),
+          itemBuilder: (context, index) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                // Botão "Voltar"
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    BackButton(
-                      color: Colors.white,
-                    ),
-                  ],
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.asset(
+                    profiles[index]['image']!,
+                    height: 100,
+                    width: 100,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-
-                // Foto do perfil circular - imagem local
-                CircleAvatar(
-                  radius: screenWidth * 0.15,
-                  backgroundImage: AssetImage('assets/perfis/letzel.png'),
-                ),
-
-                const SizedBox(height: 16),
-
-                // Nome do usuário
-                const Text(
-                  'Lucas Letzel',
+                SizedBox(height: 8),
+                Text(
+                  profiles[index]['name']!,
                   style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-
-                const SizedBox(height: 8),
-
-                // Botão "Editar Perfil"
-                ElevatedButton(
-                  onPressed: () {
-                    // Navegação para outra página
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ProfileSelectionPage(),
-                      ),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey[850],
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 24, vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(24),
-                    ),
-                  ),
-                  child: 
-                  const Text(
-                    'Alterar Perfil',
-                    style: TextStyle(color: Colors.white, fontSize: 15),
-                  ),
-                ),
-
-                const SizedBox(height: 24),
-
-                // Texto das playlists públicas
-                const Text(
-                  'PLAYLISTS',
-                  style: TextStyle(
-                    color: Colors.white70,
                     fontSize: 16,
-                    letterSpacing: 1.5,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                ),
-
-                const SizedBox(height: 16),
-
-                // Lista de playlists públicas
-                _buildPlaylistItem(
-                  'Funk Hits',
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKtObVyBFoxQ56NH4-LcX8awFnU2Bccsysxw&s',
-                  '0 SEGUIDORES',
-                  screenWidth,
-                ),
-                _buildPlaylistItem(
-                  'Trap',
-                  'https://murbbrasil.com/wp-content/uploads/2022/03/artistas-mais-ouvidos-de-Trap-no-Brasil.png',
-                  '0 SEGUIDORES',
-                  screenWidth,
-                ),
-                _buildPlaylistItem(
-                  'Hip Hop',
-                  'https://upload.wikimedia.org/wikipedia/pt/0/06/50_Cent_-_In_da_Club.jpg',
-                  '0 SEGUIDORES',
-                  screenWidth,
                 ),
               ],
-            ),
-          ),
+            );
+          },
         ),
       ),
     );
   }
+}
 
-  // Função que gera os itens de playlist
-  Widget _buildPlaylistItem(
-      String title, String imageUrl, String followers, double screenWidth) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: Row(
-        children: [
-          // Imagem da playlist
-          ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image.network(
-              imageUrl,
-              width: screenWidth * 0.15,
-              height: screenWidth * 0.15,
-              fit: BoxFit.cover,
-            ),
-          ),
+// Outras páginas separadas
+class BuscaPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Busca')),
+      body: Center(child: Text('Página de Busca', style: TextStyle(fontSize: 24))),
+    );
+  }
+}
 
-          const SizedBox(width: 16), // Espaçamento entre imagem e texto
+class BibliotecaPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Biblioteca')),
+      body: Center(child: Text('Página de Biblioteca', style: TextStyle(fontSize: 24))),
+    );
+  }
+}
 
-          // Informações da playlist
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              Text(
-                followers,
-                style: const TextStyle(
-                  color: Colors.white70,
-                  fontSize: 14,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
+class PerfilPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text('Perfil')),
+      body: Center(child: Text('Página de Perfil', style: TextStyle(fontSize: 24))),
     );
   }
 }

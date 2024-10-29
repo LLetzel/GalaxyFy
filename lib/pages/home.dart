@@ -1,158 +1,179 @@
 import 'package:flutter/material.dart';
-import 'package:galaxyfy_application/pages/artista.dart';
-import 'package:galaxyfy_application/shared/style.dart';
-import 'components/carousel.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
+void main() {
+  runApp(MyApp());
 }
 
-class _HomePageState extends State<HomePage> {
-  final List<String> popularArtistsImages = [
-    'https://pbs.twimg.com/media/GTc1t35XUAAN2qS.jpg',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhNi46C_Q3CFLWrqS2sQlUc4jVeGvo5ueijg&s',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOo0ZYCn8vOrovnLMpatYnpf7PftG8aYy3yw&s',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTs6ONq2oN32Skv2lQuR29UF5x5cwBvnt5XuQ&s'
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Home(),
+    );
+  }
+}
+
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  int _selectedIndex = 0;
+
+  // Lista de rotas para navegação
+  final List<String> _routes = [
+    '/home',
+    '/busca', // Você pode adicionar a rota para a tela de busca
+    '/biblioteca', // Se houver uma rota para a biblioteca
+    '/perfil',
   ];
 
-  final List<String> popularArtistsNames = [
-    'Mc Kevin',
-    'Mc IG',
-    'Jorge e Mateus',
-    'Mc Tuto',
-  ];
-
-  final List<String> newReleasesImages = [
-    'https://cdns-images.dzcdn.net/images/cover/4533a95a5ffa6a7d42d6d720530b814d/0x1900-000000-80-0-0.jpg',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxjJgn7UJr-JqQQrFw6c-qzuKmNMvt9AWbQg&s',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiuWxcC4vEMjLOAI2OzsB86fhBBV1Bhp31og&s'
-  ];
-
-  final List<String> newReleasesTitles = [
-    'Medley the box',
-    'Poesia Acústica',
-    'Sem topete',
-  ];
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    // Navegar para a rota específica ao selecionar o item
+    Navigator.pushNamed(context, _routes[index]);
+  }
 
   @override
   Widget build(BuildContext context) {
-    double screenWidth = MediaQuery.of(context).size.width;
-    double screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
-      body: Container(
-        decoration: MyColors.backgroundGradient(),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: screenHeight * 0.05),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Pesquisar...',
-                    hintStyle: TextStyle(color: Colors.white54),
-                    prefixIcon: Icon(Icons.search, color: Colors.white),
-                    filled: true,
-                    fillColor: Colors.white12,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50),
-                      borderSide: BorderSide.none,
-                    ),
-                  ),
-                  style: TextStyle(color: Colors.white),
-                ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Busca'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.library_music), label: 'Biblioteca'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.purple,
+        unselectedItemColor: Colors.grey,
+        onTap: _onItemTapped,
+      ),
+      body: Stack(
+        children: [
+          // Background image
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/img/fundo.png'),
+                fit: BoxFit.cover,
               ),
-              SizedBox(height: screenHeight * 0.03),
-              Text("Artistas mais populares",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: screenHeight * 0.03,
-                      fontFamily: MyFonts.fontPrimary)),
-              SizedBox(height: screenHeight * 0.02),
-              SizedBox(
-                height: screenHeight * 0.2,
-                child: CustomCarousel(imageUrls: popularArtistsImages),
-              ),
-              SizedBox(height: screenHeight * 0.02),
-              Text("Novos lançamentos",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: screenHeight * 0.03,
-                      fontFamily: MyFonts.fontPrimary)),
-              SizedBox(height: screenHeight * 0.02),
-              SizedBox(
-                height: screenHeight * 0.2,
-                child: CustomCarousel(imageUrls: newReleasesImages),
-              ),
-              SizedBox(height: screenHeight * 0.02),
-              SizedBox(
-                height: screenHeight * 0.25,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount:
-                      popularArtistsImages.length + newReleasesImages.length,
-                  itemBuilder: (context, index) {
-                    String imageUrl;
-                    String title;
-
-                    if (index < popularArtistsImages.length) {
-                      imageUrl = popularArtistsImages[index];
-                      title = popularArtistsNames[index];
-                    } else {
-                      imageUrl = newReleasesImages[
-                          index - popularArtistsImages.length];
-                      title = newReleasesTitles[
-                          index - popularArtistsImages.length];
-                    }
-
-                    return Padding(
-                      padding: EdgeInsets.all(screenWidth * 0.02),
-                      child: GestureDetector(
-                        onTap: () {
-                          if (title == 'Mc Kevin') {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ArtistPage()),
-                            );
-                          }
-                        },
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: screenWidth * 0.3,
-                              height: screenWidth * 0.3,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                image: DecorationImage(
-                                  image: NetworkImage(imageUrl),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: screenHeight * 0.01),
-                            Text(
-                              title,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: screenHeight * 0.02,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
+            ),
           ),
+
+          // Content over the background
+          SafeArea(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Search bar
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.8),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "Encontre sua música aqui",
+                              style: TextStyle(color: Colors.grey),
+                            ),
+                          ),
+                          Icon(Icons.search, color: Colors.grey),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: 20),
+
+                    // Popular Artists Section
+                    Text(
+                      "Popular artists",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      height: 100,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          artistCard('assets/img/artista1.png'),
+                          artistCard('assets/img/artista2.png'),
+                          artistCard('assets/img/artista3.png'),
+                        ],
+                      ),
+                    ),
+
+                    SizedBox(height: 20),
+
+                    // Popular Albums Section
+                    Text(
+                      "Popular albums",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      height: 100,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          albumCard('assets/img/albums1.png'),
+                          albumCard('assets/img/albums2.png'),
+                          albumCard('assets/img/albums3.png'),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+      backgroundColor: Colors.purple[900],
+    );
+  }
+
+  Widget artistCard(String imagePath) {
+    return Container(
+      margin: EdgeInsets.only(right: 12),
+      width: 80,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        image: DecorationImage(
+          image: AssetImage(imagePath),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
+  Widget albumCard(String imageUrl) {
+    return Container(
+      margin: EdgeInsets.only(right: 12),
+      width: 80,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        image: DecorationImage(
+          image: NetworkImage(imageUrl),
+          fit: BoxFit.cover,
         ),
       ),
     );
