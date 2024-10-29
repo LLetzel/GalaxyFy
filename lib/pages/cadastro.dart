@@ -14,20 +14,23 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   Future<void> _register() async {
     if (_formKey.currentState!.validate()) {
       try {
         // Tenta criar o usuário com e-mail e senha
-        UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+        UserCredential userCredential =
+            await _auth.createUserWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
 
         // Tenta atualizar o nome do usuário
-        await userCredential.user!.updateDisplayName(_usernameController.text.trim());
+        await userCredential.user!
+            .updateDisplayName(_usernameController.text.trim());
         await userCredential.user!.reload();
         _auth.currentUser; // Recarrega o usuário atualizado
 
@@ -49,7 +52,8 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
-  final _formKey = GlobalKey<FormState>();
+
+  // final _formKey = GlobalKey<FormState>();
   bool _showPassword = false;
   bool _showConfirmPassword = false;
   String? _senha;
@@ -108,7 +112,8 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                                 style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
                                   labelText: 'Nome',
-                                  prefixIcon: Icon(Icons.person, color: Colors.purple),
+                                  prefixIcon:
+                                      Icon(Icons.person, color: Colors.purple),
                                   hintText: "Digite seu nome",
                                   hintStyle: TextStyle(color: Colors.white54),
                                 ),
@@ -124,7 +129,8 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                                 style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
                                   labelText: 'CPF',
-                                  prefixIcon: Icon(Icons.numbers, color: Colors.purple),
+                                  prefixIcon:
+                                      Icon(Icons.numbers, color: Colors.purple),
                                   hintText: "Digite seu CPF",
                                   hintStyle: TextStyle(color: Colors.white54),
                                 ),
@@ -140,7 +146,8 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                                 style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
                                   labelText: 'Celular',
-                                  prefixIcon: Icon(Icons.call, color: Colors.purple),
+                                  prefixIcon:
+                                      Icon(Icons.call, color: Colors.purple),
                                   hintText: "Digite seu número",
                                   hintStyle: TextStyle(color: Colors.white54),
                                 ),
@@ -159,7 +166,8 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                                 style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
                                   labelText: 'Email',
-                                  prefixIcon: Icon(Icons.mail, color: Colors.purple),
+                                  prefixIcon:
+                                      Icon(Icons.mail, color: Colors.purple),
                                   hintText: "Informe o email",
                                   hintStyle: TextStyle(color: Colors.white54),
                                 ),
@@ -176,7 +184,8 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                                 style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
                                   labelText: 'Senha',
-                                  prefixIcon: Icon(Icons.lock, color: Colors.purple),
+                                  prefixIcon:
+                                      Icon(Icons.lock, color: Colors.purple),
                                   suffixIcon: GestureDetector(
                                     child: Icon(
                                       _showPassword
@@ -212,7 +221,8 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                                 style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
                                   labelText: 'Confirmar senha',
-                                  prefixIcon: Icon(Icons.lock, color: Colors.purple),
+                                  prefixIcon:
+                                      Icon(Icons.lock, color: Colors.purple),
                                   suffixIcon: GestureDetector(
                                     child: Icon(
                                       _showConfirmPassword
@@ -222,7 +232,8 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                                     ),
                                     onTap: () {
                                       setState(() {
-                                        _showConfirmPassword = !_showConfirmPassword;
+                                        _showConfirmPassword =
+                                            !_showConfirmPassword;
                                       });
                                     },
                                   ),
@@ -233,7 +244,8 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                                   _confirmarSenha = value;
                                 },
                                 validator: (String? confirmPassword) {
-                                  if (confirmPassword == null || confirmPassword.isEmpty) {
+                                  if (confirmPassword == null ||
+                                      confirmPassword.isEmpty) {
                                     return "A confirmação de senha não pode ser vazia";
                                   }
                                   if (confirmPassword != _senha) {
