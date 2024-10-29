@@ -1,19 +1,16 @@
-# GalaxyFy 
+# galaxyfy_application
 
-**A new Flutter project.
+A new Flutter project.
 
-**Descrição concisa para o aplicativo Galaxy Fy
-Galaxy Fy é um aplicativo de música desenvolvido com Flutter e Dart para Android, oferecendo uma experiência musical completa e personalizada.
+## Getting Started
 
-**Principais recursos:
+This project is a starting point for a Flutter application.
 
-Personalização: Crie suas próprias playlists e ajuste a interface.
-Player avançado: Equalizador, modos de reprodução e letras de músicas.
-Compartilhamento: Compartilhe suas músicas com amigos.
-Busca avançada
-Widgets personalizados
+A few resources to get you started if this is your first Flutter project:
 
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-**Desenvolvimento:
-Flutter e Dart: Framework e linguagem para desenvolvimento cross-platform, garantindo uma interface fluida e nativa em Android.
-Bibliotecas: Utilização de diversas bibliotecas para otimizar o desenvolvimento e expandir as funcionalidades do aplicativo.
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
