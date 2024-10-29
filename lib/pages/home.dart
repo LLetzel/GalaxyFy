@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:galaxyfy_application/pages/artista.dart';
 import 'package:galaxyfy_application/shared/style.dart';
 import 'components/carousel.dart';
 
@@ -92,7 +93,8 @@ class _HomePageState extends State<HomePage> {
                 height: screenHeight * 0.25,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: popularArtistsImages.length + newReleasesImages.length,
+                  itemCount:
+                      popularArtistsImages.length + newReleasesImages.length,
                   itemBuilder: (context, index) {
                     String imageUrl;
                     String title;
@@ -101,36 +103,49 @@ class _HomePageState extends State<HomePage> {
                       imageUrl = popularArtistsImages[index];
                       title = popularArtistsNames[index];
                     } else {
-                      imageUrl = newReleasesImages[index - popularArtistsImages.length];
-                      title = newReleasesTitles[index - popularArtistsImages.length];
+                      imageUrl = newReleasesImages[
+                          index - popularArtistsImages.length];
+                      title = newReleasesTitles[
+                          index - popularArtistsImages.length];
                     }
 
                     return Padding(
                       padding: EdgeInsets.all(screenWidth * 0.02),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center, // Centraliza o conteúdo
-                        children: [
-                          Container(
-                            width: screenWidth * 0.3,
-                            height: screenWidth * 0.3,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              image: DecorationImage(
-                                image: NetworkImage(imageUrl),
-                                fit: BoxFit.cover,
+                      child: GestureDetector(
+                        onTap: () {
+                          if (title == 'Mc Kevin') {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ArtistPage()),
+                            );
+                          }
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: screenWidth * 0.3,
+                              height: screenWidth * 0.3,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                  image: NetworkImage(imageUrl),
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             ),
-                          ),
-                          SizedBox(height: screenHeight * 0.01),
-                          Text(
-                            title,
-                            textAlign: TextAlign.center, // Centraliza o texto
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: screenHeight * 0.02,
+                            SizedBox(height: screenHeight * 0.01),
+                            Text(
+                              title,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: screenHeight * 0.02,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     );
                   },

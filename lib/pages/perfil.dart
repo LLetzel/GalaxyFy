@@ -13,143 +13,117 @@ class _PerfilPageState extends State<PerfilPage> {
   @override
   Widget build(BuildContext context) {
     // Utilizando MediaQuery para capturar as dimensões da tela
-    final screenWidth = MediaQuery.of(context).size.width; // Largura da tela
-    final screenHeight = MediaQuery.of(context).size.height; // Altura da tela
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      backgroundColor:
-          Colors.transparent, // Deixa o fundo da Scaffold transparente
-      body: Stack(
-        clipBehavior:
-            Clip.none, // Permite que itens possam sair do limite do widget pai
-        children: [
-          // Background com gradiente de fundo
-          Positioned.fill(
-            child: Container(
-              decoration:
-                  MyColors.backgroundGradient(), // Aplica o gradiente de fundo
+      body: Container(
+        width: screenWidth,
+        height: screenHeight,
+        decoration:
+            MyColors.backgroundGradient(), // Aplica o gradiente de fundo
+        child: SafeArea(
+          child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(
+              horizontal: screenWidth * 0.05,
+              vertical: screenHeight * 0.05,
             ),
-          ),
-
-          // Para garantir que o conteúdo não se sobreponha à barra de status
-          SafeArea(
-            child: SingleChildScrollView(
-              // Permite que o conteúdo role se for maior que a tela
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  horizontal: screenWidth *
-                      0.05, // 5% de margem horizontal com base na largura da tela
-                  vertical: screenHeight *
-                      0.05, // 5% de margem vertical com base na altura da tela
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment
-                      .center, // Centraliza horizontalmente o conteúdo
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                // Botão "Voltar"
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    // Botão "Voltar"
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        BackButton(
-                          color: Colors.white, // Cor do botão de voltar
-                        ),
-                      ],
-                    ),
-
-                    // Foto do perfil circular - imagem local
-                    CircleAvatar(
-                      radius: screenWidth * 0.15, // 15% da largura da tela
-                      backgroundImage: AssetImage(
-                        'assets/perfis/letzel.png', // Caminho da imagem local
-                      ),
-                    ),
-
-                    // const SizedBox(
-                    //     height:
-                    //         16), // Espaçamento fixo entre a imagem de perfil e o nome
-
-                    // Nome do usuário
-                    const Text(
-                      'Lucas Letzel',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-
-                    const SizedBox(
-                        height: 8), // Espaçamento fixo entre o nome e o botão
-
-                    // Botão "Editar Perfil"
-                    ElevatedButton(
-                      onPressed: () {
-                        // Navegação para outra página
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => ProfileSelectionPage(),
-                          ),
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.grey[850],
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 24, vertical: 12),
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(24), // Cantos arredondados
-                        ),
-                      ),
-                      child: const Text(
-                        'Alterar Perfil',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                    ),
-
-                    const SizedBox(
-                        height:
-                            24), // Espaçamento entre o botão e o texto das playlists públicas
-
-                    // Texto das playlists públicas
-                    const Text(
-                      'PLAYLISTS PÚBLICAS',
-                      style: TextStyle(
-                        color: Colors.white70,
-                        fontSize: 16,
-                        letterSpacing: 1.5, // Espaçamento entre letras
-                      ),
-                    ),
-
-                    const SizedBox(
-                        height:
-                            16), // Espaçamento entre o título e a lista de playlists
-
-                    // Lista de playlists públicas
-                    _buildPlaylistItem(
-                      'Power Metal',
-                      'https://cdn.pixabay.com/photo/2016/09/19/21/50/sun-flower-1681385_640.jpg',
-                      '0 SEGUIDORES',
-                      screenWidth,
-                    ),
-                    _buildPlaylistItem(
-                      'Nirvana',
-                      'https://cdn.pixabay.com/photo/2016/09/19/21/50/sun-flower-1681385_640.jpg',
-                      '0 SEGUIDORES',
-                      screenWidth,
-                    ),
-                    _buildPlaylistItem(
-                      'Love Song',
-                      'https://cdn.pixabay.com/photo/2016/09/19/21/50/sun-flower-1681385_640.jpg',
-                      '0 SEGUIDORES',
-                      screenWidth,
+                    BackButton(
+                      color: Colors.white,
                     ),
                   ],
                 ),
-              ),
+
+                // Foto do perfil circular - imagem local
+                CircleAvatar(
+                  radius: screenWidth * 0.15,
+                  backgroundImage: AssetImage('assets/perfis/letzel.png'),
+                ),
+
+                const SizedBox(height: 16),
+
+                // Nome do usuário
+                const Text(
+                  'Lucas Letzel',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+
+                const SizedBox(height: 8),
+
+                // Botão "Editar Perfil"
+                ElevatedButton(
+                  onPressed: () {
+                    // Navegação para outra página
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfileSelectionPage(),
+                      ),
+                    );
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.grey[850],
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 12),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                  ),
+                  child: 
+                  const Text(
+                    'Alterar Perfil',
+                    style: TextStyle(color: Colors.white, fontSize: 15),
+                  ),
+                ),
+
+                const SizedBox(height: 24),
+
+                // Texto das playlists públicas
+                const Text(
+                  'PLAYLISTS',
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 16,
+                    letterSpacing: 1.5,
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+
+                // Lista de playlists públicas
+                _buildPlaylistItem(
+                  'Funk Hits',
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTKtObVyBFoxQ56NH4-LcX8awFnU2Bccsysxw&s',
+                  '0 SEGUIDORES',
+                  screenWidth,
+                ),
+                _buildPlaylistItem(
+                  'Trap',
+                  'https://murbbrasil.com/wp-content/uploads/2022/03/artistas-mais-ouvidos-de-Trap-no-Brasil.png',
+                  '0 SEGUIDORES',
+                  screenWidth,
+                ),
+                _buildPlaylistItem(
+                  'Hip Hop',
+                  'https://upload.wikimedia.org/wikipedia/pt/0/06/50_Cent_-_In_da_Club.jpg',
+                  '0 SEGUIDORES',
+                  screenWidth,
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -158,24 +132,21 @@ class _PerfilPageState extends State<PerfilPage> {
   Widget _buildPlaylistItem(
       String title, String imageUrl, String followers, double screenWidth) {
     return Padding(
-      padding: const EdgeInsets.symmetric(
-          vertical: 8.0), // Espaçamento entre as playlists
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
         children: [
           // Imagem da playlist
           ClipRRect(
-            borderRadius:
-                BorderRadius.circular(8), // Bordas arredondadas para a imagem
+            borderRadius: BorderRadius.circular(8),
             child: Image.network(
               imageUrl,
-              width: screenWidth * 0.15, // 15% da largura da tela
-              height: screenWidth * 0.15, // Mantém a altura proporcional
-              fit: BoxFit
-                  .cover, // Garante que a imagem ocupe completamente o espaço
+              width: screenWidth * 0.15,
+              height: screenWidth * 0.15,
+              fit: BoxFit.cover,
             ),
           ),
 
-          const SizedBox(width: 16), // Espaçamento entre a imagem e o texto
+          const SizedBox(width: 16), // Espaçamento entre imagem e texto
 
           // Informações da playlist
           Column(
