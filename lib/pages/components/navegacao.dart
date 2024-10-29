@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/shared/style.dart';
 
-class CustomBottomNavigationBar extends StatelessWidget {
+class CustomBottomNavigationBar extends StatefulWidget {
   final int currentIndex;
   final Function(int) onItemTapped;
 
@@ -12,21 +12,27 @@ class CustomBottomNavigationBar extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<CustomBottomNavigationBar> createState() =>
+      _CustomBottomNavigationBarState();
+}
+
+class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
+  @override
   Widget build(BuildContext context) {
     return Stack(
-      clipBehavior: Clip.none, // Importante para permitir o posicionamento flutuante
+      clipBehavior: Clip.none,
       alignment: Alignment.center,
       children: [
         Container(
-          height: 100, // Altura do menubar
+          height: 65,
           decoration: BoxDecoration(
-            color: Color(0xFF131417), // Cor de fundo do menubar
+            color: const Color(0xFF131417), // Cor de fundo do menubar
           ),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.end, // Coloca o menubar na parte inferior
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               BottomNavigationBar(
-                items: const <BottomNavigationBarItem>[
+                items: <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
                     icon: Icon(Icons.home_filled),
                     label: 'Início',
@@ -44,32 +50,33 @@ class CustomBottomNavigationBar extends StatelessWidget {
                     label: 'Perfil',
                   ),
                 ],
-                currentIndex: currentIndex,
-                selectedItemColor: MyColors.rosaClaro, // Cor dos ícones selecionados
-                unselectedItemColor: MyColors.cinzaEscuro, // Cor dos ícones não selecionados
-                onTap: onItemTapped,
-                backgroundColor: MyColors.escuro, // Cor de fundo
-                elevation: 0, // Remove sombra do menubar
-                type: BottomNavigationBarType.fixed, // Remove animação de transição
-                iconSize: 30, // Tamanho dos ícones
-                enableFeedback: false, // Remove vibrações/sons
-                selectedIconTheme: IconThemeData(size: 30), // Mantém o tamanho do ícone fixo
-                unselectedIconTheme: IconThemeData(size: 30), // Mantém o tamanho do ícone fixo
+                currentIndex: widget.currentIndex,
+                selectedItemColor: MyColors.rosaClaro,
+                unselectedItemColor: MyColors.cinzaEscuro,
+                onTap: widget
+                    .onItemTapped, // Muda o índice com base na aba clicada
+                backgroundColor: MyColors.escuro,
+                elevation: 0,
+                type: BottomNavigationBarType.fixed,
+                iconSize: 30,
+                enableFeedback: false,
+                selectedIconTheme: const IconThemeData(size: 30),
+                unselectedIconTheme: const IconThemeData(size: 30),
               ),
             ],
           ),
         ),
         Positioned(
-          bottom: 35, // Mantém o ícone central dentro do menubar
+          bottom: 30,
           child: Container(
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
-              color: Color(0xFFF4BDFF), // Cor de fundo do ícone central
+              color: Color(0xFFF4BDFF),
             ),
-            padding: const EdgeInsets.all(8), // Espaçamento ao redor da imagem
+            padding: const EdgeInsets.all(5),
             child: Image.asset(
-              'assets/img/astronauta.png', // Caminho para a imagem do astronauta
-              height: 60, // Ajuste do tamanho conforme necessário
+              'assets/img/astronauta.png',
+              height: 50,
             ),
           ),
         ),
