@@ -5,6 +5,7 @@ import 'package:galaxyfy_application/pages/cadastro.dart';
 import 'package:galaxyfy_application/pages/Inicio.dart';
 import 'package:galaxyfy_application/shared/style.dart';
 import 'package:galaxyfy_application/pages/selecaoperfil.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Importa o pacote de autenticação do Firebase
 
 class Login_GalaxyFy extends StatefulWidget {
   const Login_GalaxyFy({super.key});
@@ -14,11 +15,48 @@ class Login_GalaxyFy extends StatefulWidget {
 }
 
 class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
+  final FirebaseAuth _auth =
+      FirebaseAuth.instance; // Instância do FirebaseAuth para autenticação
+  final TextEditingController _emailController =
+      TextEditingController(); // Controlador para o campo de e-mail
+  final TextEditingController _passwordController =
+      TextEditingController(); // Controlador para o campo de senha
+
+  // Método assíncrono para realizar o login
+  Future<void> _login() async {
+    try {
+      // Tenta fazer login com e-mail e senha fornecidos
+      await _auth.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      // Se o login for bem-sucedido, navega para a tela inicial
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => InicioPage()),
+      );
+    } catch (e) {
+      // Em caso de erro, exibe uma notificação com a mensagem de erro
+      _showSnackBar('Erro no login: $e', Colors.red);
+    }
+  }
+
+  // Método para exibir uma mensagem na parte inferior da tela (SnackBar)
+  void _showSnackBar(String message, Color color) {
+    final snackBar = SnackBar(
+      content: Text(message),
+      backgroundColor: color,
+      duration: Duration(seconds: 2), // Duração de exibição do SnackBar
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   final _formKey = GlobalKey<FormState>();
   bool _showPassword = false;
   bool _rememberMe = false; // Estado do switch
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  // final TextEditingController _emailController = TextEditingController();
+  // final TextEditingController _passwordController = TextEditingController();
 
   void _submit() {
     if (_formKey.currentState?.validate() == true) {
@@ -36,7 +74,6 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
   Widget build(BuildContext context) {
     var scaffold = Scaffold(
       body: Stack(
-
         // stops: [
         //     0.2,
         //     0.5,

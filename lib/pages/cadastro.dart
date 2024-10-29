@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/shared/style.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Cadastro_GalaxyFy extends StatefulWidget {
   const Cadastro_GalaxyFy({super.key});
@@ -9,23 +10,50 @@ class Cadastro_GalaxyFy extends StatefulWidget {
 }
 
 class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+
+  Future<void> _register() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        // Tenta criar o usuário com e-mail e senha
+        UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+        );
+
+        // Tenta atualizar o nome do usuário
+        await userCredential.user!.updateDisplayName(_usernameController.text.trim());
+        await userCredential.user!.reload();
+        _auth.currentUser; // Recarrega o usuário atualizado
+
+        // Exibe uma notificação de sucesso e redireciona
+        _showSnackBar('Cadastro realizado com sucesso!', Colors.green);
+        Navigator.pop(context); // Volta para a tela de login após o cadastro
+      } catch (e) {
+        // Exibe uma notificação de erro específico
+        _showSnackBar('Erro no cadastro: ${e.toString()}', Colors.red);
+      }
+    }
+  }
+
+  void _showSnackBar(String message, Color color) {
+    final snackBar = SnackBar(
+      content: Text(message),
+      backgroundColor: color,
+      duration: Duration(seconds: 2),
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
   final _formKey = GlobalKey<FormState>();
   bool _showPassword = false;
   bool _showConfirmPassword = false;
   String? _senha;
   String? _confirmarSenha;
-
-  void _submit() {
-    if (_formKey.currentState?.validate() == true) {
-      // Se o formulário for válido, prossiga com o cadastro
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Cadastro realizado com sucesso!')),
-      );
-
-      // Redireciona para a rota /login
-      Navigator.pushReplacementNamed(context, '/login');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
