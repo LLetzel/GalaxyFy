@@ -1,6 +1,6 @@
 {
-    "name": "galaxyfy_application",
-    "short_name": "galaxyfy_application",
+    "name": "galaxy_fy",
+    "short_name": "galaxy_fy",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
