@@ -12,8 +12,11 @@ import 'package:galaxyfy_application/pages/search.dart';
 import 'package:galaxyfy_application/pages/library.dart';
 import 'package:galaxyfy_application/pages/perfil.dart';
 import 'package:galaxyfy_application/pages/home.dart';
+import 'package:firebase_core/firebase_core.dart'; // Importa o pacote para inicializar o Firebase
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -35,8 +38,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         // '/': (context) => ProfileSelectionPage(),
-        '/': (context) => InicioPage(),
-        // '/': (context) => SplashScreen(),
+        // '/': (context) => InicioPage(),
+        '/': (context) => SplashScreen(),
         // '/': (context) => const ArtistPage(),
         '/artist': (context) => const ArtistPage(),
         '/selection': (context) => ProfileSelectionPage(),

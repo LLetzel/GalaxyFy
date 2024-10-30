@@ -38,7 +38,7 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
       );
     } catch (e) {
       // Em caso de erro, exibe uma notificação com a mensagem de erro
-      _showSnackBar('Erro no login: $e', Colors.red);
+      _showSnackBar('Email ou senha inválidos', Colors.red);
     }
   }
 
@@ -209,7 +209,7 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                               SizedBox(height: 15),
                               Center(
                                 child: ElevatedButton(
-                                  onPressed: _submit,
+                                  onPressed: _login,
                                   child: Text("Entrar"),
                                   style: ElevatedButton.styleFrom(
                                     fixedSize: Size(120, 50),

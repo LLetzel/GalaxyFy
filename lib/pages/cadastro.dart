@@ -14,23 +14,23 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _cpfController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
 
   Future<void> _register() async {
     if (_formKey.currentState!.validate()) {
       try {
         // Tenta criar o usuário com e-mail e senha
-        UserCredential userCredential =
-            await _auth.createUserWithEmailAndPassword(
+        UserCredential userCredential = await _auth.createUserWithEmailAndPassword(
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
+          // username: _usernameController.text.trim(),
         );
 
         // Tenta atualizar o nome do usuário
-        await userCredential.user!
-            .updateDisplayName(_usernameController.text.trim());
+        await userCredential.user!.updateDisplayName(_usernameController.text.trim());
         await userCredential.user!.reload();
         _auth.currentUser; // Recarrega o usuário atualizado
 
@@ -39,11 +39,19 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
         Navigator.pop(context); // Volta para a tela de login após o cadastro
       } catch (e) {
         // Exibe uma notificação de erro específico
-        _showSnackBar('Erro no cadastro: ${e.toString()}', Colors.red);
+        _showSnackBar('Erro no cadastro', Colors.red);
       }
     }
   }
 
+  
+
+  // final _formKey = GlobalKey<FormState>();
+  bool _showPassword = false;
+  bool _showConfirmPassword = false;
+  String? _senha;
+  String? _confirmarSenha;
+  
   void _showSnackBar(String message, Color color) {
     final snackBar = SnackBar(
       content: Text(message),
@@ -52,12 +60,6 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
-
-  // final _formKey = GlobalKey<FormState>();
-  bool _showPassword = false;
-  bool _showConfirmPassword = false;
-  String? _senha;
-  String? _confirmarSenha;
 
   @override
   Widget build(BuildContext context) {
@@ -108,6 +110,7 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               TextFormField(
+                                controller: _usernameController,
                                 autofocus: true,
                                 style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
@@ -125,6 +128,7 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                                 },
                               ),
                               TextFormField(
+                                controller: _cpfController,
                                 autofocus: true,
                                 style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
@@ -162,6 +166,7 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                                 },
                               ),
                               TextFormField(
+                                controller: _emailController,
                                 autofocus: true,
                                 style: TextStyle(color: Colors.white),
                                 decoration: InputDecoration(
@@ -179,6 +184,7 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                                 },
                               ),
                               TextFormField(
+                                controller: _passwordController,
                                 autofocus: true,
                                 obscureText: !_showPassword,
                                 style: TextStyle(color: Colors.white),
@@ -257,7 +263,7 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
                               SizedBox(height: 15),
                               Center(
                                 child: ElevatedButton(
-                                  onPressed: _submit,
+                                  onPressed: _register,
                                   child: Text("Cadastrar"),
                                   style: ElevatedButton.styleFrom(
                                     fixedSize: Size(120, 50),
