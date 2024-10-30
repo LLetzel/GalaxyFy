@@ -1,3 +1,9 @@
+plugins {
+    // Add the Google services Gradle plugin aqui no topo
+    id 'com.google.gms.google-services' version '4.4.2' apply false
+}
+
+// Configurações do projeto
 allprojects {
     repositories {
         google()
