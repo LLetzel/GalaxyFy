@@ -9,8 +9,10 @@ import 'package:firebase_auth/firebase_auth.dart'; // Importa o pacote de autent
 
 class Login_GalaxyFy extends StatefulWidget {
   const Login_GalaxyFy({super.key});
+  
 
   @override
+  
   State<Login_GalaxyFy> createState() => _Login_GalaxyFyState();
 }
 
@@ -24,13 +26,14 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
 
   // Método assíncrono para realizar o login
   Future<void> _login() async {
+    
     try {
       // Tenta fazer login com e-mail e senha fornecidos
       await _auth.signInWithEmailAndPassword(
         email: _emailController.text,
         password: _passwordController.text,
       );
-
+       _showSnackBar('Bem vindo!', Colors.purple);
       // Se o login for bem-sucedido, navega para a tela inicial
       Navigator.pushReplacement(
         context,
@@ -62,6 +65,7 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
     if (_formKey.currentState?.validate() == true) {
       // Aqui você pode usar o valor de _rememberMe conforme necessário
       Navigator.push(
+
         context,
         MaterialPageRoute(
           builder: (context) => ProfileSelectionPage(),

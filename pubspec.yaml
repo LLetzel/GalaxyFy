@@ -32,9 +32,10 @@ dependencies:
   flutter:
     sdk: flutter
   carousel_slider: ^5.0.0 
-  palette_generator: ^0.3.0
+  # palette_generator: ^0.3.0
   firebase_core: ^3.6.0
   firebase_auth: ^5.3.1
+  audioplayers: ^6.1.0
   
 
 
@@ -75,6 +76,7 @@ flutter:
     - assets/icons/
     - assets/gif/
     - assets/perfis/
+    - assets/songs/
     # - img/fundo.png
 
 

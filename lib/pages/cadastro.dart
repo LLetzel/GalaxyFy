@@ -35,7 +35,7 @@ class _Cadastro_GalaxyFyState extends State<Cadastro_GalaxyFy> {
         _auth.currentUser; // Recarrega o usuário atualizado
 
         // Exibe uma notificação de sucesso e redireciona
-        _showSnackBar('Cadastro realizado com sucesso!', Colors.green);
+        _showSnackBar('Cadastro realizado com sucesso!', Colors.purple);
         Navigator.pop(context); // Volta para a tela de login após o cadastro
       } catch (e) {
         // Exibe uma notificação de erro específico

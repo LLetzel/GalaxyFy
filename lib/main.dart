@@ -39,8 +39,8 @@ class MyApp extends StatelessWidget {
       routes: {
         // '/': (context) => ProfileSelectionPage(),
         // '/': (context) => InicioPage(),
-        '/': (context) => SplashScreen(),
-        // '/': (context) => const ArtistPage(),
+        // '/': (context) => SplashScreen(),
+        '/': (context) => const ArtistPage(),
         '/artist': (context) => const ArtistPage(),
         '/selection': (context) => ProfileSelectionPage(),
         '/inicio': (context) => const InicioPage(),

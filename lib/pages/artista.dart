@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/shared/style.dart';
+import 'details.dart';
 
 class ArtistPage extends StatelessWidget {
   const ArtistPage({super.key});
-
+  
   @override
+  
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
@@ -252,133 +254,3 @@ class ArtistPage extends StatelessWidget {
   }
 }
 
-// Tela de reprodução de música
-class DetailPage extends StatefulWidget {
-  final String item;
-  final String artist;
-  final String imageUrl;
-
-  const DetailPage(
-      {super.key,
-      required this.item,
-      required this.artist,
-      required this.imageUrl});
-
-  @override
-  _DetailPageState createState() => _DetailPageState();
-}
-
-class _DetailPageState extends State<DetailPage> {
-  double _sliderValue = 0.0;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            decoration: MyColors.backgroundGradient(),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 250,
-                height: 250,
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(widget.imageUrl),
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black54,
-                      blurRadius: 10,
-                      offset: Offset(0, 4),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-              Text(
-                widget.item,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                widget.artist,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white54,
-                  fontSize: 16,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Slider(
-                value: _sliderValue,
-                onChanged: (newValue) {
-                  setState(() {
-                    _sliderValue = newValue;
-                  });
-                },
-                activeColor: Colors.white,
-                inactiveColor: Colors.white30,
-                min: 0.0,
-                max: 1.0,
-              ),
-              const SizedBox(height: 20),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    icon: Icon(Icons.skip_previous),
-                    color: Colors.white,
-                    iconSize: 40,
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.play_circle_fill),
-                    color: Colors.white,
-                    iconSize: 70,
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.skip_next),
-                    color: Colors.white,
-                    iconSize: 40,
-                    onPressed: () {},
-                  ),
-                ],
-              ),
-              const SizedBox(height: 20),
-              IconButton(
-                icon: Icon(Icons.favorite_border),
-                color: Colors.pinkAccent,
-                iconSize: 40,
-                onPressed: () {},
-              ),
-            ],
-          ),
-
-          // Ícone de voltar
-          Positioned(
-            top: 40,
-            left: 20,
-            child: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.white),
-              onPressed: () {
-                Navigator.pop(context); // Volta para a ArtistPage
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
