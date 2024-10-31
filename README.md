@@ -7,15 +7,20 @@ GalaxyFy é um aplicativo de música desenvolvido com *Flutter* e *Dart* para An
 **_____________________________________________________________________________________________________________________________________________**
 
 **Principais recursos:**
+
 Personalização: Crie suas próprias playlists e ajuste a interface.
+
 Player avançado: Equalizador, modos de reprodução.
+
 Busca avançada
+
 Widgets personalizados
 
 **_____________________________________________________________________________________________________________________________________________**
 
 
 **Desenvolvimento:**
+
 Flutter e Dart: Framework e linguagem para desenvolvimento cross-platform, garantindo uma interface fluida e nativa em Android.
 
 Bibliotecas: Utilização de diversas bibliotecas para otimizar o desenvolvimento e expandir as funcionalidades do aplicativo.
