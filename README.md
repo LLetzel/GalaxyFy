@@ -1,14 +1,18 @@
-# GalaxyFy 
-Galaxy Fy é um aplicativo de música desenvolvido com *Flutter* e *Dart* para Android, oferecendo uma experiência musical completa e personalizada.
+ # GalaxyFy 
+ **Seu aplicativo de música!**
 
+ 
+GalaxyFy é um aplicativo de música desenvolvido com *Flutter* e *Dart* para Android, oferecendo uma experiência musical completa e personalizada.
+
+**_____________________________________________________________________________________________________________________________________________**
 
 **Principais recursos:**
-
 Personalização: Crie suas próprias playlists e ajuste a interface.
 Player avançado: Equalizador, modos de reprodução.
 Busca avançada
 Widgets personalizados
 
+**_____________________________________________________________________________________________________________________________________________**
 
 
 **Desenvolvimento:**
