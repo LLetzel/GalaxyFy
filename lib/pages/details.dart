@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/shared/style.dart';
 import 'package:audioplayers/audioplayers.dart';
-
+import 'package:palette_generator/palette_generator.dart';
 
 class DetailPage extends StatefulWidget {
   final String item;
   final String artist;
   final String imageUrl;
 
-  const DetailPage(
-      {super.key,
-      required this.item,
-      required this.artist,
-      required this.imageUrl});
+  const DetailPage({
+    super.key,
+    required this.item,
+    required this.artist,
+    required this.imageUrl,
+  });
 
   @override
   _DetailPageState createState() => _DetailPageState();
@@ -24,10 +25,13 @@ class _DetailPageState extends State<DetailPage> {
   Duration _audioDuration = Duration.zero;
   Duration _currentPosition = Duration.zero;
   bool isPlaying = false;
+  Color _dominantColor = Colors.blue.shade200;
 
   @override
   void initState() {
     super.initState();
+    _updatePaletteColor();
+
     _audioPlayer.onDurationChanged.listen((duration) {
       setState(() {
         _audioDuration = duration;
@@ -39,6 +43,17 @@ class _DetailPageState extends State<DetailPage> {
         _currentPosition = position;
         _sliderValue = _currentPosition.inSeconds / _audioDuration.inSeconds;
       });
+    });
+  }
+
+  Future<void> _updatePaletteColor() async {
+    final PaletteGenerator paletteGenerator =
+        await PaletteGenerator.fromImageProvider(
+      NetworkImage(widget.imageUrl),
+    );
+
+    setState(() {
+      _dominantColor = paletteGenerator.dominantColor?.color ?? Colors.blue.shade200;
     });
   }
 
@@ -67,7 +82,11 @@ class _DetailPageState extends State<DetailPage> {
           Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [Colors.blue.shade200, Colors.blue.shade800],
+                colors: [
+                  _dominantColor.withOpacity(0.7), // Mais claro
+                  _dominantColor.withOpacity(0.9), // Intermediário
+                  _dominantColor,                  // Cor dominante pura
+                ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -176,4 +195,3 @@ class _DetailPageState extends State<DetailPage> {
     );
   }
 }
-
