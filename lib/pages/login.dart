@@ -5,25 +5,67 @@ import 'package:galaxyfy_application/pages/cadastro.dart';
 import 'package:galaxyfy_application/pages/Inicio.dart';
 import 'package:galaxyfy_application/shared/style.dart';
 import 'package:galaxyfy_application/pages/selecaoperfil.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Importa o pacote de autenticação do Firebase
 
 class Login_GalaxyFy extends StatefulWidget {
   const Login_GalaxyFy({super.key});
+  
 
   @override
+  
   State<Login_GalaxyFy> createState() => _Login_GalaxyFyState();
 }
 
 class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
+  final FirebaseAuth _auth =
+      FirebaseAuth.instance; // Instância do FirebaseAuth para autenticação
+  final TextEditingController _emailController =
+      TextEditingController(); // Controlador para o campo de e-mail
+  final TextEditingController _passwordController =
+      TextEditingController(); // Controlador para o campo de senha
+
+  // Método assíncrono para realizar o login
+  Future<void> _login() async {
+    
+    try {
+      // Tenta fazer login com e-mail e senha fornecidos
+      await _auth.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+       _showSnackBar('Bem vindo!', Colors.purple);
+      // Se o login for bem-sucedido, navega para a tela inicial
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => ProfileSelectionPage() ),
+      );
+    } catch (e) {
+      // Em caso de erro, exibe uma notificação com a mensagem de erro
+      _showSnackBar('Email ou senha inválidos', Colors.red);
+    }
+  }
+
+  // Método para exibir uma mensagem na parte inferior da tela (SnackBar)
+  void _showSnackBar(String message, Color color) {
+    final snackBar = SnackBar(
+      content: Text(message),
+      backgroundColor: color,
+      duration: Duration(seconds: 2), // Duração de exibição do SnackBar
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
   final _formKey = GlobalKey<FormState>();
   bool _showPassword = false;
   bool _rememberMe = false; // Estado do switch
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  // final TextEditingController _emailController = TextEditingController();
+  // final TextEditingController _passwordController = TextEditingController();
 
   void _submit() {
     if (_formKey.currentState?.validate() == true) {
       // Aqui você pode usar o valor de _rememberMe conforme necessário
       Navigator.push(
+
         context,
         MaterialPageRoute(
           builder: (context) => ProfileSelectionPage(),
@@ -36,7 +78,6 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
   Widget build(BuildContext context) {
     var scaffold = Scaffold(
       body: Stack(
-
         // stops: [
         //     0.2,
         //     0.5,
@@ -172,7 +213,7 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                               SizedBox(height: 15),
                               Center(
                                 child: ElevatedButton(
-                                  onPressed: _submit,
+                                  onPressed: _login,
                                   child: Text("Entrar"),
                                   style: ElevatedButton.styleFrom(
                                     fixedSize: Size(120, 50),

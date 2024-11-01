@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/pages/components/navegacao.dart'; // Importa o arquivo de navegação
 import 'package:galaxyfy_application/shared/style.dart';
-import 'package:galaxyfy_application/pages/artista.dart'; // Importa a página do artista
+import 'package:galaxyfy_application/pages/artistakevin.dart'; // Importa a página do artista
 
 class ArtistItem {
   final String name;

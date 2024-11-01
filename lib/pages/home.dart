@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:galaxyfy_application/pages/artista.dart';
+import 'package:galaxyfy_application/pages/artistakevin.dart';
 import 'package:galaxyfy_application/shared/style.dart';
 import 'components/carousel.dart';
 
@@ -27,7 +27,6 @@ class _HomePageState extends State<HomePage> {
 
   final List<String> newReleasesImages = [
     'https://cdns-images.dzcdn.net/images/cover/4533a95a5ffa6a7d42d6d720530b814d/0x1900-000000-80-0-0.jpg',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxjJgn7UJr-JqQQrFw6c-qzuKmNMvt9AWbQg&s',
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiuWxcC4vEMjLOAI2OzsB86fhBBV1Bhp31og&s'
   ];
 
