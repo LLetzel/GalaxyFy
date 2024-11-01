@@ -130,11 +130,7 @@ class ArtistPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => DetailPage(
-                                item: songs[index]['title']!,
-                                artist: songs[index]['artist']!,
-                                imageUrl: songs[index]['image']!,
-                              ),
+                              builder: (context) => const DetailPage(),
                             ),
                           );
                         },
