@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/shared/style.dart';
+import 'package:galaxyfy_application/pages/mcig.dart';
 
 class ArtistPage extends StatelessWidget {
   const ArtistPage({super.key});
@@ -44,7 +45,7 @@ class ArtistPage extends StatelessWidget {
 
     return Scaffold(
       body: Container(
-        decoration: MyColors.backgroundGradient,
+        decoration: MyColors.backgroundGradient(),
         child: Stack(
           children: [
             SingleChildScrollView(
