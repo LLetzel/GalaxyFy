@@ -15,7 +15,6 @@ class Cadastro_GalaxyFy extends StatelessWidget {
       body: Container(
         padding: const EdgeInsets.all(16),
         margin: const EdgeInsets.all(8),
-        // height: 400,
         decoration: BoxDecoration(
             color: const Color.fromARGB(255, 255, 255, 255), borderRadius: BorderRadius.circular(20)),
         child: Form(

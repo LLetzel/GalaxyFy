@@ -8,7 +8,8 @@ import 'package:galaxyfy_application/shared/style.dart';
 import 'package:galaxyfy_application/pages/splash.dart';
 import 'package:galaxyfy_application/pages/catalago.dart'; 
 import 'package:galaxyfy_application/pages/selecaodeconta.dart'; 
-// Certifique-se de que este arquivo contenha a classe Catalogo correta.
+import 'package:galaxyfy_application/pages/biblioteca.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +18,7 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -34,7 +35,8 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const Login_GalaxyFy(),
         '/cadastro2': (context) => const Cadastro2_GalaxyFy(),
         '/home': (context) => const HomePage(),
-         '/selecaodeconta': (context) => const SelectAccountScreen(),
+        '/selecaodeconta': (context) => const SelectAccountScreen(),
+        '/biblioteca': (context) => const LibraryPage()
       },
     );
   }

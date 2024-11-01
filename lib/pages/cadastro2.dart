@@ -14,7 +14,7 @@ class _Cadastro2_GalaxyFyState extends State<Cadastro2_GalaxyFy> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 46, 1, 44),
+      backgroundColor: const Color.fromARGB(255, 30, 5, 29),
       appBar: AppBar(
         backgroundColor: const Color.fromARGB(255, 82, 3, 128),
         title: Text('Login GalaxyFy', style: TextStyle(color: Colors.white)),
@@ -22,7 +22,6 @@ class _Cadastro2_GalaxyFyState extends State<Cadastro2_GalaxyFy> {
       body: Container(
         padding: const EdgeInsets.all(15.0),
         margin: const EdgeInsets.all(25.0),
-        // height: 400,
         decoration: BoxDecoration(
             gradient: const LinearGradient(
               begin: Alignment.topCenter,
@@ -44,7 +43,7 @@ class _Cadastro2_GalaxyFyState extends State<Cadastro2_GalaxyFy> {
                   autofocus: true,
                   decoration: InputDecoration(
                       icon: Icon(Icons.person),
-                      iconColor: const Color.fromARGB(255, 238, 0, 226),
+                      iconColor: const Color.fromARGB(255, 253, 253, 253),
                       hintText: "Nome"),
                   style: const TextStyle(color: Colors.white),
                   validator: (String? nome) {
@@ -58,7 +57,7 @@ class _Cadastro2_GalaxyFyState extends State<Cadastro2_GalaxyFy> {
                   autofocus: true,
                   decoration: InputDecoration(
                       icon: Icon(Icons.numbers),
-                      iconColor: const Color.fromARGB(255, 238, 0, 226),
+                      iconColor: const Color.fromARGB(255, 255, 255, 255),
                       hintText: "CPF"),
                   style: const TextStyle(color: Colors.white),
                   validator: (String? CPF) {
@@ -72,7 +71,7 @@ class _Cadastro2_GalaxyFyState extends State<Cadastro2_GalaxyFy> {
                   autofocus: true,
                   decoration: InputDecoration(
                       icon: Icon(Icons.call),
-                      iconColor: const Color.fromARGB(2255, 238, 0, 226),
+                      iconColor: const Color.fromARGB(207, 255, 255, 255),
                       hintText: "Celular"),
                   style: const TextStyle(color: Colors.white),
                   validator: (String? celular) {
@@ -86,7 +85,7 @@ class _Cadastro2_GalaxyFyState extends State<Cadastro2_GalaxyFy> {
                   autofocus: true,
                   decoration: InputDecoration(
                       icon: Icon(Icons.email),
-                      iconColor: const Color.fromARGB(255, 238, 0, 226),
+                      iconColor: const Color.fromARGB(255, 255, 255, 255),
                       hintText: "Email"),
                   style: const TextStyle(color: Colors.white),
                   validator: (String? Email) {
@@ -113,7 +112,7 @@ class _Cadastro2_GalaxyFyState extends State<Cadastro2_GalaxyFy> {
                           });
                         },
                       ),
-                      iconColor: const Color.fromARGB(255, 238, 0, 226),
+                      iconColor: const Color.fromARGB(255, 255, 255, 255),
                       hintText: "Senha"),
                   style: const TextStyle(color: Colors.white),
                   validator: (String? Senha) {
@@ -140,7 +139,7 @@ class _Cadastro2_GalaxyFyState extends State<Cadastro2_GalaxyFy> {
                           });
                         },
                       ),
-                      iconColor: const Color.fromARGB(255, 238, 0, 226),
+                      iconColor: const Color.fromARGB(255, 255, 255, 255),
                       hintText: "Confirmar Senha"),
                   style: const TextStyle(color: Colors.white),
                   validator: (String? ConfirmarSenha) {
@@ -160,7 +159,7 @@ class _Cadastro2_GalaxyFyState extends State<Cadastro2_GalaxyFy> {
                     style: ElevatedButton.styleFrom(
                       fixedSize: Size(120, 50),
                       backgroundColor: const Color.fromARGB(255, 238, 0, 226),
-                      foregroundColor: const Color.fromARGB(255, 82, 3, 128),
+                      foregroundColor: const Color.fromARGB(255, 255, 255, 255),
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
                     ),

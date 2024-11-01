@@ -26,7 +26,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
-  // Função para criar os cartões de artistas
+
   Widget _buildArtistCard(String imagePath) {
     return Container(
       width: 100,
@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Função para criar os cartões de álbuns
+
   Widget _buildAlbumCard(String imagePath) {
     return Container(
       width: 120,
@@ -56,10 +56,10 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  // Função para criar o campo de pesquisa
+
 Widget _buildSearchBar() {
   return Padding(
-    padding: const EdgeInsets.only(top: 25), // Ajuste a altura conforme necessário
+    padding: const EdgeInsets.only(top: 25), 
     child: Container(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       decoration: BoxDecoration(
@@ -91,7 +91,7 @@ Widget _buildSearchBar() {
 }
 
 
-  // Função para o conteúdo principal da página
+
   Widget _buildBodyContent() {
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -149,7 +149,7 @@ Widget _buildSearchBar() {
     );
   }
 
-  // Função para o BottomNavigationBar atualizado
+
   Widget _buildBottomNavigationBar() {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,

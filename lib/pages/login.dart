@@ -16,9 +16,9 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 46, 1, 44),
+      backgroundColor: const Color.fromARGB(255, 30, 5, 29),
       appBar: AppBar(
-        backgroundColor: const Color.fromARGB(255, 82, 3, 128),
+        backgroundColor: const Color.fromARGB(255, 56, 3, 87),
         title: const Text(
           'Login GalaxyFy',
           style: TextStyle(
@@ -36,7 +36,7 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
             end: Alignment.bottomCenter,
             colors: [
               Color.fromARGB(255, 82, 3, 128),
-              Color.fromARGB(255, 104, 4, 117)
+              Color.fromARGB(255, 89, 15, 99)
             ],
           ),
           color: const Color.fromARGB(255, 238, 0, 226),
@@ -48,18 +48,17 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                // Adicionando a imagem aqui
                 Image.asset(
-                  'assets/image36.png', // Certifique-se de que o caminho está correto
-                  height: 100, // Defina a altura da imagem
-                  width: 100,  // Defina a largura da imagem
+                  'assets/image36.png', 
+                  height: 100, 
+                  width: 100,  
                 ),
                 const SizedBox(height: 20),
                 TextFormField(
                   autofocus: true,
                   decoration: const InputDecoration(
                     icon: Icon(Icons.email),
-                    iconColor: Color.fromARGB(255, 238, 0, 226),
+                    iconColor: Color.fromARGB(255, 255, 255, 255),
                     hintText: "Informe seu e-mail",
                   ),
                   style: const TextStyle(
@@ -95,7 +94,7 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                         });
                       },
                     ),
-                    iconColor: const Color.fromARGB(255, 238, 0, 226),
+                    iconColor: const Color.fromARGB(255, 255, 255, 255),
                     hintText: "Senha",
                   ),
                   style: const TextStyle(color: Colors.white),
