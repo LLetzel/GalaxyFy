@@ -34,6 +34,7 @@ dependencies:
 
   flutter:
     sdk: flutter
+  carousel_slider: ^5.0.0
 
 flutter_native_splash:
   color: "#ffffff"
@@ -47,7 +48,8 @@ flutter_native_splash:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  carousel_slider: ^4.2.0
+  firebase_core: ^3.6.0
+  firebase_auth: ^5.3.1
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -76,7 +78,7 @@ flutter:
     - assets/img/artista3.png
     - assets/img/albums1.png
     - assets/img/albums2.png
-    - assets/img/albums3.png
+    - assets/img/artista4.jpg
     - assets/img/kauan.png
     - assets/img/letzel.png
     - assets/img/lipinho.png
@@ -84,6 +86,8 @@ flutter:
     - assets/img/pires.png
     - assets/img/mais.png
     - assets/img/modoesquece.png
+    - assets/img/astronalta.png
+    - assets/img/fundo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

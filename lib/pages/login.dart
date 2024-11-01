@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gabriel_str/pages/cadastro1.dart';
+import 'package:gabriel_str/pages/home.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Importa o pacote de autenticação do Firebase
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -9,8 +11,43 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final _formKey = GlobalKey<FormState>();
+  final FirebaseAuth _auth = FirebaseAuth.instance; // Instância do FirebaseAuth para autenticação
+  final TextEditingController _emailController = TextEditingController(); // Controlador para o campo de e-mail
+  final TextEditingController _passwordController = TextEditingController(); // Controlador para o campo de senha
+
+  // Método assíncrono para realizar o login
+  Future<void> _login() async {
+    try {
+      // Tenta fazer login com e-mail e senha fornecidos
+      await _auth.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      // Se o login for bem-sucedido, navega para a tela inicial
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Home(),
+        ),
+      );
+    } catch (e) {
+      // Em caso de erro, exibe uma notificação com a mensagem de erro
+      _showSnackBar('Email e/o senha inválidos', Colors.red);
+    }
+  }
+
+  // Método para exibir uma mensagem na parte inferior da tela (SnackBar)
+  void _showSnackBar(String message, Color color) {
+    final snackBar = SnackBar(
+      content: Text(message),
+      backgroundColor: color,
+      duration: Duration(seconds: 2), // Duração de exibição do SnackBar
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
   bool _showPassword = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +62,7 @@ class _LoginState extends State<Login> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("img/fundo.png"),
+                image: AssetImage("assets/img/fundo.png"),
                  // Substitua pelo caminho da sua imagem de fundo
                 fit: BoxFit.cover, // Ajusta a imagem para cobrir todo o espaço do background
               ),
@@ -39,7 +76,7 @@ class _LoginState extends State<Login> {
                 // SizedBox(height: 100),
                 // Imagem do astronauta
                 Image.asset(
-                  'img/astronalta.png', // Substitua pelo caminho da sua imagem
+                  'assets/img/astronalta.png', // Substitua pelo caminho da sua imagem
                   height: 200, // Ajuste a altura conforme necessário
                   width: 200, // Ajuste a largura conforme necessário
                 ),
@@ -53,13 +90,14 @@ class _LoginState extends State<Login> {
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Form(
-                    key: _formKey,
+                    // key: _formKey,
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           TextFormField(
+                            controller: _emailController,
                             autofocus: true,
                             decoration: InputDecoration(
                               iconColor: Colors.black,
@@ -67,6 +105,7 @@ class _LoginState extends State<Login> {
                               hintText: "Informe o e-mail",
                               hintStyle: TextStyle(color: Colors.white),
                             ),
+                            style: TextStyle(color: Colors.white), // Adicione esta linha
                             validator: (String? email) {
                               if (email == "" || email == null) {
                                 return "O e-mail não pode ser vazio";
@@ -81,6 +120,7 @@ class _LoginState extends State<Login> {
                             },
                           ),
                           TextFormField(
+                            controller: _passwordController,
                             autofocus: true,
                             obscureText: !_showPassword,
                             decoration: InputDecoration(
@@ -94,6 +134,7 @@ class _LoginState extends State<Login> {
                                 ),
                                 onTap: () {
                                   setState(() {
+
                                     _showPassword = !_showPassword;
                                   });
                                 },
@@ -101,6 +142,7 @@ class _LoginState extends State<Login> {
                               hintText: "Informe a senha",
                               hintStyle: TextStyle(color: Colors.white),
                             ),
+                            style: TextStyle(color: Colors.white), // Adicione esta linha
                             validator: (String? senha) {
                               if (senha == "" || senha == null) {
                                 return "A senha não pode ser vazia";
@@ -109,22 +151,21 @@ class _LoginState extends State<Login> {
                             },
                           ),
                           SizedBox(height: 10),
-                          Center(
-                            child: ElevatedButton(
-                              onPressed: () {
-                                buttonEnterClick();
-                              },
-                              child: Text("Entrar"),
-                              style: ElevatedButton.styleFrom(
-                                fixedSize: Size(200, 50),
-                                backgroundColor: Color(0xFFD9D9D9), // Cor do botão #D9D9D9
-                                foregroundColor: Colors.black,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.zero, // Bordas quadradas
+                            Center(
+                                child: ElevatedButton(
+                                  onPressed: _login,
+                                  child: Text("Entrar"),
+                                  style: ElevatedButton.styleFrom(
+                                    fixedSize: Size(120, 50),
+                                    backgroundColor: Colors.purple,
+                                    foregroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                  ),
                                 ),
-                              ),
                             ),
-                          ),
+
                           SizedBox(height: 15),
                           Divider(
                             color: Colors.black,
@@ -162,14 +203,5 @@ class _LoginState extends State<Login> {
         ],
       ),
     );
-  }
-
-  void buttonEnterClick() {
-    if (_formKey.currentState!.validate()) {
-      print("form ok");
-      Navigator.pushNamed(context, '/home');
-    } else {
-      print("form erro");
-    }
   }
 }

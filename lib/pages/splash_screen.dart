@@ -44,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
           // Imagem de fundo
           SizedBox.expand(
             child: Image.asset(
-              "img/fundo.png", // Verifique o caminho da imagem
+              "assets/img/fundo.png", // Verifique o caminho da imagem
               fit: BoxFit.cover, // Faz a imagem cobrir toda a tela
             ),
           ),

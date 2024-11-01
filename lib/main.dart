@@ -8,9 +8,12 @@ import 'package:gabriel_str/pages/modoesquece.dart';
 import 'package:gabriel_str/pages/perfil.dart';
 import 'package:gabriel_str/pages/splash_screen.dart';
 import 'package:gabriel_str/shared/style.dart';
+import 'package:firebase_core/firebase_core.dart'; // Importa o pacote para inicializar o Firebase
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Garante que a ligação dos widgets do Flutter esteja inicializada antes de usar qualquer plugin
+  await Firebase.initializeApp(); // Inicializa o Firebase na aplicação
+  runApp(const MyApp()); // Executa a aplicação iniciando pela classe MyApp
 }
 
 class MyApp extends StatelessWidget {
@@ -28,9 +31,9 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "/",
       routes: {
-        '/': (context) => const SplashScreen(),
-        '/login': (context) =>  const Login(),
-        '/cadastro' : (context) => const Cadastro(),
+        '/': (context) => SplashScreen(),
+        '/login': (context) =>  Login(),
+        '/cadastro' : (context) => Cadastro(),
         '/home' : (context) => Home(),
         '/perfil' : (context) => Perfil(),
         '/busca' : (context) => Busca(),
