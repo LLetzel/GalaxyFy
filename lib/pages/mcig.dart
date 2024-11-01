@@ -56,7 +56,7 @@ class _DetailPageState extends State<DetailPage> {
     if (isPlaying) {
       await _audioPlayer.pause();
     } else {
-      await _audioPlayer.play(AssetSource('songs/deusporfavor.mp3')); // Defina o caminho do áudio
+      await _audioPlayer.play(AssetSource('songs/deusporfavor.mp3')); 
     }
     setState(() {
       isPlaying = !isPlaying;

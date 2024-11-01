@@ -30,7 +30,8 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "/",
       routes: {
-        '/': (context) => const Splash(),
+        '/': (context) => DetailPage(),
+        // '/': (context) => const Splash(),
         '/login': (context) => const Login_GalaxyFy(),
         '/cadastro2': (context) => const Cadastro2_GalaxyFy(),
         '/home': (context) => const HomePage(),
