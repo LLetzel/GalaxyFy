@@ -9,7 +9,7 @@ import 'package:galaxyfy_application/pages/splash.dart';
 import 'package:galaxyfy_application/pages/catalago.dart'; 
 import 'package:galaxyfy_application/pages/selecaodeconta.dart'; 
 import 'package:galaxyfy_application/pages/biblioteca.dart';
-
+import 'package:galaxyfy_application/pages/mcig.dart';
 
 void main() {
   runApp(const MyApp());
@@ -17,7 +17,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +35,8 @@ class MyApp extends StatelessWidget {
         '/cadastro2': (context) => const Cadastro2_GalaxyFy(),
         '/home': (context) => const HomePage(),
         '/selecaodeconta': (context) => const SelectAccountScreen(),
-        '/biblioteca': (context) => const LibraryPage()
+        '/biblioteca': (context) => const LibraryPage(),
+        '/mcig': (context) => const DetailPage(),
       },
     );
   }
