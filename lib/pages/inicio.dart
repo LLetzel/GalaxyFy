@@ -1,3 +1,12 @@
+
+
+
+
+
+
+
+
+
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/pages/components/navegacao.dart'; // Importa o arquivo de navegação

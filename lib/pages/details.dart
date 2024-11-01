@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/shared/style.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:provider/provider.dart';
+import 'components/audio_manager.dart';
 
 class DetailPage extends StatefulWidget {
   final String item;
@@ -20,30 +22,13 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
-  final AudioPlayer _audioPlayer = AudioPlayer();
   double _sliderValue = 0.0;
-  Duration _audioDuration = Duration.zero;
-  Duration _currentPosition = Duration.zero;
-  bool isPlaying = false;
   Color _dominantColor = Colors.blue.shade200;
 
   @override
   void initState() {
     super.initState();
     _updatePaletteColor();
-
-    _audioPlayer.onDurationChanged.listen((duration) {
-      setState(() {
-        _audioDuration = duration;
-      });
-    });
-
-    _audioPlayer.onPositionChanged.listen((position) {
-      setState(() {
-        _currentPosition = position;
-        _sliderValue = _currentPosition.inSeconds / _audioDuration.inSeconds;
-      });
-    });
   }
 
   Future<void> _updatePaletteColor() async {
@@ -57,25 +42,27 @@ class _DetailPageState extends State<DetailPage> {
     });
   }
 
-  void _playPauseAudio() async {
-    if (isPlaying) {
-      await _audioPlayer.pause();
-    } else {
-      await _audioPlayer.play(AssetSource('songs/deusporfavor.mp3')); // Defina o caminho do áudio
-    }
-    setState(() {
-      isPlaying = !isPlaying;
-    });
-  }
-
-  @override
-  void dispose() {
-    _audioPlayer.dispose();
-    super.dispose();
+  String _formatDuration(Duration duration) {
+    final minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
+    final seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return "$minutes:$seconds";
   }
 
   @override
   Widget build(BuildContext context) {
+    // Tente acessar o Provider
+    final audioManager = Provider.of<AudioManager>(context, listen: true);
+    if (audioManager == null) {
+      return Scaffold(
+        body: Center(child: Text('Erro ao carregar o AudioManager')),
+      );
+    }
+
+    _sliderValue = audioManager.currentPosition.inSeconds /
+        (audioManager.audioDuration.inSeconds > 0
+            ? audioManager.audioDuration.inSeconds
+            : 1);
+
     return Scaffold(
       body: Stack(
         children: [
@@ -83,9 +70,9 @@ class _DetailPageState extends State<DetailPage> {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  _dominantColor.withOpacity(0.7), // Mais claro
-                  _dominantColor.withOpacity(0.9), // Intermediário
-                  _dominantColor,                  // Cor dominante pura
+                  _dominantColor.withOpacity(0.7),
+                  _dominantColor.withOpacity(0.9),
+                  _dominantColor,
                 ],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -133,19 +120,37 @@ class _DetailPageState extends State<DetailPage> {
                 ),
               ),
               const SizedBox(height: 20),
-              Slider(
-                value: _sliderValue,
-                onChanged: (newValue) {
-                  final newPosition = Duration(seconds: (_audioDuration.inSeconds * newValue).toInt());
-                  _audioPlayer.seek(newPosition);
-                  setState(() {
-                    _sliderValue = newValue;
-                  });
-                },
-                activeColor: Colors.white,
-                inactiveColor: Colors.white30,
-                min: 0.0,
-                max: 1.0,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  children: [
+                    Text(
+                      _formatDuration(audioManager.currentPosition),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Expanded(
+                      child: Slider(
+                        value: _sliderValue,
+                        onChanged: (newValue) {
+                          final newPosition = Duration(
+                              seconds:
+                                  (audioManager.audioDuration.inSeconds *
+                                          newValue)
+                                      .toInt());
+                          audioManager.seekAudio(newPosition);
+                        },
+                        activeColor: Colors.white,
+                        inactiveColor: Colors.white30,
+                        min: 0.0,
+                        max: 1.0,
+                      ),
+                    ),
+                    Text(
+                      _formatDuration(audioManager.audioDuration),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 20),
               Row(
@@ -158,10 +163,16 @@ class _DetailPageState extends State<DetailPage> {
                     onPressed: () {},
                   ),
                   IconButton(
-                    icon: Icon(isPlaying ? Icons.pause_circle_filled : Icons.play_circle_fill),
+                    icon: Icon(
+                      audioManager.isPlaying
+                          ? Icons.pause_circle_filled
+                          : Icons.play_circle_fill,
+                    ),
                     color: Colors.white,
                     iconSize: 70,
-                    onPressed: _playPauseAudio,
+                    onPressed: () {
+                      audioManager.togglePlayPause('songs/deusporfavor.mp3');
+                    },
                   ),
                   IconButton(
                     icon: Icon(Icons.skip_next),

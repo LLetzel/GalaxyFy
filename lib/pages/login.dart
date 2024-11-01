@@ -37,7 +37,7 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
       // Se o login for bem-sucedido, navega para a tela inicial
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => InicioPage()),
+        MaterialPageRoute(builder: (context) => ProfileSelectionPage() ),
       );
     } catch (e) {
       // Em caso de erro, exibe uma notificação com a mensagem de erro

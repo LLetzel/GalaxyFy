@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:galaxyfy_application/pages/artista.dart';
+import 'package:galaxyfy_application/pages/artistakevin.dart';
 import 'package:galaxyfy_application/shared/style.dart';
 
 class LibraryPage extends StatefulWidget {
