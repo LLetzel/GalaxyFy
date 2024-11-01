@@ -10,6 +10,7 @@ import 'package:galaxyfy_application/pages/catalago.dart';
 import 'package:galaxyfy_application/pages/selecaodeconta.dart'; 
 import 'package:galaxyfy_application/pages/biblioteca.dart';
 import 'package:galaxyfy_application/pages/mcig.dart';
+import 'package:galaxyfy_application/pages/artista.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,7 +31,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "/",
       routes: {
-        '/': (context) => DetailPage(),
+        '/': (context) => ArtistPage(),
         // '/': (context) => const Splash(),
         '/login': (context) => const Login_GalaxyFy(),
         '/cadastro2': (context) => const Cadastro2_GalaxyFy(),
