@@ -31,11 +31,10 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "/",
       routes: {
-        '/': (context) => ArtistPage(),
-        // '/': (context) => const Splash(),
+        '/': (context) => const ArtistPage(), // use const se o construtor for constante
         '/login': (context) => const Login_GalaxyFy(),
         '/cadastro2': (context) => const Cadastro2_GalaxyFy(),
-        '/home': (context) => const HomePage(),
+        '/home': (context) => const HomePage(), // Certifique-se que isso existe
         '/selecaodeconta': (context) => const SelectAccountScreen(),
         '/biblioteca': (context) => const LibraryPage(),
         '/mcig': (context) => const DetailPage(),

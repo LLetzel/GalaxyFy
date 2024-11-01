@@ -15,7 +15,7 @@ class _DetailPageState extends State<DetailPage> {
   Duration _audioDuration = Duration.zero;
   Duration _currentPosition = Duration.zero;
   bool isPlaying = false;
-  Color _dominantColor = Colors.blue.shade200;
+  Color _dominantColor = const Color.fromARGB(255, 0, 0, 0);
 
   final String item = "Igor Guilherme";
   final String artist = "12 milhões de ouvintes mensais";
@@ -48,7 +48,7 @@ class _DetailPageState extends State<DetailPage> {
     );
 
     setState(() {
-      _dominantColor = paletteGenerator.dominantColor?.color ?? Colors.blue.shade200;
+      _dominantColor = paletteGenerator.dominantColor?.color ?? const Color.fromARGB(255, 0, 0, 0);
     });
   }
 
