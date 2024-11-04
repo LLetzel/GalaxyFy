@@ -73,11 +73,12 @@ flutter:
   assets:
     - assets/
     - assets/gif/gif_splash.gif
-    - assets/img/artista1.png
-    - assets/img/artista2.png
-    - assets/img/artista3.png
-    - assets/img/albums1.png
-    - assets/img/albums2.png
+    - assets/img/albums1.jpg
+    - assets/img/albums2.jpg
+    - assets/img/artista1.jpg
+    - assets/img/artista2.jpg
+    - assets/img/artista3.jpg
+    - assets/img/artista4.jpg
     - assets/img/artista4.jpg
     - assets/img/kauan.png
     - assets/img/letzel.png
