@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:galaxyfy_application/pages/artistaig.dart';
 import 'package:galaxyfy_application/pages/components/navegacao.dart'; // Importa o arquivo de navegação
 import 'package:galaxyfy_application/shared/style.dart';
 import 'package:galaxyfy_application/pages/artistakevin.dart'; // Importa a página do artista
@@ -88,6 +89,14 @@ class _SearchPageState extends State<SearchPage> {
     );
   }
 
+  void _navigateToArtistPageIG() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => ArtistIGPage()), // Navega para a ArtistPage
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,8 +141,8 @@ class _SearchPageState extends State<SearchPage> {
                     // Verifica se o item clicado é "MC Kevin"
                     if (_filteredItems[index].name == 'Mc Kevin') {
                       _navigateToArtistPage(); // Navega para a ArtistPage
-                    } else {
-                      // Para outros artistas, você pode implementar outra lógica ou navegação
+                    } else if (_filteredItems[index].name == 'Mc IG') {
+                      _navigateToArtistPageIG(); // Navega para a ArtistPage
                     }
                   },
                   title: Row(

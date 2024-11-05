@@ -1,76 +1,68 @@
 import 'package:flutter/material.dart';
+import 'package:galaxyfy_application/shared/style.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:provider/provider.dart';
+import 'components/audio_manager.dart';
 
-class DetailIGPage extends StatefulWidget {
-  const DetailIGPage({super.key});
+class DetailPageIG extends StatefulWidget {
+  final String item;
+  final String artist;
+  final String imageUrl;
+
+  const DetailPageIG({
+    super.key,
+    required this.item,
+    required this.artist,
+    required this.imageUrl,
+  });
 
   @override
-  _DetailIGPageState createState() => _DetailIGPageState();
+  _DetailPageIGState createState() => _DetailPageIGState();
 }
 
-class _DetailIGPageState extends State<DetailIGPage> {
-  final AudioPlayer _audioPlayer = AudioPlayer();
+class _DetailPageIGState extends State<DetailPageIG> {
   double _sliderValue = 0.0;
-  Duration _audioDuration = Duration.zero;
-  Duration _currentPosition = Duration.zero;
-  bool isPlaying = false;
-  Color _dominantColor = const Color.fromARGB(255, 0, 0, 0);
-
-  final String item = "Igor Guilherme";
-  final String artist = "12 milhões de ouvintes mensais";
-  final String imageUrl = "assets/mcig.png"; 
+  Color _dominantColor = Colors.blue.shade200;
 
   @override
   void initState() {
     super.initState();
-    _atualizarCorDominante();
-
-    _audioPlayer.onDurationChanged.listen((duration) {
-      setState(() {
-        _audioDuration = duration;
-      });
-    });
-
-    _audioPlayer.onPositionChanged.listen((position) {
-      setState(() {
-        _currentPosition = position;
-        _sliderValue = _audioDuration.inSeconds > 0
-            ? _currentPosition.inSeconds / _audioDuration.inSeconds
-            : 0.0;
-      });
-    });
+    _updatePaletteColor();
   }
 
-  Future<void> _atualizarCorDominante() async {
-    final PaletteGenerator paletteGenerator = await PaletteGenerator.fromImageProvider(
-      AssetImage(imageUrl),
+  Future<void> _updatePaletteColor() async {
+    final PaletteGenerator paletteGenerator =
+        await PaletteGenerator.fromImageProvider(
+      NetworkImage(widget.imageUrl),
     );
 
     setState(() {
-      _dominantColor = paletteGenerator.dominantColor?.color ?? const Color.fromARGB(255, 0, 0, 0);
+      _dominantColor = paletteGenerator.dominantColor?.color ?? Colors.blue.shade200;
     });
   }
 
-  void _tocarPausarAudio() async {
-    if (isPlaying) {
-      await _audioPlayer.pause();
-    } else {
-      await _audioPlayer.play(AssetSource('songs/deusporfavor.mp3')); 
-    }
-    setState(() {
-      isPlaying = !isPlaying;
-    });
-  }
-
-  @override
-  void dispose() {
-    _audioPlayer.dispose();
-    super.dispose();
+  String _formatDuration(Duration duration) {
+    final minutes = duration.inMinutes.remainder(60).toString().padLeft(2, '0');
+    final seconds = duration.inSeconds.remainder(60).toString().padLeft(2, '0');
+    return "$minutes:$seconds";
   }
 
   @override
   Widget build(BuildContext context) {
+    // Tente acessar o Provider
+    final audioManager = Provider.of<AudioManager>(context, listen: true);
+    if (audioManager == null) {
+      return Scaffold(
+        body: Center(child: Text('Erro ao carregar o AudioManager')),
+      );
+    }
+
+    _sliderValue = audioManager.currentPosition.inSeconds /
+        (audioManager.audioDuration.inSeconds > 0
+            ? audioManager.audioDuration.inSeconds
+            : 1);
+
     return Scaffold(
       body: Stack(
         children: [
@@ -95,7 +87,7 @@ class _DetailIGPageState extends State<DetailIGPage> {
                 height: 250,
                 decoration: BoxDecoration(
                   image: DecorationImage(
-                    image: AssetImage(imageUrl),
+                    image: NetworkImage(widget.imageUrl),
                     fit: BoxFit.cover,
                   ),
                   borderRadius: BorderRadius.circular(10),
@@ -110,7 +102,7 @@ class _DetailIGPageState extends State<DetailIGPage> {
               ),
               const SizedBox(height: 20),
               Text(
-                item,
+                widget.item,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white,
@@ -120,7 +112,7 @@ class _DetailIGPageState extends State<DetailIGPage> {
               ),
               const SizedBox(height: 10),
               Text(
-                artist,
+                widget.artist,
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.white54,
@@ -128,19 +120,37 @@ class _DetailIGPageState extends State<DetailIGPage> {
                 ),
               ),
               const SizedBox(height: 20),
-              Slider(
-                value: _sliderValue,
-                onChanged: (newValue) {
-                  final newPosition = Duration(seconds: (_audioDuration.inSeconds * newValue).toInt());
-                  _audioPlayer.seek(newPosition);
-                  setState(() {
-                    _sliderValue = newValue;
-                  });
-                },
-                activeColor: Colors.white,
-                inactiveColor: Colors.white30,
-                min: 0.0,
-                max: 1.0,
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Row(
+                  children: [
+                    Text(
+                      _formatDuration(audioManager.currentPosition),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Expanded(
+                      child: Slider(
+                        value: _sliderValue,
+                        onChanged: (newValue) {
+                          final newPosition = Duration(
+                              seconds:
+                                  (audioManager.audioDuration.inSeconds *
+                                          newValue)
+                                      .toInt());
+                          audioManager.seekAudio(newPosition);
+                        },
+                        activeColor: Colors.white,
+                        inactiveColor: Colors.white30,
+                        min: 0.0,
+                        max: 1.0,
+                      ),
+                    ),
+                    Text(
+                      _formatDuration(audioManager.audioDuration),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
               ),
               const SizedBox(height: 20),
               Row(
@@ -153,10 +163,16 @@ class _DetailIGPageState extends State<DetailIGPage> {
                     onPressed: () {},
                   ),
                   IconButton(
-                    icon: Icon(isPlaying ? Icons.pause_circle_filled : Icons.play_circle_fill),
+                    icon: Icon(
+                      audioManager.isPlaying
+                          ? Icons.pause_circle_filled
+                          : Icons.play_circle_fill,
+                    ),
                     color: Colors.white,
                     iconSize: 70,
-                    onPressed: _tocarPausarAudio,
+                    onPressed: () {
+                      audioManager.togglePlayPause('songs/somaisumcopo.mp3');
+                    },
                   ),
                   IconButton(
                     icon: Icon(Icons.skip_next),

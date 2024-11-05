@@ -46,9 +46,10 @@ class MyApp extends StatelessWidget {
       title: 'Galaxyfy',
       initialRoute: '/',
       routes: {
-        '/': (context) => ArtistIGPage(),
+        // '/': (context) => ArtistIGPage(),
         // '/': (context) => SplashScreen(),
         // '/': (context) => ArtistPage(),
+        '/': (context) => InicioPage(),
         '/artistkevin': (context) => ArtistPage(),
         '/selection': (context) => ProfileSelectionPage(),
         '/inicio': (context) => InicioPage(),
@@ -63,7 +64,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// '/': (context) => ProfileSelectionPage(),
-        // '/': (context) => InicioPage(),
-        // '/': (context) => SplashScreen(),
