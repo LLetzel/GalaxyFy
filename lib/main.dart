@@ -15,7 +15,7 @@ import 'package:galaxyfy_application/pages/components/audio_manager.dart';
 import 'package:galaxyfy_application/pages/detailskevin.dart';
 import 'package:provider/provider.dart';
 import 'package:galaxyfy_application/pages/artistaig.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -49,7 +49,8 @@ class MyApp extends StatelessWidget {
         // '/': (context) => ArtistIGPage(),
         // '/': (context) => SplashScreen(),
         // '/': (context) => ArtistPage(),
-        '/': (context) => InicioPage(),
+        // '/': (context) => InicioPage(),
+        '/': (context) => ArtistPage(),
         '/artistkevin': (context) => ArtistPage(),
         '/selection': (context) => ProfileSelectionPage(),
         '/inicio': (context) => InicioPage(),
