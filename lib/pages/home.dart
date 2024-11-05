@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:galaxyfy_application/pages/artistaig.dart';
 import 'package:galaxyfy_application/pages/artistakevin.dart';
 import 'package:galaxyfy_application/shared/style.dart';
 import 'components/carousel.dart';
@@ -118,6 +119,10 @@ class _HomePageState extends State<HomePage> {
                               MaterialPageRoute(
                                   builder: (context) => ArtistPage()),
                             );
+                          } else if (title == 'Mc IG'){
+                            Navigator.push(
+                              context, MaterialPageRoute(builder: (context)  => ArtistIGPage()));
+
                           }
                         },
                         child: Column(

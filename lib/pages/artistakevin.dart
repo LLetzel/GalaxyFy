@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/shared/style.dart';
-import 'details.dart';
+import 'detailskevin.dart';
 
 class ArtistPage extends StatelessWidget {
   const ArtistPage({super.key});

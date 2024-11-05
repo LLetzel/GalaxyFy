@@ -12,8 +12,9 @@ import 'package:galaxyfy_application/pages/perfil.dart';
 import 'package:galaxyfy_application/pages/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:galaxyfy_application/pages/components/audio_manager.dart';
-import 'package:galaxyfy_application/pages/details.dart';
+import 'package:galaxyfy_application/pages/detailskevin.dart';
 import 'package:provider/provider.dart';
+import 'package:galaxyfy_application/pages/artistaig.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,9 +46,11 @@ class MyApp extends StatelessWidget {
       title: 'Galaxyfy',
       initialRoute: '/',
       routes: {
+        // '/': (context) => ArtistIGPage(),
         // '/': (context) => SplashScreen(),
-        '/': (context) => ArtistPage(),
-        '/artist': (context) => ArtistPage(),
+        // '/': (context) => ArtistPage(),
+        '/': (context) => InicioPage(),
+        '/artistkevin': (context) => ArtistPage(),
         '/selection': (context) => ProfileSelectionPage(),
         '/inicio': (context) => InicioPage(),
         '/home': (context) => HomePage(),
@@ -56,11 +59,8 @@ class MyApp extends StatelessWidget {
         '/search': (context) => SearchPage(),
         '/library': (context) => LibraryPage(),
         '/perfil': (context) => PerfilPage(),
+        '/artistig': (context) => ArtistIGPage(),
       },
     );
   }
 }
-
-// '/': (context) => ProfileSelectionPage(),
-        // '/': (context) => InicioPage(),
-        // '/': (context) => SplashScreen(),

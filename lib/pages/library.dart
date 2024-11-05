@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/pages/artistakevin.dart';
 import 'package:galaxyfy_application/shared/style.dart';
+import 'package:galaxyfy_application/pages/artistaig.dart';
 
 class LibraryPage extends StatefulWidget {
   const LibraryPage({super.key});
@@ -58,6 +59,14 @@ class _LibraryPageState extends State<LibraryPage> {
                           imageUrl:
                               'https://p2.trrsf.com/image/fget/cf/1200/900/middle/images.terra.com/2023/12/27/2084283332-design-sem-nome-5-5.png',
                           label: 'MC IG',
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ArtistIGPage(),
+                              ),
+                            );
+                          },
                         ),
                         _buildLibraryItem(
                           imageUrl:
