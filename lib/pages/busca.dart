@@ -29,12 +29,12 @@ class Busca extends StatefulWidget {
 class _SearchPageState extends State<Busca> {
   // Lista simulada de músicas recentes
   final List<Map<String, String>> recentSongs = [
-    {"title": "Meca Cereja", "subtitle": "Vulgo FK, Mc Cebezinho"},
-    {"title": "Modo Esquece", "subtitle": "TrapLaudo, Menor da VG, Tuto..."},
-    {"title": "Banco do Carona", "subtitle": "Mc Kako, Mc Don Juan, DJ BOY..."},
-    {"title": "Terapia", "subtitle": "Mc Kevin"},
-    {"title": "Pandemia", "subtitle": "Mc Kevin"},
-    {"title": "Cartel do 900", "subtitle": "Mc Kevin, IG, Rick, Menor da VG..."},
+    {"title": "Meca Cereja", "subtitle": "Vulgo FK, Mc Cebezinho", "image": "assets/img/mecacereja.png"},
+    {"title": "Modo Esquece", "subtitle": "TrapLaudo, Menor da VG, Tuto...", "image": "assets/img/modo.png"},
+    {"title": "Banco do Carona", "subtitle": "Mc Kako, Mc Don Juan, DJ BOY...", "image": "assets/img/banco.png"},
+    {"title": "Terapia", "subtitle": "Mc Kevin", "image": "assets/img/terapia.png"},
+    {"title": "Pandemia", "subtitle": "Mc Kevin", "image": "assets/img/pandemia.png"},
+    {"title": "Cartel do 900", "subtitle": "Mc Kevin, IG, Rick, Menor da VG...", "image": "assets/img/cartel.png"},
   ];
 
   @override
@@ -44,10 +44,10 @@ class _SearchPageState extends State<Busca> {
         title: const TextField(
           decoration: InputDecoration(
             hintText: "O que você quer ouvir?",
-            hintStyle: TextStyle(color: Colors.white60),
+            hintStyle: TextStyle(color: Colors.black),
             border: InputBorder.none,
           ),
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.purple[900],
       ),
@@ -70,11 +70,11 @@ class _SearchPageState extends State<Busca> {
               itemCount: recentSongs.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  leading: Container(
+                  leading: Image.asset(
+                    recentSongs[index]["image"]!,
                     width: 40,
                     height: 40,
-                    color: Colors.purple,
-                    child: const Icon(Icons.music_note, color: Colors.white),
+                    fit: BoxFit.cover,
                   ),
                   title: Text(
                     recentSongs[index]["title"]!,

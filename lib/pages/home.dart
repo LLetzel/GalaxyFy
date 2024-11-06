@@ -55,7 +55,7 @@ class _HomeState extends State<Home> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Música Popular'),
+        title: Text('Home'),
         backgroundColor: Colors.purple,
       ),
       body: Container(

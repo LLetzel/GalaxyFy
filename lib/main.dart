@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gabriel_str/pages/biblioteca.dart';
 import 'package:gabriel_str/pages/busca.dart';
 import 'package:gabriel_str/pages/cadastro.dart';
+import 'package:gabriel_str/pages/letzel.dart';
 import 'package:gabriel_str/pages/login.dart';
 import 'package:gabriel_str/pages/home.dart';
 import 'package:gabriel_str/pages/modoesquece.dart';
@@ -34,8 +35,9 @@ class MyApp extends StatelessWidget {
         '/': (context) => SplashScreen(),
         '/login': (context) =>  Login(),
         '/cadastro' : (context) => Cadastro(),
-        '/home' : (context) => Home(),
         '/perfil' : (context) => Perfil(),
+        '/home' : (context) => Home(),
+        '/letzel' : (context) => Letzel(),
         '/busca' : (context) => Busca(),
         '/biblioteca' : (context) => Biblioteca(),
         '/modoesquece' : (context) => Modoesquece()

@@ -89,6 +89,12 @@ flutter:
     - assets/img/modoesquece.png
     - assets/img/astronalta.png
     - assets/img/fundo.png
+    - assets/img/banco.png
+    - assets/img/cartel.png
+    - assets/img/mecacereja.png
+    - assets/img/modo.png
+    - assets/img/pandemia.png
+    - assets/img/terapia.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
