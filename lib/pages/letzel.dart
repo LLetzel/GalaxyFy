@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:gabriel_str/pages/perfil.dart';
-import '../shared/style.dart'; // Suponho que seja onde está o gradiente de fundo
+import 'package:gabriel_str/pages/selecaoperfil.dart';
+import '../shared/style.dart';
 
-class Letzel extends StatefulWidget {
-  const Letzel({super.key});
+class Perfil extends StatefulWidget {
+  const Perfil({super.key});
 
   @override
-  State<Letzel> createState() => _PerfilPageState();
+  State<Perfil> createState() => _PerfilPageState();
 }
 
-class _PerfilPageState extends State<Letzel> {
+class _PerfilPageState extends State<Perfil> {
+  int _selectedIndex = 3; // Inicialize o índice selecionado como "Perfil"
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    // Adicione a navegação entre páginas aqui se necessário
+  }
+
   @override
   Widget build(BuildContext context) {
-    // Utilizando MediaQuery para capturar as dimensões da tela
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -20,8 +28,12 @@ class _PerfilPageState extends State<Letzel> {
       body: Container(
         width: screenWidth,
         height: screenHeight,
-        decoration:
-            MyColors.backgroundGradient(), // Aplica o gradiente de fundo
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/img/fundo.png"), // Caminho da sua imagem
+            fit: BoxFit.cover, // Ajusta a imagem para cobrir todo o background
+          ),
+        ),
         child: SafeArea(
           child: SingleChildScrollView(
             padding: EdgeInsets.symmetric(
@@ -41,10 +53,10 @@ class _PerfilPageState extends State<Letzel> {
                   ],
                 ),
 
-                // Foto do perfil circular - imagem local
+                // Foto do perfil circular
                 CircleAvatar(
                   radius: screenWidth * 0.15,
-                  backgroundImage: AssetImage('assets/perfis/letzel.png'),
+                  backgroundImage: AssetImage('assets/img/letzel.png'),
                 ),
 
                 const SizedBox(height: 16),
@@ -64,11 +76,10 @@ class _PerfilPageState extends State<Letzel> {
                 // Botão "Editar Perfil"
                 ElevatedButton(
                   onPressed: () {
-                    // Navegação para outra página
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => Perfil(),
+                        builder: (context) => SelecaoPerfil(),
                       ),
                     );
                   },
@@ -80,8 +91,7 @@ class _PerfilPageState extends State<Letzel> {
                       borderRadius: BorderRadius.circular(24),
                     ),
                   ),
-                  child: 
-                  const Text(
+                  child: const Text(
                     'Alterar Perfil',
                     style: TextStyle(color: Colors.white, fontSize: 15),
                   ),
@@ -124,6 +134,18 @@ class _PerfilPageState extends State<Letzel> {
             ),
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Busca'),
+          BottomNavigationBarItem(icon: Icon(Icons.library_music), label: 'Biblioteca'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Perfil'),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.purple,
+        unselectedItemColor: Colors.grey,
+        onTap: _onItemTapped,
       ),
     );
   }

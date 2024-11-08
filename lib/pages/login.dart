@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gabriel_str/pages/cadastro1.dart';
-import 'package:gabriel_str/pages/home.dart';
-import 'package:firebase_auth/firebase_auth.dart'; // Importa o pacote de autenticação do Firebase
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:gabriel_str/pages/selecaoperfil.dart'; // Importa o pacote de autenticação do Firebase
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -28,7 +28,7 @@ class _LoginState extends State<Login> {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => Home(),
+          builder: (context) => SelecaoPerfil(),
         ),
       );
     } catch (e) {

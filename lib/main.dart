@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:gabriel_str/pages/artistaig.dart';
+import 'package:gabriel_str/pages/artistakevin.dart';
 import 'package:gabriel_str/pages/biblioteca.dart';
 import 'package:gabriel_str/pages/busca.dart';
 import 'package:gabriel_str/pages/cadastro.dart';
 import 'package:gabriel_str/pages/letzel.dart';
 import 'package:gabriel_str/pages/login.dart';
 import 'package:gabriel_str/pages/home.dart';
-import 'package:gabriel_str/pages/modoesquece.dart';
-import 'package:gabriel_str/pages/perfil.dart';
+import 'package:gabriel_str/pages/selecaoperfil.dart';
 import 'package:gabriel_str/pages/splash_screen.dart';
 import 'package:gabriel_str/shared/style.dart';
 import 'package:firebase_core/firebase_core.dart'; // Importa o pacote para inicializar o Firebase
@@ -35,14 +36,13 @@ class MyApp extends StatelessWidget {
         '/': (context) => SplashScreen(),
         '/login': (context) =>  Login(),
         '/cadastro' : (context) => Cadastro(),
+        '/selecaoperfil' : (context) => SelecaoPerfil(),
         '/perfil' : (context) => Perfil(),
         '/home' : (context) => Home(),
-        '/letzel' : (context) => Letzel(),
+        '/artistkevin': (context) => ArtistPage(),
+        '/artistig': (context) => ArtistIGPage(),
         '/busca' : (context) => Busca(),
         '/biblioteca' : (context) => Biblioteca(),
-        '/modoesquece' : (context) => Modoesquece()
-
-
       },
     );
   }

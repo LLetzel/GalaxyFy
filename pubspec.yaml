@@ -34,7 +34,10 @@ dependencies:
 
   flutter:
     sdk: flutter
+  palette_generator: ^0.3.0  # ou a versão mais recente disponível
   carousel_slider: ^5.0.0
+  audioplayers: ^6.1.0
+  provider: ^6.1.2
 
 flutter_native_splash:
   color: "#ffffff"
@@ -95,6 +98,7 @@ flutter:
     - assets/img/modo.png
     - assets/img/pandemia.png
     - assets/img/terapia.png
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
