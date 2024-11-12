@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:galaxyfy_application/pages/login.dart'; // Para o Future.delayed
+import 'package:galaxyfy_application/pages/login.dart';
+import 'package:galaxyfy_application/shared/style.dart'; // Para o Future.delayed
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -52,7 +53,7 @@ class _SplashScreenState extends State<SplashScreen>
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/img/fundo.png'), // Path to the background image
+            image: AssetImage('assets/fundo.png'), // Path to the background image
             fit: BoxFit.cover, // Make the image cover the entire screen
           ),
         ),
@@ -107,7 +108,7 @@ class _SplashScreenState extends State<SplashScreen>
               //   height: 50, // Adjust the height as needed
               //   width: 50, // Adjust the width as needed
               // ),
-              Image.asset('assets/gif/sound.gif')
+              Image.asset('assets/sound 1.png')
             ],
           ),
         ),

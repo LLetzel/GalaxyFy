@@ -30,15 +30,16 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: MyColors.azulEscuro),
         useMaterial3: true,
       ),
-      initialRoute: "/login",
+      initialRoute: "/artista",
       routes: {
-        '/': (context) => const ArtistPage(), // use const se o construtor for constante
+        '/splash': (context) =>  SplashScreen(), // use const se o construtor for constante
         '/login': (context) => const Login_GalaxyFy(),
         '/cadastro2': (context) => const Cadastro2_GalaxyFy(),
         '/home': (context) => const HomePage(), // Certifique-se que isso existe
         '/selecaodeconta': (context) => const SelectAccountScreen(),
         '/biblioteca': (context) => const LibraryPage(),
         '/mcig': (context) => const DetailPage(),
+        '/artista': (context) => const ArtistPage(),
         '/perfil': (context) => const PerfilPage(),
       },
     );
