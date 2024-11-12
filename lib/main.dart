@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: MyColors.azulEscuro),
         useMaterial3: true,
       ),
-      initialRoute: "/perfil",
+      initialRoute: "/login",
       routes: {
         '/': (context) => const ArtistPage(), // use const se o construtor for constante
         '/login': (context) => const Login_GalaxyFy(),
