@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/pages/cadastro2.dart';
 import 'package:galaxyfy_application/pages/home.dart';
 import 'package:galaxyfy_application/pages/login.dart';
+import 'package:galaxyfy_application/pages/perfil.dart';
 import 'package:galaxyfy_application/shared/style.dart';
 import 'package:galaxyfy_application/pages/splash.dart';
 import 'package:galaxyfy_application/pages/catalago.dart'; 
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: MyColors.azulEscuro),
         useMaterial3: true,
       ),
-      initialRoute: "/",
+      initialRoute: "/perfil",
       routes: {
         '/': (context) => const ArtistPage(), // use const se o construtor for constante
         '/login': (context) => const Login_GalaxyFy(),
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         '/selecaodeconta': (context) => const SelectAccountScreen(),
         '/biblioteca': (context) => const LibraryPage(),
         '/mcig': (context) => const DetailPage(),
+        '/perfil': (context) => const PerfilPage(),
       },
     );
   }
