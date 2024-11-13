@@ -26,6 +26,7 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
   double _sliderValue = 0.0;
   Color _dominantColor = Colors.blue.shade200;
+  bool _isFavorited = false; // Variável para controlar o ícone de favorito
 
   @override
   void initState() {
@@ -40,7 +41,8 @@ class _DetailPageState extends State<DetailPage> {
     );
 
     setState(() {
-      _dominantColor = paletteGenerator.dominantColor?.color ?? Colors.blue.shade200;
+      _dominantColor =
+          paletteGenerator.dominantColor?.color ?? Colors.blue.shade200;
     });
   }
 
@@ -135,10 +137,9 @@ class _DetailPageState extends State<DetailPage> {
                         value: _sliderValue,
                         onChanged: (newValue) {
                           final newPosition = Duration(
-                              seconds:
-                                  (audioManager.audioDuration.inSeconds *
-                                          newValue)
-                                      .toInt());
+                              seconds: (audioManager.audioDuration.inSeconds *
+                                      newValue)
+                                  .toInt());
                           audioManager.seekAudio(newPosition);
                         },
                         activeColor: Colors.white,
@@ -185,11 +186,18 @@ class _DetailPageState extends State<DetailPage> {
                 ],
               ),
               const SizedBox(height: 20),
+              // Modificação do ícone de coração com base no estado
               IconButton(
-                icon: Icon(Icons.favorite_border),
-                color: Colors.pinkAccent,
+                icon: Icon(
+                  _isFavorited ? Icons.favorite : Icons.favorite_border,
+                  color: _isFavorited ? Colors.red : Colors.pinkAccent,
+                ),
                 iconSize: 40,
-                onPressed: () {},
+                onPressed: () {
+                  setState(() {
+                    _isFavorited = !_isFavorited; // Inverte o estado
+                  });
+                },
               ),
             ],
           ),

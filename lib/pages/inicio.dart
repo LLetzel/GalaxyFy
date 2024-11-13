@@ -40,7 +40,7 @@ class _InicioPageState extends State<InicioPage> {
           HomePage(),
           SearchPage(),
           LibraryPage(),
-          PerfilPage(), // Passa o índice atual
+          PerfilPage(selectedProfileIndex: selectedProfileIndex), // Passa o índice atual
         ],
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
