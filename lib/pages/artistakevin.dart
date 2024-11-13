@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:galaxyfy_application/shared/style.dart';
-import 'detailskevin.dart';
+import 'details.dart';
 
 class ArtistPage extends StatelessWidget {
   const ArtistPage({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -19,7 +19,7 @@ class ArtistPage extends StatelessWidget {
             SingleChildScrollView(
               child: Column(
                 children: [
-                  // Container que contém a imagem grande do artista
+                  // Imagem grande do artista
                   Stack(
                     children: [
                       Container(
@@ -90,11 +90,18 @@ class ArtistPage extends StatelessWidget {
 
                   // StreamBuilder para conectar com o Firestore
                   StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance.collection('musicas').snapshots(),
+                    stream: FirebaseFirestore.instance
+                        .collection('musicas')
+                        .snapshots(),
                     builder: (context, snapshot) {
                       // Verifica se há erro na consulta
                       if (snapshot.hasError) {
-                        return Center(child: Text("Erro ao carregar as músicas", style: TextStyle(color: Colors.white)));
+                        return Center(
+                          child: Text(
+                            "Erro ao carregar as músicas",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        );
                       }
 
                       // Verifica se ainda está carregando os dados
@@ -102,8 +109,19 @@ class ArtistPage extends StatelessWidget {
                         return Center(child: CircularProgressIndicator());
                       }
 
+                      // Verifica se o snapshot contém dados
+                      if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
+                        return Center(
+                          child: Text(
+                            "Nenhuma música encontrada",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        );
+                      }
+
                       // Extrai os documentos dos dados recebidos
-                      final List<DocumentSnapshot> documents = snapshot.data!.docs;
+                      final List<DocumentSnapshot> documents =
+                          snapshot.data!.docs;
 
                       return ListView.builder(
                         physics: NeverScrollableScrollPhysics(),
@@ -111,7 +129,17 @@ class ArtistPage extends StatelessWidget {
                         itemCount: documents.length,
                         itemBuilder: (context, index) {
                           // Extrai os dados de cada documento
-                          Map<String, dynamic> songData = documents[index].data() as Map<String, dynamic>;
+                          Map<String, dynamic> songData =
+                              documents[index].data() as Map<String, dynamic>;
+
+                          // Garante que todos os campos estão presentes
+                          String title =
+                              songData['title'] ?? 'Título desconhecido';
+                          String artist =
+                              songData['artist'] ?? 'Artista desconhecido';
+                          String imageUrl = songData['image'] ?? '';
+                          String song =
+                              songData['song'] ?? 'Música não encontrada';
 
                           return GestureDetector(
                             onTap: () {
@@ -119,9 +147,10 @@ class ArtistPage extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => DetailPage(
-                                    item: songData['title'] ?? 'Título desconhecido',
-                                    artist: songData['artist'] ?? 'Artista desconhecido',
-                                    imageUrl: songData['image'] ?? '',
+                                    item: title,
+                                    artist: artist,
+                                    imageUrl: imageUrl,
+                                    song: song,
                                   ),
                                 ),
                               );
@@ -142,25 +171,30 @@ class ArtistPage extends StatelessWidget {
                                   ),
                                   SizedBox(width: screenWidth * 0.03),
                                   Image.network(
-                                    songData['image'] ?? '',
+                                    imageUrl,
                                     width: screenWidth * 0.12,
                                     height: screenWidth * 0.12,
                                     fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Icon(Icons.music_note,
+                                          color: Colors.white);
+                                    },
                                   ),
                                   SizedBox(width: screenWidth * 0.03),
                                   Expanded(
                                     child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          songData['title'] ?? 'Título desconhecido',
+                                          title,
                                           style: TextStyle(
                                             color: Colors.white,
                                             fontSize: screenHeight * 0.022,
                                           ),
                                         ),
                                         Text(
-                                          songData['artist'] ?? 'Artista desconhecido',
+                                          artist,
                                           style: TextStyle(
                                             color: Colors.white54,
                                             fontSize: screenHeight * 0.018,
@@ -180,7 +214,6 @@ class ArtistPage extends StatelessWidget {
                 ],
               ),
             ),
-
             Positioned(
               top: 40,
               left: 20,
