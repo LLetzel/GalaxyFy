@@ -6,6 +6,7 @@ import 'package:galaxyfy_application/pages/Inicio.dart';
 import 'package:galaxyfy_application/shared/style.dart';
 import 'package:galaxyfy_application/pages/selecaoperfil.dart';
 import 'package:firebase_auth/firebase_auth.dart'; // Importa o pacote de autenticação do Firebase
+import 'package:google_sign_in/google_sign_in.dart';
 
 class Login_GalaxyFy extends StatefulWidget {
   const Login_GalaxyFy({super.key});
@@ -254,14 +255,69 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                                   // Ícone do Google
                                   Container(
                                     decoration: BoxDecoration(
-                                      color: Color(0xFF8D8585), // Cor de fundo
+                                      color: Colors.purple, // Cor de fundo
                                       shape: BoxShape.circle, // Forma redonda
                                     ),
                                     child: IconButton(
                                       icon: Image.asset('assets/img/google.png',
                                           height: 25),
-                                      onPressed: () {
-                                        // Ação para login com Google
+                                      onPressed: () async {
+                                        GoogleSignIn googleSignIn =
+                                            GoogleSignIn();
+
+                                        try {
+                                          // 1. Login no Google
+                                          GoogleSignInAccount? googleUser =
+                                              await googleSignIn.signIn();
+
+                                          if (googleUser == null) {
+                                            _showSnackBar(
+                                                'Login cancelado pelo usuário.',
+                                                Colors.red);
+                                            return;
+                                          }
+
+                                          // 2. Recupera as credenciais
+                                          GoogleSignInAuthentication
+                                              googleAuth =
+                                              await googleUser.authentication;
+
+                                          // 3. Cria as credenciais para o Firebase
+                                          OAuthCredential credential =
+                                              GoogleAuthProvider.credential(
+                                            accessToken: googleAuth.accessToken,
+                                            idToken: googleAuth.idToken,
+                                          );
+
+                                          // 4. Login no Firebase
+                                          UserCredential userCredential =
+                                              await FirebaseAuth.instance
+                                                  .signInWithCredential(
+                                                      credential);
+
+                                          // 5. Usuário autenticado
+                                          User? user = userCredential.user;
+                                          if (user != null) {
+                                            print(
+                                                'Usuário autenticado: ${user.displayName}');
+                                            _showSnackBar(
+                                                'Bem vindo, ${user.displayName}!',
+                                                Colors.purple);
+
+                                            // Navegue para a próxima tela
+                                            Navigator.pushReplacement(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ProfileSelectionPage()),
+                                            );
+                                          }
+                                        } catch (e) {
+                                          _showSnackBar(
+                                              'Erro ao fazer login: $e',
+                                              Colors.red);
+                                          print('Erro: $e');
+                                        }
                                       },
                                     ),
                                   ),
@@ -269,7 +325,7 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                                   // Ícone do Facebook
                                   Container(
                                     decoration: BoxDecoration(
-                                      color: Color(0xFF8D8585), // Cor de fundo
+                                      color: Colors.purple, // Cor de fundo
                                       shape: BoxShape.circle, // Forma redonda
                                     ),
                                     child: IconButton(
@@ -278,21 +334,6 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                                           height: 25),
                                       onPressed: () {
                                         // Ação para login com Facebook
-                                      },
-                                    ),
-                                  ),
-                                  SizedBox(width: 40),
-                                  // Ícone da Apple
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFF8D8585), // Cor de fundo
-                                      shape: BoxShape.circle, // Forma redonda
-                                    ),
-                                    child: IconButton(
-                                      icon: Image.asset('assets/img/apple.png',
-                                          height: 25),
-                                      onPressed: () {
-                                        // Ação para login com Apple ID
                                       },
                                     ),
                                   ),

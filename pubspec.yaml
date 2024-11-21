@@ -39,6 +39,7 @@ dependencies:
   provider: ^6.1.2
   cloud_firestore: ^5.4.4
   cupertino_icons: ^1.0.8
+  google_sign_in: ^6.2.2
 
 
 dev_dependencies:

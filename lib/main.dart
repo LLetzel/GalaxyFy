@@ -46,7 +46,7 @@ class MyApp extends StatelessWidget {
       title: 'Galaxyfy',
       initialRoute: '/',
       routes: {
-        '/': (context) => ProfileSelectionPage(),
+        '/': (context) => SplashScreen(),
         '/artistkevin': (context) => ArtistPage(),
         '/selection': (context) => ProfileSelectionPage(),
         '/inicio': (context) => InicioPage(),
