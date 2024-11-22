@@ -46,6 +46,7 @@ class MyApp extends StatelessWidget {
       title: 'Galaxyfy',
       initialRoute: '/',
       routes: {
+        // '/': (context) => ProfileSelectionPage(),
         '/': (context) => SplashScreen(),
         '/artistkevin': (context) => ArtistPage(),
         '/selection': (context) => ProfileSelectionPage(),
@@ -55,7 +56,9 @@ class MyApp extends StatelessWidget {
         '/cadastro': (context) => Cadastro_GalaxyFy(),
         '/search': (context) => SearchPage(),
         '/library': (context) => LibraryPage(),
-        '/perfil': (context) => PerfilPage(selectedProfileIndex: selectedProfileIndex), // Define um valor padrão para o índice inicial
+        '/perfil': (context) => PerfilPage(
+            selectedProfileIndex:
+                selectedProfileIndex), // Define um valor padrão para o índice inicial
         '/artistig': (context) => ArtistIGPage(),
       },
     );
