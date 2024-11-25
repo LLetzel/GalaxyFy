@@ -39,6 +39,9 @@ flutter {
 }
 
 dependencies {
+    // implementation 'com.facebook.android:facebook-android-sdk:[15,16)'
+
+
     // Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:33.5.1')
 

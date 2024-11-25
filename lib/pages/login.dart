@@ -7,6 +7,7 @@ import 'package:galaxyfy_application/shared/style.dart';
 import 'package:galaxyfy_application/pages/selecaoperfil.dart';
 import 'package:firebase_auth/firebase_auth.dart'; // Importa o pacote de autenticação do Firebase
 import 'package:google_sign_in/google_sign_in.dart';
+// import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class Login_GalaxyFy extends StatefulWidget {
   const Login_GalaxyFy({super.key});
@@ -75,11 +76,6 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
   Widget build(BuildContext context) {
     var scaffold = Scaffold(
       body: Stack(
-        // stops: [
-        //     0.2,
-        //     0.5,
-        //     0.8,
-        //   ],
         children: [
           Positioned.fill(
             child: Image.asset(
@@ -112,16 +108,12 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             begin: Alignment.topCenter,
-
                             end: Alignment.bottomCenter,
                             colors: [
-                              MyColors.roxoEscuro, // Cor roxa escura no topo
-                              // MyColors.escuro, // Preto na parte de baixo
-                              MyColors.roxoEscuro
+                              MyColors.roxoEscuro,
+                              MyColors.roxoEscuro,
                             ],
-                            // stops: [0.5, 5, 0.5], // Controla o ponto de transição do gradiente
                           ),
-                          // color: Color(0xFF1E1E1E), // Cor de fundo
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Form(
@@ -132,23 +124,18 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                               TextFormField(
                                 controller: _emailController,
                                 decoration: InputDecoration(
-                                  fillColor: Color(0xFF1E1E1E),
                                   labelText: 'Email',
                                   prefixIcon:
                                       Icon(Icons.mail, color: Colors.purple),
                                   hintText: "Informe o email",
                                 ),
-                                style: TextStyle(
-                                    color: Colors.white), // Texto em branco
+                                style: TextStyle(color: Colors.white),
                                 validator: (String? email) {
                                   if (email == null || email.isEmpty) {
                                     return "O e-mail não pode ser vazio";
                                   }
                                   if (!email.contains("@")) {
                                     return "O e-mail é inválido";
-                                  }
-                                  if (email.length < 6) {
-                                    return "O e-mail é muito curto";
                                   }
                                   return null;
                                 },
@@ -175,8 +162,7 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                                   ),
                                   hintText: "Digite sua senha",
                                 ),
-                                style: TextStyle(
-                                    color: Colors.white), // Texto em branco
+                                style: TextStyle(color: Colors.white),
                                 validator: (String? password) {
                                   if (password == null || password.isEmpty) {
                                     return "A senha não pode ser vazia";
@@ -185,8 +171,6 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                                 },
                               ),
                               SizedBox(height: 15),
-
-                              // Switch de "Lembrar de mim"
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -206,7 +190,6 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                                   ),
                                 ],
                               ),
-
                               SizedBox(height: 15),
                               Center(
                                 child: ElevatedButton(
@@ -249,95 +232,89 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                                 ],
                               ),
                               SizedBox(height: 15),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  // Ícone do Google
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.purple, // Cor de fundo
-                                      shape: BoxShape.circle, // Forma redonda
-                                    ),
-                                    child: IconButton(
-                                      icon: Image.asset('assets/img/google.png',
-                                          height: 25),
-                                      onPressed: () async {
-                                        GoogleSignIn googleSignIn =
-                                            GoogleSignIn();
+                              // Botão para login com o Google
+                              Center(
+                                child: TextButton(
+                                  onPressed: () async {
+                                    GoogleSignIn googleSignIn = GoogleSignIn();
 
-                                        try {
-                                          // 1. Login no Google
-                                          GoogleSignInAccount? googleUser =
-                                              await googleSignIn.signIn();
+                                    try {
+                                      GoogleSignInAccount? googleUser =
+                                          await googleSignIn.signIn();
 
-                                          if (googleUser == null) {
-                                            _showSnackBar(
-                                                'Login cancelado pelo usuário.',
-                                                Colors.red);
-                                            return;
-                                          }
+                                      if (googleUser == null) {
+                                        _showSnackBar(
+                                            'Login cancelado pelo usuário.',
+                                            Colors.red);
+                                        return;
+                                      }
 
-                                          // 2. Recupera as credenciais
-                                          GoogleSignInAuthentication
-                                              googleAuth =
-                                              await googleUser.authentication;
+                                      GoogleSignInAuthentication googleAuth =
+                                          await googleUser.authentication;
 
-                                          // 3. Cria as credenciais para o Firebase
-                                          OAuthCredential credential =
-                                              GoogleAuthProvider.credential(
-                                            accessToken: googleAuth.accessToken,
-                                            idToken: googleAuth.idToken,
-                                          );
+                                      OAuthCredential credential =
+                                          GoogleAuthProvider.credential(
+                                        accessToken: googleAuth.accessToken,
+                                        idToken: googleAuth.idToken,
+                                      );
 
-                                          // 4. Login no Firebase
-                                          UserCredential userCredential =
-                                              await FirebaseAuth.instance
-                                                  .signInWithCredential(
-                                                      credential);
+                                      UserCredential userCredential =
+                                          await FirebaseAuth.instance
+                                              .signInWithCredential(credential);
 
-                                          // 5. Usuário autenticado
-                                          User? user = userCredential.user;
-                                          if (user != null) {
-                                            print(
-                                                'Usuário autenticado: ${user.displayName}');
-                                            _showSnackBar(
-                                                'Bem vindo, ${user.displayName}!',
-                                                Colors.purple);
+                                      User? user = userCredential.user;
+                                      if (user != null) {
+                                        print(
+                                            'Usuário autenticado: ${user.displayName}');
+                                        _showSnackBar(
+                                            'Bem-vindo, ${user.displayName}!',
+                                            Colors.purple);
 
-                                            // Navegue para a próxima tela
-                                            Navigator.pushReplacement(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ProfileSelectionPage()),
-                                            );
-                                          }
-                                        } catch (e) {
-                                          _showSnackBar(
-                                              'Erro ao fazer login: $e',
-                                              Colors.red);
-                                          print('Erro: $e');
-                                        }
-                                      },
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ProfileSelectionPage()),
+                                        );
+                                      }
+                                    } catch (e) {
+                                      _showSnackBar('Erro ao fazer login: $e',
+                                          Colors.red);
+                                    }
+                                  },
+                                  style: TextButton.styleFrom(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 5,
+                                        horizontal: 16), // Ajustando o padding
+                                    backgroundColor: Colors.white,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
+                                    fixedSize: Size(230,
+                                        40), // Ajustando o tamanho do botão
+                                  ),
+                                  child: Center(
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Image.asset('assets/img/google.png',
+                                            height: 16), // Menor ícone
+                                        SizedBox(width: 8),
+                                        Text(
+                                          'Continuar com o Google',
+                                          style: TextStyle(
+                                            fontSize:
+                                                15, // Ajustando o tamanho da fonte
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.black,
+                                          ),
+                                        ),
+                                        
+                                      ],
                                     ),
                                   ),
-                                  SizedBox(width: 40),
-                                  // Ícone do Facebook
-                                  Container(
-                                    decoration: BoxDecoration(
-                                      color: Colors.purple, // Cor de fundo
-                                      shape: BoxShape.circle, // Forma redonda
-                                    ),
-                                    child: IconButton(
-                                      icon: Image.asset(
-                                          'assets/img/facebook.png',
-                                          height: 25),
-                                      onPressed: () {
-                                        // Ação para login com Facebook
-                                      },
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
                               SizedBox(height: 30),
                               Center(
@@ -346,9 +323,7 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                                   children: [
                                     Text(
                                       "Não tem uma conta?  ",
-                                      style: TextStyle(
-                                          color:
-                                              Colors.white), // Texto em branco
+                                      style: TextStyle(color: Colors.white),
                                     ),
                                     InkWell(
                                       onTap: () {
