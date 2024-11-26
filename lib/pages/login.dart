@@ -291,7 +291,7 @@ class _Login_GalaxyFyState extends State<Login_GalaxyFy> {
                                         borderRadius:
                                             BorderRadius.circular(15)),
                                     fixedSize: Size(230,
-                                        40), // Ajustando o tamanho do botão
+                                        50), // Ajustando o tamanho do botão
                                   ),
                                   child: Center(
                                     child: Row(
