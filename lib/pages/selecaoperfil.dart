@@ -1,12 +1,21 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:galaxyfy_application/pages/home.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:googleapis/drive/v3.dart' as drive;
+import 'package:googleapis_auth/auth_io.dart';
+
 import 'package:galaxyfy_application/pages/inicio.dart';
 import 'package:galaxyfy_application/shared/style.dart';
-import 'perfil.dart';
 
 // Variável global para armazenar o índice do perfil selecionado
 int selectedProfileIndex = 0;
+
+// // Configurações do Google Drive
+// const _scopes = [drive.DriveApi.driveFileScope];
+// const _clientId =
+//     "SEU_CLIENT_ID.apps.googleusercontent.com"; // Substitua pelo seu
+// const _clientSecret = "SEU_CLIENT_SECRET"; // Substitua pelo seu
 
 class ProfileSelectionPage extends StatefulWidget {
   @override
@@ -15,6 +24,7 @@ class ProfileSelectionPage extends StatefulWidget {
 
 class _ProfileSelectionPageState extends State<ProfileSelectionPage> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final ImagePicker _imagePicker = ImagePicker();
 
   List<Map<String, dynamic>> profiles = [];
 
@@ -36,13 +46,49 @@ class _ProfileSelectionPageState extends State<ProfileSelectionPage> {
     });
   }
 
-  void _addNewProfile(String name) async {
+  Future<void> _addNewProfile(String name, String imageUrl) async {
     await _firestore.collection('perfis').add({
       'name': name,
-      'imgprofile': 'assets/icons/icondefault.jpg',
+      'imgprofile': imageUrl,
     });
     _fetchProfilesFromFirestore();
   }
+
+  // Future<String?> _uploadToGoogleDrive(File image) async {
+  //   try {
+  //     // Autenticação
+  //     final authClient = await clientViaUserConsent(
+  //       ClientId(_clientId, _clientSecret),
+  //       _scopes,
+  //       (url) {
+  //         print("Acesse este URL para autenticar: $url");
+  //       },
+  //     );
+
+  //     final driveApi = drive.DriveApi(authClient);
+
+  //     // Criando o arquivo no Google Drive
+  //     final driveFile = drive.File();
+  //     driveFile.name = "perfil_${DateTime.now().millisecondsSinceEpoch}.jpg";
+  //     driveFile.parents = ["1r_Fl5dPXxU6PcAEDgvSLGe7eE2AYOSVM"]; // Substitua pelo ID da sua pasta
+
+  //     final media = drive.Media(image.openRead(), image.lengthSync());
+  //     final uploadedFile =
+  //         await driveApi.files.create(driveFile, uploadMedia: media);
+
+  //     // Tornar o arquivo público
+  //     await driveApi.permissions.create(
+  //       drive.Permission(type: "anyone", role: "reader"),
+  //       uploadedFile.id!,
+  //     );
+
+  //     // Retorna o link público
+  //     return "https://drive.google.com/uc?id=${uploadedFile.id}";
+  //   } catch (e) {
+  //     print("Erro ao fazer upload para o Google Drive: $e");
+  //     return null;
+  //   }
+  // }
 
   void _showAddProfileDialog(BuildContext context) {
     if (profiles.length >= 6) {
@@ -65,16 +111,42 @@ class _ProfileSelectionPageState extends State<ProfileSelectionPage> {
       );
     } else {
       String newName = '';
+      File? selectedImage;
+
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Adicionar Perfil'),
-            content: TextField(
-              decoration: InputDecoration(hintText: 'Insira o nome do perfil'),
-              onChanged: (value) {
-                newName = value;
-              },
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  decoration:
+                      InputDecoration(hintText: 'Insira o nome do perfil'),
+                  onChanged: (value) {
+                    newName = value;
+                  },
+                ),
+                // SizedBox(height: 16),
+                // ElevatedButton(
+                //   onPressed: () async {
+                //     final pickedFile = await _imagePicker.pickImage(
+                //       source: ImageSource.gallery,
+                //     );
+                //     if (pickedFile != null) {
+                //       selectedImage = File(pickedFile.path);
+                //       setState(() {});
+                //     }
+                //   },
+                //   child: Text('Selecionar Imagem'),
+                // ),
+                // SizedBox(height: 8),
+                // Text(
+                //   'Se nenhuma imagem for selecionada, a padrão será usada.',
+                //   style: TextStyle(fontSize: 12, color: Colors.grey),
+                // ),
+              ],
             ),
             actions: [
               TextButton(
@@ -84,11 +156,21 @@ class _ProfileSelectionPageState extends State<ProfileSelectionPage> {
                 child: Text('Cancelar'),
               ),
               TextButton(
-                onPressed: () {
+                onPressed: () async {
                   if (newName.isNotEmpty) {
-                    _addNewProfile(newName);
+                    String imageUrl = 'assets/icons/icondefault.jpg';
+
+                    // if (selectedImage != null) {
+                    //   final uploadedUrl =
+                    //       await _uploadToGoogleDrive(selectedImage!);
+                    //   if (uploadedUrl != null) {
+                    //     imageUrl = uploadedUrl;
+                    //   }
+                    // }
+
+                    _addNewProfile(newName, imageUrl);
+                    Navigator.of(context).pop();
                   }
-                  Navigator.of(context).pop();
                 },
                 child: Text('Adicionar'),
               ),
@@ -147,8 +229,7 @@ class _ProfileSelectionPageState extends State<ProfileSelectionPage> {
                           name: profile['name'],
                           image: profile['image'],
                           onTap: () {
-                            selectedProfileIndex =
-                                index; // Define o índice global
+                            selectedProfileIndex = index;
                             Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -214,6 +295,14 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ImageProvider _getImage(String image) {
+      if (image.startsWith('http')) {
+        return NetworkImage(image);
+      } else {
+        return AssetImage(image);
+      }
+    }
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -221,7 +310,7 @@ class ProfileCard extends StatelessWidget {
         height: height,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(image),
+            image: _getImage(image),
             fit: BoxFit.cover,
           ),
           borderRadius: BorderRadius.circular(12),
