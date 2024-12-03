@@ -38,6 +38,7 @@ dependencies:
   carousel_slider: ^5.0.0
   audioplayers: ^6.1.0
   provider: ^6.1.2
+  google_sign_in: ^6.2.2
 
 flutter_native_splash:
   color: "#ffffff"
@@ -98,6 +99,7 @@ flutter:
     - assets/img/modo.png
     - assets/img/pandemia.png
     - assets/img/terapia.png
+    - assets/icons/google.png
     
 
   # An image asset can refer to one or more resolution-specific "variants", see
