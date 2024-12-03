@@ -9,10 +9,18 @@ import 'package:galaxy_fy/pages/busca.dart';
 import 'package:galaxy_fy/pages/biblioteca.dart';
 import 'package:galaxy_fy/pages/artista.dart';
 import 'package:galaxy_fy/pages/individual.dart';
+import 'package:galaxy_fy/pages/musica.dart';
+import 'package:firebase_core/firebase_core.dart'; // Importa o pacote para inicializar o Firebase
+import 'package:url_launcher/url_launcher.dart';
 
-void main() {
-  runApp(const MyApp());
+
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized(); // Garante que a ligação dos widgets do Flutter esteja inicializada antes de usar qualquer plugin
+  await Firebase.initializeApp(); // Inicializa o Firebase na aplicação
+  runApp(const MyApp()); // Executa a aplicação iniciando pela classe MyApp
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -29,9 +37,9 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       
-      initialRoute: "/",
+      initialRoute: '/musica',
       routes: {
-        '/' : (context) => const Splash(),
+       '/' : (context) => const Splash(),
         '/login' : (context) => const Login(),
         '/cadastro' : (context) => const Cadastro(),
         '/perfils' : (context) => const Perfils(),
@@ -40,6 +48,7 @@ class MyApp extends StatelessWidget {
         '/biblioteca' : (context) => const Biblioteca(),
         '/artista' : (context) => const Artista(),
         '/individual' : (context) => const Individual(),
+        '/musica' : (context) => const Musica(),
         
 
       }

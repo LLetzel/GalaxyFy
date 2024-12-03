@@ -17,15 +17,12 @@ class _ArtistaState extends State<Artista> {
     if (index == 0) {
       Navigator.pushNamed(context, '/home');
     }
-
     if (index == 1) {
       Navigator.pushNamed(context, '/busca');
     }
-
     if (index == 4) {
       Navigator.pushNamed(context, '/individual');
     }
-
     if (index == 3) {
       Navigator.pushNamed(context, '/biblioteca');
     }
@@ -139,11 +136,18 @@ class _ArtistaState extends State<Artista> {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: [
-          Image.asset(
-            imagePath,
-            width: 40,
-            height: 40,
-            fit: BoxFit.cover,
+          GestureDetector(
+            onTap: () {
+              if (imagePath == 'assets/me_ama.png') {
+                Navigator.pushNamed(context, '/musica');
+              }
+            },
+            child: Image.asset(
+              imagePath,
+              width: 40,
+              height: 40,
+              fit: BoxFit.cover,
+            ),
           ),
           const SizedBox(width: 15),
           Expanded(

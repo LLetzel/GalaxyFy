@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:galaxy_fy/pages/perfils.dart';
 import 'package:galaxy_fy/shared/style.dart';
+import 'package:firebase_auth/firebase_auth.dart'; // Importa o pacote de autenticação do Firebase
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -11,6 +13,42 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   final _formKey = GlobalKey<FormState>();
   bool _showPassword = false;
+  final FirebaseAuth _auth = FirebaseAuth.instance; // Instância do FirebaseAuth para autenticação
+  final TextEditingController _emailController = TextEditingController(); // Controlador para o campo de e-mail
+  final TextEditingController _passwordController = TextEditingController(); // Controlador para o campo de senha
+
+  // Método assíncrono para realizar o login
+  Future<void> _login() async {
+    try {
+      // Tenta fazer login com e-mail e senha fornecidos
+      await _auth.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+
+      // Se o login for bem-sucedido, navega para a tela inicial
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Perfils(),
+        ),
+      );
+    } catch (e) {
+      // Em caso de erro, exibe uma notificação com a mensagem de erro
+      _showSnackBar('Erro no login: $e', Colors.red);
+    }
+  }
+
+  // Método para exibir uma mensagem na parte inferior da tela (SnackBar)
+  void _showSnackBar(String message, Color color) {
+    final snackBar = SnackBar(
+      content: Text(message),
+      backgroundColor: color,
+      duration: Duration(seconds: 2), // Duração de exibição do SnackBar
+    );
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -65,6 +103,7 @@ class _LoginState extends State<Login> {
                         child: Image.asset("assets/image17.png"),
                       ),
                       TextFormField(
+                        controller: _emailController,
                         autofocus: true,
                         decoration: InputDecoration(
                           labelText: 'Email',
@@ -86,6 +125,7 @@ class _LoginState extends State<Login> {
                         },
                       ),
                       TextFormField(
+                        controller: _passwordController,
                         autofocus: true,
                         obscureText: !_showPassword,
                         decoration: InputDecoration(
@@ -114,9 +154,7 @@ class _LoginState extends State<Login> {
                       SizedBox(height: 10),
                       Center(
                         child: ElevatedButton(
-                          onPressed: () {
-                            buttonEnterClick();
-                          },
+                          onPressed: _login,
                           child: Text('entrar'),
                           style: ElevatedButton.styleFrom(
                             fixedSize: Size(200, 50),
