@@ -83,6 +83,13 @@ class ArtistIGPage extends StatelessWidget {
                       ),
                     ],
                   ),
+                  Divider(
+                    color: Colors.white,
+                    indent: 0,
+                    endIndent: 0,
+                    height: 5,
+                    thickness: 5, // Define a espessura do Divider
+                  ),
 
                   // Espaço entre a imagem e a lista de músicas
                   SizedBox(height: screenHeight * 0.02),
@@ -95,7 +102,7 @@ class ArtistIGPage extends StatelessWidget {
                       fontFamily: MyFonts.fontPrimary,
                     ),
                   ),
-                  SizedBox(height: screenHeight * 0.001),
+                  SizedBox(height: screenHeight * 0.00000),
 
                   // StreamBuilder para conectar com o Firestore
                   StreamBuilder<QuerySnapshot>(
@@ -227,7 +234,7 @@ class ArtistIGPage extends StatelessWidget {
               top: 40,
               left: 20,
               child: IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.white),
+                icon: Icon(Icons.arrow_back, color: Colors.black),
                 onPressed: () {
                   Navigator.pop(context);
                 },

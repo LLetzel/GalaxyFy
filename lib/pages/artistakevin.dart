@@ -75,6 +75,13 @@ class ArtistPage extends StatelessWidget {
                       ),
                     ],
                   ),
+                  Divider(
+                    color: Colors.white,
+                    indent: 0,
+                    endIndent: 0,
+                    height: 5,
+                    thickness: 5, // Define a espessura do Divider
+                  ),
 
                   SizedBox(height: screenHeight * 0.02),
 
