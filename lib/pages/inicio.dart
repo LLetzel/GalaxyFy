@@ -1,12 +1,3 @@
-
-
-
-
-
-
-
-
-
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/pages/components/navegacao.dart'; // Importa o arquivo de navegação
@@ -14,29 +5,29 @@ import 'package:galaxyfy_application/pages/home.dart';
 import 'package:galaxyfy_application/pages/library.dart';
 import 'package:galaxyfy_application/pages/perfil.dart';
 import 'package:galaxyfy_application/pages/search.dart';
+import 'selecaoperfil.dart';
 
 class InicioPage extends StatefulWidget {
-  final int
-      initialIndex; // Novo parâmetro para saber qual aba está sendo exibida
+  final int initialIndex;
 
-  const InicioPage({super.key, this.initialIndex = 0}); // Define a aba padrão
+  const InicioPage({super.key, this.initialIndex = 0});
 
   @override
   State<InicioPage> createState() => _InicioPageState();
 }
 
 class _InicioPageState extends State<InicioPage> {
-  late int _selectedIndex; // Variável que vai armazenar o índice da aba
+  late int _selectedIndex;
 
   @override
   void initState() {
     super.initState();
-    _selectedIndex = widget.initialIndex; // Inicia a tela com o índice passado
+    _selectedIndex = widget.initialIndex;
   }
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index; // Atualiza o índice da aba selecionada
+      _selectedIndex = index;
     });
   }
 
@@ -49,7 +40,7 @@ class _InicioPageState extends State<InicioPage> {
           HomePage(),
           SearchPage(),
           LibraryPage(),
-          PerfilPage(),
+          PerfilPage(selectedProfileIndex: selectedProfileIndex), // Passa o índice atual
         ],
       ),
       bottomNavigationBar: CustomBottomNavigationBar(
