@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:galaxyfy_application/shared/style.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:palette_generator/palette_generator.dart';
+import '../shared/style.dart';
 import 'package:provider/provider.dart';
 import 'components/audio_manager.dart';
+
 
 class DetailPage extends StatefulWidget {
   final String item;
@@ -171,7 +172,7 @@ class _DetailPageState extends State<DetailPage> {
                     color: Colors.white,
                     iconSize: 70,
                     onPressed: () {
-                      audioManager.togglePlayPause('songs/deusporfavor.mp3');
+                      audioManager.togglePlayPause('assets/songs/deusporfavor.mp3');
                     },
                   ),
                   IconButton(

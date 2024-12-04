@@ -1,6 +1,21 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:googleapis/drive/v3.dart' as drive;
+import 'package:googleapis_auth/auth_io.dart';
+
+import 'package:galaxyfy_application/pages/inicio.dart';
 import 'package:galaxyfy_application/shared/style.dart';
-// import 'package:galaxyfy_application/pages/Inicio.dart';
+
+// Variável global para armazenar o índice do perfil selecionado
+int selectedProfileIndex = 0;
+
+// // Configurações do Google Drive
+// const _scopes = [drive.DriveApi.driveFileScope];
+// const _clientId =
+//     "SEU_CLIENT_ID.apps.googleusercontent.com"; // Substitua pelo seu
+// const _clientSecret = "SEU_CLIENT_SECRET"; // Substitua pelo seu
 
 class ProfileSelectionPage extends StatefulWidget {
   @override
@@ -8,28 +23,75 @@ class ProfileSelectionPage extends StatefulWidget {
 }
 
 class _ProfileSelectionPageState extends State<ProfileSelectionPage> {
-  // Lista de perfis inicial
-  List<Map<String, dynamic>> profiles = [
-    {'name': 'Lucas Letzel', 'image': 'assets/perfis/letzel.png'},
-    {'name': 'Pedro Lima', 'image': 'assets/perfis/pedro.png'},
-    {'name': 'Gabriel Pires', 'image': 'assets/perfis/pires.png'},
-    {'name': 'Kauan', 'image': 'assets/perfis/kauan.png'},
-  ];
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final ImagePicker _imagePicker = ImagePicker();
 
-  // Função para adicionar novo perfil
-  void _addNewProfile(String name) {
+  List<Map<String, dynamic>> profiles = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchProfilesFromFirestore();
+  }
+
+  void _fetchProfilesFromFirestore() async {
+    final snapshot = await _firestore.collection('perfis').get();
     setState(() {
-      profiles.add({
-        'name': name,
-        'image': 'assets/icons/icondefault.jpg', // Imagem padrão para novos perfis
-      });
+      profiles = snapshot.docs
+          .map((doc) => {
+                'name': doc['name'],
+                'image': doc['imgprofile'] ?? 'assets/icons/icondefault.jpg',
+              })
+          .toList();
     });
   }
 
-  // Mostra um diálogo para inserir o nome do novo perfil
+  Future<void> _addNewProfile(String name, String imageUrl) async {
+    await _firestore.collection('perfis').add({
+      'name': name,
+      'imgprofile': imageUrl,
+    });
+    _fetchProfilesFromFirestore();
+  }
+
+  // Future<String?> _uploadToGoogleDrive(File image) async {
+  //   try {
+  //     // Autenticação
+  //     final authClient = await clientViaUserConsent(
+  //       ClientId(_clientId, _clientSecret),
+  //       _scopes,
+  //       (url) {
+  //         print("Acesse este URL para autenticar: $url");
+  //       },
+  //     );
+
+  //     final driveApi = drive.DriveApi(authClient);
+
+  //     // Criando o arquivo no Google Drive
+  //     final driveFile = drive.File();
+  //     driveFile.name = "perfil_${DateTime.now().millisecondsSinceEpoch}.jpg";
+  //     driveFile.parents = ["1r_Fl5dPXxU6PcAEDgvSLGe7eE2AYOSVM"]; // Substitua pelo ID da sua pasta
+
+  //     final media = drive.Media(image.openRead(), image.lengthSync());
+  //     final uploadedFile =
+  //         await driveApi.files.create(driveFile, uploadMedia: media);
+
+  //     // Tornar o arquivo público
+  //     await driveApi.permissions.create(
+  //       drive.Permission(type: "anyone", role: "reader"),
+  //       uploadedFile.id!,
+  //     );
+
+  //     // Retorna o link público
+  //     return "https://drive.google.com/uc?id=${uploadedFile.id}";
+  //   } catch (e) {
+  //     print("Erro ao fazer upload para o Google Drive: $e");
+  //     return null;
+  //   }
+  // }
+
   void _showAddProfileDialog(BuildContext context) {
     if (profiles.length >= 6) {
-      // Se o número de perfis já for 6, exibe um aviso
       showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -39,7 +101,7 @@ class _ProfileSelectionPageState extends State<ProfileSelectionPage> {
             actions: [
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop(); // Fecha o diálogo
+                  Navigator.of(context).pop();
                 },
                 child: Text('OK'),
               ),
@@ -49,31 +111,66 @@ class _ProfileSelectionPageState extends State<ProfileSelectionPage> {
       );
     } else {
       String newName = '';
+      File? selectedImage;
 
       showDialog(
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
             title: Text('Adicionar Perfil'),
-            content: TextField(
-              decoration: InputDecoration(hintText: 'Insira o nome do perfil'),
-              onChanged: (value) {
-                newName = value;
-              },
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  decoration:
+                      InputDecoration(hintText: 'Insira o nome do perfil'),
+                  onChanged: (value) {
+                    newName = value;
+                  },
+                ),
+                // SizedBox(height: 16),
+                // ElevatedButton(
+                //   onPressed: () async {
+                //     final pickedFile = await _imagePicker.pickImage(
+                //       source: ImageSource.gallery,
+                //     );
+                //     if (pickedFile != null) {
+                //       selectedImage = File(pickedFile.path);
+                //       setState(() {});
+                //     }
+                //   },
+                //   child: Text('Selecionar Imagem'),
+                // ),
+                // SizedBox(height: 8),
+                // Text(
+                //   'Se nenhuma imagem for selecionada, a padrão será usada.',
+                //   style: TextStyle(fontSize: 12, color: Colors.grey),
+                // ),
+              ],
             ),
             actions: [
               TextButton(
                 onPressed: () {
-                  Navigator.of(context).pop(); // Fecha o diálogo sem fazer nada
+                  Navigator.of(context).pop();
                 },
                 child: Text('Cancelar'),
               ),
               TextButton(
-                onPressed: () {
+                onPressed: () async {
                   if (newName.isNotEmpty) {
-                    _addNewProfile(newName); // Adiciona o perfil
+                    String imageUrl = 'assets/icons/icondefault.jpg';
+
+                    // if (selectedImage != null) {
+                    //   final uploadedUrl =
+                    //       await _uploadToGoogleDrive(selectedImage!);
+                    //   if (uploadedUrl != null) {
+                    //     imageUrl = uploadedUrl;
+                    //   }
+                    // }
+
+                    _addNewProfile(newName, imageUrl);
+                    Navigator.of(context).pop();
                   }
-                  Navigator.of(context).pop(); // Fecha o diálogo
                 },
                 child: Text('Adicionar'),
               ),
@@ -86,7 +183,6 @@ class _ProfileSelectionPageState extends State<ProfileSelectionPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Obtenha a largura e altura da tela usando MediaQuery
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
@@ -125,27 +221,34 @@ class _ProfileSelectionPageState extends State<ProfileSelectionPage> {
                     crossAxisCount: 2,
                     crossAxisSpacing: 40.0,
                     mainAxisSpacing: 40.0,
-                    childAspectRatio: 1, // Mantém a proporção
+                    childAspectRatio: 1,
                     children: [
                       ...profiles.map((profile) {
+                        int index = profiles.indexOf(profile);
                         return ProfileCard(
                           name: profile['name'],
                           image: profile['image'],
                           onTap: () {
-                            Navigator.pushNamed(context, '/inicio');
+                            selectedProfileIndex = index;
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => InicioPage(),
+                              ),
+                            );
                           },
-                          width: screenWidth * 0.4, // 40% da largura da tela
-                          height: screenHeight * 0.2, // 20% da altura da tela
+                          width: screenWidth * 0.4,
+                          height: screenHeight * 0.2,
                         );
                       }).toList(),
-                      if (profiles.length < 6) // Exibe o botão de adicionar apenas se houver menos de 6 perfis
+                      if (profiles.length < 6)
                         GestureDetector(
                           onTap: () {
-                            _showAddProfileDialog(context); // Abre o diálogo de adicionar perfil
+                            _showAddProfileDialog(context);
                           },
                           child: Container(
-                            width: screenWidth * 0.4, // 40% da largura da tela
-                            height: screenHeight * 0.2, // 20% da altura da tela
+                            width: screenWidth * 0.4,
+                            height: screenHeight * 0.2,
                             decoration: BoxDecoration(
                               color: Colors.black.withOpacity(0.4),
                               borderRadius: BorderRadius.circular(12),
@@ -192,14 +295,22 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ImageProvider _getImage(String image) {
+      if (image.startsWith('http')) {
+        return NetworkImage(image);
+      } else {
+        return AssetImage(image);
+      }
+    }
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: width, // Largura definida em porcentagem
-        height: height, // Altura definida em porcentagem
+        width: width,
+        height: height,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage(image),
+            image: _getImage(image),
             fit: BoxFit.cover,
           ),
           borderRadius: BorderRadius.circular(12),

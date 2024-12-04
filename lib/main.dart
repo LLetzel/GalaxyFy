@@ -12,9 +12,9 @@ import 'package:galaxyfy_application/pages/perfil.dart';
 import 'package:galaxyfy_application/pages/home.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:galaxyfy_application/pages/components/audio_manager.dart';
-import 'package:galaxyfy_application/pages/detailskevin.dart';
 import 'package:provider/provider.dart';
 import 'package:galaxyfy_application/pages/artistaig.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,10 +46,8 @@ class MyApp extends StatelessWidget {
       title: 'Galaxyfy',
       initialRoute: '/',
       routes: {
-        // '/': (context) => ArtistIGPage(),
-        // '/': (context) => SplashScreen(),
-        // '/': (context) => ArtistPage(),
-        '/': (context) => InicioPage(),
+        // '/': (context) => ProfileSelectionPage(),
+        '/': (context) => SplashScreen(),
         '/artistkevin': (context) => ArtistPage(),
         '/selection': (context) => ProfileSelectionPage(),
         '/inicio': (context) => InicioPage(),
@@ -58,7 +56,9 @@ class MyApp extends StatelessWidget {
         '/cadastro': (context) => Cadastro_GalaxyFy(),
         '/search': (context) => SearchPage(),
         '/library': (context) => LibraryPage(),
-        '/perfil': (context) => PerfilPage(),
+        '/perfil': (context) => PerfilPage(
+            selectedProfileIndex:
+                selectedProfileIndex), // Define um valor padrão para o índice inicial
         '/artistig': (context) => ArtistIGPage(),
       },
     );
