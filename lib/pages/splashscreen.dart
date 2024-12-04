@@ -99,14 +99,6 @@ class _SplashScreenState extends State<SplashScreen>
               ),
 
               SizedBox(height: 20),
-
-              // Added the "sound" GIF from assets/gif
-              // GifView(
-              //   // Replace 'sound.gif' with the actual filename in your assets/gif folder
-              //   gif: AssetImage('assets/gif/sound.gif'),
-              //   height: 50, // Adjust the height as needed
-              //   width: 50, // Adjust the width as needed
-              // ),
               Image.asset('assets/gif/sound.gif')
             ],
           ),

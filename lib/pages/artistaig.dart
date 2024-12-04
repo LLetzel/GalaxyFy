@@ -1,77 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:galaxyfy_application/shared/style.dart';
-import 'detailskevin.dart';
+import 'detailsig.dart';
 
-class ArtistPage extends StatelessWidget {
-  const ArtistPage({super.key});
-  
+class ArtistIGPage extends StatelessWidget {
+  const ArtistIGPage({super.key});
+
   @override
-  
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
     final List<Map<String, String>> songs = [
       {
-        'title': 'Deus, por favor',
-        'artist': 'MC Kevin, MC IG e MC PH',
+        'title': 'Só mais um copo',
+        'artist': 'MC IG (Dj Murillo & LT no Beat)',
         'image':
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAmqZ1pCqBCMu4B58aJdC7NPiQYU1APN8CKg&s'
+            'https://musicopolis.com.br/wp-content/uploads/2024/03/MC-IG-So-Mais-Um-Copo.webp'
       },
       {
-        'title': 'Doutora 2',
-        'artist': 'MC Kevin',
+        'title': 'Sorriso no rosto',
+        'artist': 'MC IG (GR6 Explode) DJ Murillo e LT no Beat, DJ Glenner',
         'image':
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKmxMgK8LvC05j2a6tjhTdV6pQvP46vFdFGg&s'
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSKe-mr_9rWLlKzkYr44RZHCH4yo4ODOFEIQ&s'
       },
       {
-        'title': 'Cheguei no anonimato',
-        'artist': 'MC Kevin, MC IG e MC PH',
+        'title': 'Cola no ap',
+        'artist': 'MC IG (DJ Glenner e Fepache)',
         'image':
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXr9TZwEkZqgh_FBIH-UpbCkIgvfAWgeNOWw&s'
+            'https://i1.sndcdn.com/artworks-lVjbZ4Bifm5yZcar-oLlmpA-t500x500.jpg'
       },
       {
-        'title': 'Terapia',
-        'artist': 'MC Kevin',
-        'image':
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIx6Apg3dYwna0etdhNWWYDo3uUV6KCKpeqw&s'
-      },
-      {
-        'title': 'Nosso Lugar',
-        'artist': 'MC Kevin',
-        'image':
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUVSnV_Eg4HVIdGJGLBBr0673_S9-03z9rvA&s'
-      },
-      {
-        'title': 'Cavalo de tróia',
-        'artist': 'MC Kevin',
-        'image':
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxvG0pyeXcHmbjxmYZp_z6nP6b1JvE5EKCaA&s'
-      },
-      {
-        'title': 'Cartel do 900',
+        'title': 'Sem gin, sem ela 2',
         'artist':
-            'MC Kevin, MC Rick, MC IG, Menor da VG, Mc Hariel, MC Don Juan',
+            'MC IG, MC Ryan SP, MC PH e TrapLaudo(DJ Murillo e LT No Beat)',
         'image':
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSH0UQZ3nvIIfHkiMVxoliDlg2ZA_bUyrRONw&s'
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6QAu1wJlJQfaAon5TgqiHFFk0B0UJnkIfaA&s'
       },
       {
-        'title': 'Mistério',
-        'artist': 'MC Kevin',
+        'title': 'Medley 2023',
+        'artist': 'MC IG (DJ Glenner e Fepache)',
         'image':
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbpvYU86M1iP9wdPXz1imxxYkkkK0P_nM7oA&s'
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrUY0qCU80_NYsU1VAuXyz-diOVMvuQBRnNw&s'
       },
       {
-        'title': 'Deixou pra lá',
-        'artist': 'MC Kevin',
+        'title': '3 dias virado',
+        'artist': 'MC IG (Jorgin Deejhay)',
         'image':
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUYgla6dAHpif0zdaTxpCs7cWp1yauaAyfYw&s'
-      },
-      {
-        'title': 'Pula Catraca',
-        'artist': 'MC Kevin',
-        'image':
-            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRtB9U1X4sqihQ4jRBeLaxul4AcITw3czlWrg&s'
+            'https://i1.sndcdn.com/artworks-000334892457-orfvqu-t500x500.jpg'
       },
     ];
 
@@ -94,7 +69,7 @@ class ArtistPage extends StatelessWidget {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                             image: NetworkImage(
-                              'https://midias.correiobraziliense.com.br/_midias/jpg/2021/05/17/675x450/1_mc_kevin-6660996.jpg?20211204215238?20211204215238',
+                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMDHtX0DWeGGd5qidBLnrsWNM-eZWI9DpLz3MFOn695BeUxRGE',
                             ),
                             fit: BoxFit
                                 .cover, // Ajusta a imagem de forma que ela cubra a área
@@ -111,7 +86,7 @@ class ArtistPage extends StatelessWidget {
                           children: [
                             // Nome do artista
                             Text(
-                              'MC Kevin',
+                              'MC IG',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: screenHeight * 0.04,
@@ -129,7 +104,7 @@ class ArtistPage extends StatelessWidget {
 
                             // Descrição do artista
                             Text(
-                              '211.422 salvamentos • Eterno',
+                              'Pequeno Igor • Ele mesmo',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: screenHeight * 0.02,
@@ -175,7 +150,7 @@ class ArtistPage extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => DetailPage(
+                              builder: (context) => DetailPageIG(
                                 item: songs[index]['title']!,
                                 artist: songs[index]['artist']!,
                                 imageUrl: songs[index]['image']!,
@@ -241,7 +216,7 @@ class ArtistPage extends StatelessWidget {
               top: 40,
               left: 20,
               child: IconButton(
-                icon: Icon(Icons.arrow_back, color: Colors.white),
+                icon: Icon(Icons.arrow_back, color: Colors.black),
                 onPressed: () {
                   Navigator.pop(context); // Volta para a SearchPage
                 },
@@ -253,4 +228,3 @@ class ArtistPage extends StatelessWidget {
     );
   }
 }
-
